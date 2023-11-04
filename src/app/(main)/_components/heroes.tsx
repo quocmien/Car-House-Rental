@@ -11,7 +11,7 @@ const Heroes = () => {
         `md:h-[calc(100vh_-_${NAV_HEIGHT}px)]`
       )}
     >
-      <div className="page-title px-[20px] pb-[20px] pt-[5px] mb-[20px]">
+      <div className="px-[20px] pb-[20px] pt-[5px] mb-[20px]">
         <h1 className="text-white mt-[20px] mb-[10px] text-[38px] md:text-[54px]">
           Best Deals in One Place
         </h1>
