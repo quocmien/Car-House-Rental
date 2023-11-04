@@ -1,14 +1,12 @@
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
-const NAV_HEIGHT = 43;
-
 const Heroes = () => {
   return (
     <section
       className={cn(
-        'flex flex-col items-center justify-center relative text-center',
-        `md:h-[calc(100vh_-_${NAV_HEIGHT}px)]`
+        'flex flex-col items-center justify-center relative text-center w-full',
+        `md:h-[calc(100vh_-_43px)]`
       )}
     >
       <div className="px-[20px] pb-[20px] pt-[5px] mb-[20px]">

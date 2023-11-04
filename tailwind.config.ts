@@ -74,54 +74,5 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-animate'),
-    function ({ addComponents, addUtilities, theme }) {
-      addComponents({
-        '.container': {
-          maxWidth: '100%',
-          paddingLeft: '1rem',
-          paddingRight: '1rem',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          '@screen sm': {
-            maxWidth: '540px',
-            padding: 0,
-          },
-          '@screen md': {
-            maxWidth: '680px',
-          },
-          '@screen lg': {
-            maxWidth: '960px',
-          },
-          '@screen xl': {
-            maxWidth: '1140px',
-          },
-          '@screen 2xl': {
-            maxWidth: '1280px',
-          },
-        },
-        '.container-expanded': {
-          maxWidth: '100%',
-          // paddingLeft: "1rem",
-          // paddingRight: "1rem",
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          '@screen lg': {
-            maxWidth: 'calc(100% - 88px)',
-          },
-        },
-        '.block': {
-          padding: '30px 0',
-          overflow: 'hidden',
-          position: 'relative'
-        },
-      }),
-        addUtilities({
-          ".text-highlight": {
-            background: theme("colors.primary"),
-            padding: `${theme("space[0.5]")} 0`, //  ${theme("space[1]")}
-            fontStyle: "italic",
-          },
-        });
-    }
   ],
 };

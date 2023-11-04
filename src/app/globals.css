@@ -12,7 +12,7 @@
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 261, 82%, 36%;
+    --primary: 261 82% 36%;
     --primary-foreground: 210 20% 98%;
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
@@ -64,4 +64,34 @@
 
 .primary-nav > li.active > a {
   @apply text-primary px-[10px] border-[#00000033]
+}
+
+.container {
+  max-width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  @screen sm {
+    max-width: 540px;
+    padding: 0;
+  }
+  @screen md {
+    max-width: 750px;
+  }
+  @screen lg {
+    max-width: 970px;
+  }
+  @screen xl {
+    max-width: 1170px;
+  }
+  @screen 2xl {
+    max-width: 1280px;
+  }
+}
+
+.block {
+  padding: 30px 0;
+  overflow: hidden;
+  position: relative;
 }

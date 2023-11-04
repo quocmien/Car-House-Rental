@@ -40,14 +40,18 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="container md:ml-auto w-full justify-between md:justify-end flex first-letter:gap-x-2 text-muted-foreground text-xs py-2 bg-primary">
-        <div className="text-white">
-          (C) 2016 Your Company, All right reserved
-        </div>
-        <div className="text-white flex gap-x-2">
-          <a href="">Home</a>
-          <a href="">Listing</a>
-          <a href="">Contact</a>
+      <div className="bg-primary w-full">
+        <div className="container ">
+          <div className="justify-between flex text-xs py-2 screen-">
+            <div className="text-white">
+              (C) 2016 Your Company, All right reserved
+            </div>
+            <div className="text-white flex gap-x-2">
+              <a href="">Home</a>
+              <a href="">Listing</a>
+              <a href="">Contact</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
