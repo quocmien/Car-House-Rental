@@ -61,3 +61,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.primary-nav > li.active > a {
+  @apply text-primary px-[10px] border-[#00000033]
+}

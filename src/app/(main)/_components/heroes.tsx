@@ -1,29 +1,38 @@
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
+
+const NAV_HEIGHT = 43;
 
 const Heroes = () => {
   return (
-    <div className="flex flex-col items-center justify-center max-w-5xl">
-      <div className="flex items-center">
-        <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:h-[400px] md:w-[400px]">
-          <Image src="/documents.png" fill className="object-contain dark:hidden" alt="Documents" />
+    <section
+      className={cn(
+        'flex flex-col items-center justify-center relative text-center',
+        `md:h-[calc(100vh_-_${NAV_HEIGHT}px)]`
+      )}
+    >
+      <div className="page-title px-[20px] pb-[20px] pt-[5px] mb-[20px]">
+        <h1 className="text-white mt-[20px] mb-[10px] text-[38px] md:text-[54px]">
+          Best Deals in One Place
+        </h1>
+        <h2 className="text-[20px] md:text-[24px] text-white opacity-50 mt-[5px] mb-[10px]">
+          With Locations you can find the best deals in your location
+        </h2>
+      </div>
+      <div className="w-full h-full absolute top-0 left-0 overflow-hidden bg-black -z-10">
+        <div
+          className="absolute top-0 left-0 h-full overflow-hidden -z-10 w-full opacity-30 bg-cover "
+          style={{ backgroundImage: "url('/img/background-03.jpg')" }}
+        >
           <Image
-            src="/documents-dark.png"
+            className="object-cover h-full hidden"
+            src="/img/background-03.jpg"
             fill
-            className="object-contain hidden dark:block"
-            alt="Documents"
-          />
-        </div>
-        <div className="relative h-[400px] w-[400px] hidden md:block">
-          <Image src="/reading.png" fill className="object-contain dark:hidden" alt="Reading" />
-          <Image
-            src="/reading-dark.png"
-            fill
-            className="object-contain hidden dark:block"
-            alt="Reading"
+            alt=""
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
