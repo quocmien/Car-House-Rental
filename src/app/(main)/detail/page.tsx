@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import Breadcrumb from './_components/breadcrumb';
+import Heading from './_components/heading';
 
 const DetaiPage = () => {
   return (
-    <div>DetaiPage</div>
-  )
-}
+    <div>
+      <Breadcrumb />
+      <Heading />
+    </div>
+  );
+};
 
-export default DetaiPage
+export default DetaiPage;

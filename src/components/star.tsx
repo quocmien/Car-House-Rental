@@ -21,9 +21,10 @@ const Star = ({ value = 0, isDark = false }: Props) => {
           key={idx}
           strokeWidth={0.5}
           className={cn(
-            'w-[11px] h-[11px] fill-muted-foreground text-muted-foreground',
-            !!val && 'text-primary fill-primary',
-            isDark && !!val && 'text-white fill-white',
+            'w-[11px] h-[11px] fill-black opacity-10',
+            isDark && "fill-white",
+            !!val && 'text-primary fill-primary opacity-100',
+            isDark && !!val && 'text-white fill-white opacity-100',
           )}
         />
       ))}

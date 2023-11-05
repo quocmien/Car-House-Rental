@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        'flex justify-between w-full py-[6px] px-[7px]',
+        'flex justify-between w-full py-[6px] px-[7px] shadow-md',
       )}
     >
       <Logo />

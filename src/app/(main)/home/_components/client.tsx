@@ -42,7 +42,7 @@ const Client = () => {
           <h4 className="mt-[3px] mb-[10px] opacity-50 text-xs font-bold">
             CEO at ArtBrands
           </h4>
-          <p className="text-sm italic text-muted-foreground text-center">
+          <p className="text-sm italic text-center opacity-60">
             Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu
             enim, scelerisque gravida lacus vel.
           </p>
@@ -67,7 +67,7 @@ const Client = () => {
           <h4 className="mt-[3px] mb-[10px] opacity-50 text-xs font-bold">
             CEO at ArtBrands
           </h4>
-          <p className="text-sm italic text-muted-foreground text-center">
+          <p className="text-sm italic text-center">
             Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu
             enim, scelerisque gravida lacus vel.
           </p>

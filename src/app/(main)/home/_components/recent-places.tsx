@@ -88,7 +88,7 @@ const RecentPlaces = () => {
         {/* View All */}
         <div className="w-full flex justify-center items-center pt-[30px]">
           <a
-            className="border-2 rounded-full font-bold px-3 py-[6px] hover:bg-transparent hover:border-[#0000004d] flex items-center"
+            className="border-2 rounded-full font-bold px-3 py-[6px] hover:bg-transparent hover:border-[#0000004d] flex items-center cursor-pointer"
           >
             <span className="text-xs uppercase mr-2 text-primary">View all listings</span>
             <MoveRight strokeWidth={0.5} className='text-primary' />

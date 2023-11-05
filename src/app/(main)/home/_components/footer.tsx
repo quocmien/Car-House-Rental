@@ -6,7 +6,7 @@ const Footer = () => {
     <div className="flex flex-col items-center w-full mt-[30px] border-t">
       <div className="block-section">
         <div className="container  ">
-          <div className="md:ml-auto w-full justify-between md:justify-end flex first-letter:gap-x-2 text-muted-foreground text-xs">
+          <div className="md:ml-auto w-full justify-between md:justify-end flex first-letter:gap-x-2 text-xs">
             <div className="flex-1 text-sm">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
               aliquam at neque sit amet vestibulum. Terms of Use and Privacy

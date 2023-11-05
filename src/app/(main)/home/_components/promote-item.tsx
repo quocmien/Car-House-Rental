@@ -69,7 +69,7 @@ const PromoteItem = ({
           <span className="mr-[5px]">
             <Star value={star} isDark />
           </span>
-          <span className="text-[11px] text-muted-foreground">({review})</span>
+          <span className="text-[11px] ">({review})</span>
         </div>
         <div
           className="absolute cursor-pointer right-[15px] top-0 bottom-0 m-auto h-[27px]"
@@ -77,7 +77,7 @@ const PromoteItem = ({
         >
           <HoverCard open={control.value} openDelay={0} closeDelay={0}>
             <HoverCardTrigger asChild>
-              <MoreVertical className="text-muted-foreground" />
+              <MoreVertical className="opacity-30 text-white" />
             </HoverCardTrigger>
             <HoverCardContent
               className="border-none p-0 w-auto"

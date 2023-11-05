@@ -14,7 +14,7 @@ const InputUnderline = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            'shadow-none bg-transparent border-b-2 border-b-[#00000014] rounded-0  transition-all duration-300 text-sm outline-none p-3 px-0 text-muted-foreground',
+            'shadow-none bg-transparent border-b-2 border-b-[#00000014] rounded-0  transition-all duration-300 text-sm outline-none p-3 px-0 ',
             'active:pl-3 focus:pl-3',
             className
           )}
@@ -22,7 +22,7 @@ const InputUnderline = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         <Button variant='ghost' className='h-[46px] border-b-2 border-b-[#00000014] hover:bg-[#0000001a]'>
-          <MoveRight strokeWidth={2} className='h-3 w-3 text-muted-foreground' />
+          <MoveRight strokeWidth={2} className='h-3 w-3 ' />
         </Button>
       </div>
     );

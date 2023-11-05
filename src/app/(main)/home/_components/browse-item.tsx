@@ -26,7 +26,7 @@ const BrowseItem = ({ title, icon: Icon, items }: Props) => {
         {items.map((item, idx) => (
           <li
             key={idx}
-            className="text-[10px] text-muted-foreground flex justify-between items-center mb-[10px]"
+            className="text-[10px] flex justify-between items-center mb-[10px]"
           >
             <div>{item.label}</div>
             <div>{item.value}</div>
