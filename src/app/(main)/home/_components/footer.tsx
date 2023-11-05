@@ -14,10 +14,10 @@ const Footer = () => {
             </div>
             <div className="flex items-center flex-1 gap-x-2 justify-end">
               <a href="">
-                <Twitter className="w-7 h-7 p-1 text-primary border-2 border-[#0000001a] hover:border-[#00000033] rounded-full" />
+                <Twitter className="w-7 h-7 p-1 text-primary fill-primary border-2 border-[#0000001a] hover:border-[#00000033] rounded-full" />
               </a>
               <a href="">
-                <Facebook className="w-7 h-7 p-1 text-primary border-2 border-[#0000001a] hover:border-[#00000033] rounded-full" />
+                <Facebook className="w-7 h-7 p-1 text-primary fill-primary border-2 border-[#0000001a] hover:border-[#00000033] rounded-full" />
               </a>
               <a href="">
                 <Youtube className="w-7 h-7 p-1 text-primary border-2 border-[#0000001a] hover:border-[#00000033] rounded-full" />
