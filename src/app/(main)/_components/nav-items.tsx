@@ -13,7 +13,7 @@ import {
 import { useBoolean } from '@/hooks/use-boolean';
 import { cn } from '@/lib/utils';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
-import { ArrowDown, ChevronDown, Menu, Plus } from 'lucide-react';
+import { ChevronDown, Menu, Plus } from 'lucide-react';
 import React from 'react';
 
 const NavItems = () => {
@@ -120,7 +120,7 @@ const NavItems = () => {
       </div>
       <div className="w-7 h-7 md:w-auto md:h-auto">
         <Button className="rounded-full font-bold p-0 md:p-2 w-full h-full">
-          <Plus className="w-4 h-4 text-white " />
+          <Plus strokeWidth={3} className="w-4 h-4 text-white " />
           <span className="hidden md:block text-xs">ADD LISTING</span>
         </Button>
       </div>
