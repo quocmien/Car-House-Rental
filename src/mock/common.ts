@@ -287,3 +287,52 @@ export const PROMOTE_LIST = [
     review: 6,
   },
 ];
+
+export const EVENT_LIST = [
+  {
+    name: 'Lorem ipsum dolor sit amet',
+    time: '12:00',
+    day: '22',
+    month: 'Jun',
+    desc: 'Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim, scelerisque.',
+    linkMore: '#',
+  },
+  {
+    name: 'Lorem ipsum dolor sit amet',
+    time: '12:00',
+    day: '22',
+    month: 'Jun',
+    desc: 'Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim, scelerisque.',
+    linkMore: '#',
+  },
+  {
+    name: 'Lorem ipsum dolor sit amet',
+    time: '12:00',
+    day: '22',
+    month: 'Jun',
+    desc: 'Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim, scelerisque.',
+    linkMore: '#',
+  },
+];
+
+export const BLOG_LIST = [
+  {
+    name: 'Lorem ipsum dolor sit amet',
+    date: '21.06.2015',
+    desc: 'Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim, scelerisque gravida lacus vel, dignissim cursus',
+    linkMore: '#',
+  },
+  {
+    name: 'Lorem ipsum dolor sit amet',
+    date: '21.06.2015',
+    desc: 'Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim, scelerisque gravida lacus vel, dignissim cursus',
+    linkMore: '#',
+  },
+  {
+    name: 'Lorem ipsum dolor sit amet',
+    date: '21.06.2015',
+    desc: 'Ut nec vulputate enim. Nulla faucibus convallis dui. Donec arcu enim, scelerisque gravida lacus vel, dignissim cursus',
+    linkMore: '#',
+  },
+];
+

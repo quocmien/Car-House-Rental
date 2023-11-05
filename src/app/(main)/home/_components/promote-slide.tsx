@@ -27,8 +27,8 @@ const PromoteSlide = () => {
         "--swiper-pagination-bullet-horizontal-gap": "5px"
       }}
     >
-      {PROMOTE_LIST.map((item) => (
-        <SwiperSlide className="h-full transition-color relative !w-[260px]">
+      {PROMOTE_LIST.map((item, idx) => (
+        <SwiperSlide key={idx} className="h-full transition-color relative !w-[260px]">
           <PromoteItem
             priceText={item.priceText}
             category={item.category}
