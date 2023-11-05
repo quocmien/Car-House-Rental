@@ -1,5 +1,6 @@
 'use client';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { mapStyle } from '@/configs/google-map';
+import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api';
 
 interface MapType {
   lat: number;
@@ -10,6 +11,18 @@ interface Props {
   currentLocation: MapType;
 }
 
+const mapOptions = {
+  panControl: false,
+  zoomControl: false,
+  mapTypeControl: false,
+  scaleControl: false,
+  streetViewControl: false,
+  overviewMapControl: false,
+  rotateControl: false,
+  fullscreenControl: false,
+  styles: mapStyle,
+};
+
 const MapUI = ({ center, currentLocation }: Props) => {
   // laod script for google map
   const { isLoaded } = useLoadScript({
@@ -19,37 +32,15 @@ const MapUI = ({ center, currentLocation }: Props) => {
 
   if (!isLoaded) return <div>Loading....</div>;
 
-  // on map load
-  const onMapLoad = (map: any) => {
-    const controlDiv = document.createElement('div');
-    const controlUI = document.createElement('div');
-    controlUI.innerHTML = 'Get Location';
-    controlUI.style.backgroundColor = 'white';
-    controlUI.style.color = 'black';
-    controlUI.style.border = '2px solid #ccc';
-    controlUI.style.borderRadius = '3px';
-    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-    controlUI.style.cursor = 'pointer';
-    controlUI.style.marginBottom = '22px';
-    controlUI.style.textAlign = 'center';
-    controlUI.style.width = '100%';
-    controlUI.style.padding = '8px 0';
-    controlDiv.appendChild(controlUI);
-
-    map.controls[window.google.maps.ControlPosition.TOP_CENTER].push(
-      controlDiv
-    );
-  };
-  
   return (
     <GoogleMap
-      zoom={currentLocation ? 18 : 12}
+      options={mapOptions}
+      zoom={currentLocation ? 14 : 10}
       center={(currentLocation || center) as any}
       mapContainerClassName="map"
       mapContainerStyle={{ width: '100%', height: '100%', margin: 'auto' }}
-      onLoad={onMapLoad}
     >
-      {currentLocation && <Marker position={currentLocation as any} />}
+      <MarkerF position={currentLocation} icon="/img/marker.png" />
     </GoogleMap>
   );
 };
