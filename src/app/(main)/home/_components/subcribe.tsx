@@ -11,7 +11,7 @@ const Subcribe = () => {
             Subscribe and be notified about new locations
           </h3>
           <div className="flex-1 w-full">
-            <InputUnderline className='w-full' placeholder='Your email' />
+            <InputUnderline isShowButton className='w-full' placeholder='Your email' />
           </div>
         </div>
       </div>

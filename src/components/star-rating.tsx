@@ -9,7 +9,7 @@ interface Props {
   isDark?: boolean;
 }
 
-const Star = ({ value = 0, isDark = false }: Props) => {
+const StarRating = ({ value = 0, isDark = false }: Props) => {
   let arr = new Array(5);
   arr.fill(null);
   arr.fill(1, 0, value);
@@ -32,4 +32,4 @@ const Star = ({ value = 0, isDark = false }: Props) => {
   );
 };
 
-export default Star;
+export default StarRating;

@@ -31,7 +31,6 @@ const HomePage = () => {
         </div>
         <Partner />
       </div>
-      <Footer />
     </div>
   );
 };

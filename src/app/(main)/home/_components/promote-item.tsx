@@ -1,5 +1,5 @@
 'use client';
-import Star from '@/components/star';
+import StarRating from '@/components/star-rating';
 import {
   HoverCard,
   HoverCardContent,
@@ -67,7 +67,7 @@ const PromoteItem = ({
       >
         <div className="flex items-center">
           <span className="mr-[5px]">
-            <Star value={star} isDark />
+            <StarRating value={star} isDark />
           </span>
           <span className="text-[11px] ">({review})</span>
         </div>

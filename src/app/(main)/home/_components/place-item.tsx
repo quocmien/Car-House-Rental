@@ -1,5 +1,5 @@
 'use client';
-import Star from '@/components/star';
+import StarRating from '@/components/star-rating';
 import {
   HoverCard,
   HoverCardContent,
@@ -32,7 +32,7 @@ const PlaceItem = ({
   verified = false,
   top = false,
   star = 0,
-  review = 0
+  review = 0,
 }: Props) => {
   const control = useBoolean();
 
@@ -83,7 +83,7 @@ const PlaceItem = ({
         )}
         <div className="flex items-center">
           <span className="mr-[5px]">
-            <Star value={star} />
+            <StarRating value={star} />
           </span>
           <span className="text-[11px] ">({review})</span>
         </div>
@@ -100,21 +100,15 @@ const PlaceItem = ({
               side="top"
               align="end"
             >
-              <ul className='text-right text-sm'>
+              <ul className="text-right text-sm">
                 <li className="border-b px-[10px] py-[7px]">
-                  <a href="">
-                    Add to favorites
-                  </a>
+                  <a href="">Add to favorites</a>
                 </li>
                 <li className="border-b px-[10px] py-[7px]">
-                  <a href="">
-                    Add to watchlist
-                  </a>
+                  <a href="">Add to watchlist</a>
                 </li>
                 <li className="border-b px-[10px] py-[7px]">
-                  <a href="">
-                    Quick detail
-                  </a>
+                  <a href="">Quick detail</a>
                 </li>
               </ul>
               <HoverCardArrow className="fill-[#fafafa] shadow-lg" />
