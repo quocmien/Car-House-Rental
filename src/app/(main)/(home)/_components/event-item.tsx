@@ -28,7 +28,7 @@ const EventItem = ({ name, time, desc, linkMore, day, month }: Props) => {
           <Clock className="w-3 h-3 mr-2" />
           <span>{time}</span>
         </figure>
-        <p className='text-sm'>{desc}</p>
+        <p className='text-sm opacity-60'>{desc}</p>
         <a href={linkMore} className="flex items-center">
           <span className="uppercase text-foreground text-[10px]">More</span>
           <MoveRight className="w-[14px] h-[14px] ml-1 " />

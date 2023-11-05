@@ -7,10 +7,17 @@ const Footer = () => {
       <div className="block-section">
         <div className="container  ">
           <div className="md:ml-auto w-full justify-between md:justify-end flex first-letter:gap-x-2 text-xs">
-            <div className="flex-1 text-sm">
+            <div className="flex-1 text-sm text-[#898989]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              aliquam at neque sit amet vestibulum. Terms of Use and Privacy
-              Policy.
+              aliquam at neque sit amet vestibulum.{' '}
+              <span className="text-primary">
+                <a href="">Terms of Use</a>
+              </span>{' '}
+              and{' '}
+              <span className="text-primary">
+                <a href="">Privacy Policy</a>
+              </span>
+              .
             </div>
             <div className="flex items-center flex-1 gap-x-2 justify-end">
               <a href="">

@@ -12,14 +12,8 @@ interface Props {
 }
 
 const mapOptions = {
-  panControl: false,
-  zoomControl: false,
-  mapTypeControl: false,
-  scaleControl: false,
-  streetViewControl: false,
-  overviewMapControl: false,
-  rotateControl: false,
-  fullscreenControl: false,
+  disableDefaultUI: true,
+  scrollwheel: true,
   styles: mapStyle,
 };
 

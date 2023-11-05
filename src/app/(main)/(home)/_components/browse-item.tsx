@@ -20,7 +20,7 @@ const BrowseItem = ({ title, icon: Icon, items }: Props) => {
             <Icon strokeWidth={3} className="fill-white w-[14px] h-[14px]" />
           )}
         </div>
-        <h3 className="text-[18px]">{title}</h3>
+        <h3 className="text-[18px] text-primary">{title}</h3>
       </div>
       <ul className="pl-[52px] sm:pl-0">
         {items.map((item, idx) => (

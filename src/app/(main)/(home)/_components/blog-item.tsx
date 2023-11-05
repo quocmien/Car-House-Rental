@@ -16,7 +16,7 @@ const BlogItem = ({ name, date, desc, linkMore }: Props) => {
         <figure className="opacity-50 text-xs font-bold flex items-center">
           {date}
         </figure>
-        <p className="text-sm">{desc}</p>
+        <p className="text-sm opacity-60">{desc}</p>
         <a href={linkMore} className="flex items-center">
           <MoveRight className="w-[14px] h-[14px] ml-1 text-primary" />
         </a>
