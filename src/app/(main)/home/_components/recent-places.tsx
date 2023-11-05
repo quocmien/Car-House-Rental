@@ -35,6 +35,8 @@ const RecentPlaces = () => {
               src="/img/items/1.jpg"
               verified
               top
+              star={2}
+              review={6}
             />
           </div>
           <div className="md:col-span-3">
@@ -44,6 +46,8 @@ const RecentPlaces = () => {
               name="Marky’s Restaurant"
               address="63 Birch Street"
               src="/img/items/1.jpg"
+              star={2}
+              review={6}
             />
           </div>
           <div className="md:col-span-2">
@@ -53,6 +57,8 @@ const RecentPlaces = () => {
               name="Marky’s Restaurant"
               address="63 Birch Street"
               src="/img/items/1.jpg"
+              star={2}
+              review={6}
             />
           </div>
           <div className="md:col-span-1">
@@ -62,6 +68,8 @@ const RecentPlaces = () => {
               name="Marky’s Restaurant"
               address="63 Birch Street"
               src="/img/items/1.jpg"
+              star={2}
+              review={6}
             />
           </div>
           <div className="md:col-span-2">
@@ -71,6 +79,8 @@ const RecentPlaces = () => {
               name="Marky’s Restaurant"
               address="63 Birch Street"
               src="/img/items/1.jpg"
+              star={2}
+              review={6}
             />
           </div>
         </div>

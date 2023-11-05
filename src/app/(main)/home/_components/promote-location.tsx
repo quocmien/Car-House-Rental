@@ -1,6 +1,5 @@
-import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import React from 'react';
+import PromoteSlide from './promote-slide';
 
 const PromoteLocation = () => {
   return (
@@ -17,15 +16,18 @@ const PromoteLocation = () => {
               </span>
             </a>
             <div className="flex flex-nowrap space-x-1">
-              <div className="h-9 w-9 rounded-full flex justify-center items-center border-2 cursor-pointer">
+              <div className="image-swiper-button-prev h-9 w-9 rounded-full flex justify-center items-center border-2 cursor-pointer">
                 <ChevronLeft strokeWidth={2} className="w-6 h-6 text-white" />
               </div>
-              <div className="h-9 w-9 rounded-full flex justify-center items-center border-2 cursor-pointer">
+              <div className="image-swiper-button-next h-9 w-9 rounded-full flex justify-center items-center border-2 cursor-pointer">
                 <ChevronRight strokeWidth={2} className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <PromoteSlide />
       </div>
     </section>
   );
