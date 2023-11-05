@@ -12,7 +12,6 @@ const Client = () => {
     <Swiper
       slidesPerView="auto"
       loop={false}
-      auto
       pagination={true}
       modules={[Navigation, Pagination]}
       autoplay={false}
