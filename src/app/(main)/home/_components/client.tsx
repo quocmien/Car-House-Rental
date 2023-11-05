@@ -21,7 +21,7 @@ const Client = () => {
         '--swiper-pagination-bullet-width': '5px',
         '--swiper-pagination-bullet-height': '5px',
         '--swiper-pagination-bullet-horizontal-gap': '5px',
-      }}
+      } as any}
     >
       <SwiperSlide className="relative">
         <blockquote className="flex flex-col items-center justify-center py-[10px] px-5">

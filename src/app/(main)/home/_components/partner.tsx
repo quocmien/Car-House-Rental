@@ -15,6 +15,7 @@ const Partner = () => {
               width={111}
               height={48}
               className="object-contain h-12"
+              alt={''}
             />
           </a>
           <a href="#" className="opacity-50">
@@ -23,6 +24,7 @@ const Partner = () => {
               width={111}
               height={48}
               className="object-contain h-12"
+              alt={''}
             />
           </a>
           <a href="#" className="opacity-50">
@@ -31,6 +33,7 @@ const Partner = () => {
               width={111}
               height={48}
               className="object-contain h-12"
+              alt={''}
             />
           </a>
           <a href="#" className="opacity-50">
@@ -39,6 +42,7 @@ const Partner = () => {
               width={111}
               height={48}
               className="object-contain h-12"
+              alt={''}
             />
           </a>
           <a href="#" className="opacity-50">
@@ -47,6 +51,7 @@ const Partner = () => {
               width={111}
               height={48}
               className="object-contain h-12"
+              alt={''}
             />
           </a>
         </div>

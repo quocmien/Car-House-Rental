@@ -25,7 +25,7 @@ const PromoteSlide = () => {
         "--swiper-pagination-bullet-width": "5px",
         "--swiper-pagination-bullet-height": "5px",
         "--swiper-pagination-bullet-horizontal-gap": "5px"
-      }}
+      } as any}
     >
       {PROMOTE_LIST.map((item, idx) => (
         <SwiperSlide key={idx} className="h-full transition-color relative !w-[260px]">
