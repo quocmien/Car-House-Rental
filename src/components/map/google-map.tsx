@@ -2,8 +2,8 @@
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 
 interface MapType {
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
 }
 interface Props {
   center: MapType;
@@ -11,7 +11,6 @@ interface Props {
 }
 
 const MapUI = ({ center, currentLocation }: Props) => {
-
   // laod script for google map
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_APIKEY!,
@@ -41,7 +40,7 @@ const MapUI = ({ center, currentLocation }: Props) => {
       controlDiv
     );
   };
-
+  
   return (
     <GoogleMap
       zoom={currentLocation ? 18 : 12}
