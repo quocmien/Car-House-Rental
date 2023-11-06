@@ -86,7 +86,15 @@ const FindDeals = () => {
               </div>
             </div>
             <div className="md:col-span-2 w-full">
-              <SlidersCustom className="pb-[30px]" isShowValue prefixValue="$" />
+              <SlidersCustom
+                className="pb-[30px]"
+                isShowValue
+                prefixValue="$"
+                defaultValue={[10, 400]}
+                min={10}
+                max={400}
+                step={10}
+              />
             </div>
           </div>
         </form>

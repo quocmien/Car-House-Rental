@@ -9,7 +9,7 @@ const Partner = () => {
           <h5 className="opacity-40 text-sm">Partners</h5>
         </div>
         <div className="grid grid-cols-5">
-          <a href="#" className="opacity-50">
+          <a href="#" className="opacity-50 hover:opacity-100 transition-all duration-300 ease-in-out">
             <Image
               src="/img/logo-1.png"
               width={111}
@@ -18,7 +18,7 @@ const Partner = () => {
               alt={''}
             />
           </a>
-          <a href="#" className="opacity-50">
+          <a href="#" className="opacity-50 hover:opacity-100 transition-all duration-300 ease-in-out">
             <Image
               src="/img/logo-2.png"
               width={111}
@@ -27,7 +27,7 @@ const Partner = () => {
               alt={''}
             />
           </a>
-          <a href="#" className="opacity-50">
+          <a href="#" className="opacity-50 hover:opacity-100 transition-all duration-300 ease-in-out">
             <Image
               src="/img/logo-3.png"
               width={111}
@@ -36,7 +36,7 @@ const Partner = () => {
               alt={''}
             />
           </a>
-          <a href="#" className="opacity-50">
+          <a href="#" className="opacity-50 hover:opacity-100 transition-all duration-300 ease-in-out">
             <Image
               src="/img/logo-4.png"
               width={111}
@@ -45,7 +45,7 @@ const Partner = () => {
               alt={''}
             />
           </a>
-          <a href="#" className="opacity-50">
+          <a href="#" className="opacity-50 hover:opacity-100 transition-all duration-300 ease-in-out">
             <Image
               src="/img/logo-5.png"
               width={111}

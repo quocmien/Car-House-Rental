@@ -13,7 +13,7 @@ import Subcribe from './_components/subcribe';
 const HomePage = () => {
   return (
     <div className="min-h-full flex flex-col">
-      <div className="flex flex-col items-center justify-center md:justify-start flex-1 pb-10">
+      <div className="flex flex-col">
         <Heroes />
         <FindDeals />
         <RecentPlaces />

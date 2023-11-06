@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { Sliders } from './ui/sliders';
+import { cn } from '@/lib/utils';
 
 type SliderProps = React.ComponentProps<typeof Sliders> & {
   isShowValue: boolean;
   prefixValue?: string;
+  idDark?: boolean;
 };
 
 export function SlidersCustom({
@@ -14,7 +16,7 @@ export function SlidersCustom({
   className,
   ...props
 }: SliderProps) {
-  const [value, setValue] = useState([10, 400]);
+  const [value, setValue] = useState(props.defaultValue || [10, 400]);
 
   const handleValueChange = (value: number[]) => {
     setValue(value);
@@ -23,7 +25,12 @@ export function SlidersCustom({
   return (
     <div className={className}>
       {isShowValue && (
-        <div className="flex justify-between px-[2px] py-1 text-white text-[11px] font-bold">
+        <div
+          className={cn(
+            'flex justify-between px-[2px] py-1 text-white text-[11px] font-bold',
+            props.isDark && "text-muted-foreground"
+          )}
+        >
           <div>
             {prefixValue}
             {value[0]}
@@ -35,10 +42,6 @@ export function SlidersCustom({
         </div>
       )}
       <Sliders
-        defaultValue={[10, 400]}
-        min={10}
-        max={400}
-        step={10}
         value={value}
         onValueChange={handleValueChange}
         {...props}
