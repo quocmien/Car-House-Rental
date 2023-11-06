@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .env:/home/ubuntu/myapp/.env
+      - ./src/:/home/ubuntu/myapp/src/
+    restart: unless-stopped
+    ports:
+      - '${APP_PORT}:3000'
+    networks:
+      - app-network
+    # command: npm run dev
+    entrypoint: .docker/docker-entrypoint.sh
+
+networks:
+  app-network:
+    driver: bridge
