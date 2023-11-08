@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import PromoteSlide from './promote-slide';
 
-const PromoteLocation = () => {
+const PromoteLocation = ({ products }: any) => {
   return (
     <section className="block-section bg-primary ">
       <div className="container">
@@ -27,7 +27,7 @@ const PromoteLocation = () => {
         </div>
       </div>
       <div>
-        <PromoteSlide />
+        <PromoteSlide products={products} />
       </div>
     </section>
   );

@@ -2,7 +2,9 @@ import { Button } from '@/components/ui/button';
 import PlaceItem from './place-item';
 import { MoveRight } from 'lucide-react';
 
-const RecentPlaces = () => {
+const spanCol = [1, 1, 3, 2, 1, 2];
+
+const RecentPlaces = ({ products }: any) => {
   return (
     <section className="block-section">
       <div className="container">
@@ -15,83 +17,33 @@ const RecentPlaces = () => {
           </h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-[30px]">
-          <div className="">
-            <PlaceItem
-              priceText="Average Price: $8 - $30"
-              category="Restaurant"
-              name="Marky’s Restaurant"
-              address="63 Birch Street"
-              src="/img/items/1.jpg"
-              verified
-              top
-            />
-          </div>
-          <div className="">
-            <PlaceItem
-              priceText="Average Price: $8 - $30"
-              category="Restaurant"
-              name="Marky’s Restaurant"
-              address="63 Birch Street"
-              src="/img/items/1.jpg"
-              verified
-              top
-              star={2}
-              review={6}
-            />
-          </div>
-          <div className="md:col-span-3">
-            <PlaceItem
-              priceText="Average Price: $8 - $30"
-              category="Restaurant"
-              name="Marky’s Restaurant"
-              address="63 Birch Street"
-              src="/img/items/1.jpg"
-              star={2}
-              review={6}
-            />
-          </div>
-          <div className="md:col-span-2">
-            <PlaceItem
-              priceText="Average Price: $8 - $30"
-              category="Restaurant"
-              name="Marky’s Restaurant"
-              address="63 Birch Street"
-              src="/img/items/1.jpg"
-              star={2}
-              review={6}
-            />
-          </div>
-          <div className="md:col-span-1">
-            <PlaceItem
-              priceText="Average Price: $8 - $30"
-              category="Restaurant"
-              name="Marky’s Restaurant"
-              address="63 Birch Street"
-              src="/img/items/1.jpg"
-              star={2}
-              review={6}
-            />
-          </div>
-          <div className="md:col-span-2">
-            <PlaceItem
-              priceText="Average Price: $8 - $30"
-              category="Restaurant"
-              name="Marky’s Restaurant"
-              address="63 Birch Street"
-              src="/img/items/1.jpg"
-              star={2}
-              review={6}
-            />
-          </div>
+          {products?.slice(0, 6)?.map((product: any, index: number) => (
+            <div
+              key={product?.id}
+              className={`md:col-span-${spanCol[index % 6]}`}
+            >
+              <PlaceItem
+                priceText={`Average Price: $${
+                  (product?.price * product?.discountPercentage) / 100
+                } - $${product?.price}`}
+                category={product?.category}
+                name={product?.title}
+                address="63 Birch Street"
+                src={product?.thumbnail}
+                verified
+                top
+              />
+            </div>
+          ))}
         </div>
 
         {/* View All */}
         <div className="w-full flex justify-center items-center pt-[30px]">
-          <a
-            className="border-2 rounded-full font-bold px-3 py-[6px] hover:bg-transparent hover:border-[#0000004d] flex items-center cursor-pointer"
-          >
-            <span className="text-xs uppercase mr-2 text-primary">View all listings</span>
-            <MoveRight strokeWidth={0.5} className='text-primary' />
+          <a className="border-2 rounded-full font-bold px-3 py-[6px] hover:bg-transparent hover:border-[#0000004d] flex items-center cursor-pointer">
+            <span className="text-xs uppercase mr-2 text-primary">
+              View all listings
+            </span>
+            <MoveRight strokeWidth={0.5} className="text-primary" />
           </a>
         </div>
       </div>
