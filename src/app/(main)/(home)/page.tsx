@@ -40,7 +40,7 @@ export async function generateMetadata() {
       title: product?.title,
       description: product?.description,
       creator: process.env.SITE_NAME,
-      images: product?.images,,
+      images: product?.images,
     },
   };
 }
