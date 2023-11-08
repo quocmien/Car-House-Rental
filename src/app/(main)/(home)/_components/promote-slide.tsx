@@ -29,7 +29,7 @@ const PromoteSlide = ({ products }: any) => {
         } as any
       }
     >
-      {products.map((product: any, index: number) => (
+      {products?.map((product: any, index: number) => (
         <SwiperSlide
           key={product?.id}
           className="h-full transition-color relative !w-[260px]"
