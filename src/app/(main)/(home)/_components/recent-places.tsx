@@ -17,24 +17,29 @@ const RecentPlaces = ({ products }: any) => {
           </h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-[30px]">
-          {products?.slice(0, 6)?.map((product: any, index: number) => (
+          {products?.map((item: any, index: number) => {
+            const product = item?.attributes
+            
+            return (
             <div
-              key={product?.id}
+              key={item?.id}
               className={`md:col-span-${spanCol[index % 6]}`}
             >
               <PlaceItem
-                priceText={`Average Price: $${
-                  (product?.price * product?.discountPercentage) / 100
-                } - $${product?.price}`}
-                category={product?.category}
-                name={product?.title}
-                address="63 Birch Street"
-                src={product?.thumbnail}
+                // priceText={`Average Price: $${
+                //   (product?.price * product?.discountPercentage) / 100
+                // } - $${product?.price}`}
+                priceText={`Average Price: $${product?.displayPrice}`}
+                category={product?.category?.data?.attributes?.name}
+                name={product?.name}
+                address={product?.address}
+                src={product?.image?.data?.attributes?.formats?.thumbnail?.url}
                 verified
                 top
+                slug={product?.slug}
               />
             </div>
-          ))}
+          )})}
         </div>
 
         {/* View All */}

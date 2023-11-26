@@ -29,24 +29,29 @@ const PromoteSlide = ({ products }: any) => {
         } as any
       }
     >
-      {products?.map((product: any, index: number) => (
-        <SwiperSlide
-          key={product?.id}
-          className="h-full transition-color relative !w-[260px]"
-        >
-          <PromoteItem
-            priceText={`Average Price: $${
-              (product?.price * product?.discountPercentage) / 100
-            } - $${product?.price}`}
-            category={product?.category}
-            name={product?.title}
-            address="63 Birch Street"
-            src={product?.thumbnail}
-            star={product.rating}
-            review={product.stock}
-          />
-        </SwiperSlide>
-      ))}
+      {products?.map((item: any, index: number) => {
+        const product = item?.attributes
+        return (
+          <SwiperSlide
+            key={item?.id}
+            className="h-full transition-color relative !w-[260px]"
+          >
+            <PromoteItem
+              // priceText={`Average Price: $${
+              //   (product?.price * product?.discountPercentage) / 100
+              // } - $${product?.price}`}
+              priceText={`Average Price: $${product?.displayPrice}`}
+              category={product?.category?.data?.attributes?.name}
+              name={product?.name}
+              address={product?.address}
+              src={product?.image?.data?.attributes?.formats?.thumbnail?.url || ""}
+              star={2}
+              review={10}
+              slug={product?.slug}
+            />
+          </SwiperSlide>
+        )
+      })}
     </Swiper>
   );
 };

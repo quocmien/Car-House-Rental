@@ -2,7 +2,9 @@ import React from 'react';
 import PlaceItem from './place-item';
 import Client from './client';
 
-const RecentRelatedItems = () => {
+const spanCol = [3, 5, 4];
+
+const RecentRelatedItems = ({ products }: any) => {
   return (
     <section className="block-section">
       <div className="container">
@@ -14,41 +16,35 @@ const RecentRelatedItems = () => {
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-[30px]">
-              <div className="md:col-span-3">
-                <PlaceItem
-                  priceText="Average Price: $8 - $30"
-                  category="Restaurant"
-                  name="Marky’s Restaurant"
-                  address="63 Birch Street"
-                  src="/img/items/1.jpg"
-                  star={2}
-                  review={6}
-                  verified
-                  top
-                />
-              </div>
-              <div className="md:col-span-5">
-                <PlaceItem
-                  priceText="Average Price: $8 - $30"
-                  category="Restaurant"
-                  name="Marky’s Restaurant"
-                  address="63 Birch Street"
-                  src="/img/items/1.jpg"
-                  star={2}
-                  review={6}
-                />
-              </div>
-              <div className="md:col-span-4">
-                <PlaceItem
-                  priceText="Average Price: $8 - $30"
-                  category="Restaurant"
-                  name="Marky’s Restaurant"
-                  address="63 Birch Street"
-                  src="/img/items/1.jpg"
-                  star={2}
-                  review={6}
-                />
-              </div>
+              {products?.slice(0, 3)?.map((item: any, index: number) => {
+                const product = item?.attributes;
+
+                return (
+                  <div
+                    key={item?.id}
+                    className={`md:col-span-${spanCol[index % 3]}`}
+                  >
+                    <PlaceItem
+                      // priceText={`Average Price: $${
+                      //   (product?.price * product?.discountPercentage) / 100
+                      // } - $${product?.price}`}
+                      priceText={`Average Price: $${product?.displayPrice}`}
+                      category={product?.category?.data?.attributes?.name}
+                      name={product?.name}
+                      address={product?.address}
+                      src={
+                        product?.image?.data?.attributes?.formats?.thumbnail
+                          ?.url
+                      }
+                      verified
+                      top
+                      star={2}
+                      review={6}
+                      slug={product?.slug}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="lg:col-span-3">
@@ -57,7 +53,7 @@ const RecentRelatedItems = () => {
                 Client’s Word
               </h2>
             </div>
-            <div className='container bg-[#fafafa] shadow-lg'>
+            <div className="container bg-[#fafafa] shadow-lg">
               <Client />
             </div>
           </div>

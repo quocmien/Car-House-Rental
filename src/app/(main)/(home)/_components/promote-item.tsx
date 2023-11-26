@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
 import { MoreVertical } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Props {
   priceText?: string;
@@ -19,6 +20,7 @@ interface Props {
   src: string;
   star?: number;
   review?: number;
+  slug: string;
 }
 
 const PromoteItem = ({
@@ -27,6 +29,7 @@ const PromoteItem = ({
   name,
   address,
   src,
+  slug,
   star = 0,
   review = 0,
 }: Props) => {
@@ -35,8 +38,8 @@ const PromoteItem = ({
   return (
     <div className="flex flex-col shadow-md w-full relative">
       {/* Rating */}
-      <a
-        href="/detail"
+      <Link
+        href={`/detail/${slug}`}
         className="group/item block h-[220px] overflow-hidden relative"
       >
         <div className="group-hover/item:-translate-y-[3px] group-hover/item:will-change-transform transition-all ease-in-out duration-300 absolute bottom-5 left-5 text-white">
@@ -56,7 +59,7 @@ const PromoteItem = ({
         >
           <Image className="h-full hidden" src={src} fill alt="" />
         </div>
-      </a>
+      </Link>
 
       {/* Additional Info */}
       <div

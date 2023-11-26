@@ -1,8 +1,11 @@
 import { LucideIcon } from 'lucide-react';
 
 export type ItemBrowse = {
-  label: string;
-  value: string | number;
+  id?: string;
+  attributes: {
+    name: string;
+    value: string | number;
+  };
 };
 
 interface Props {
@@ -23,15 +26,18 @@ const BrowseItem = ({ title, icon: Icon, items }: Props) => {
         <h3 className="text-[18px] text-primary">{title}</h3>
       </div>
       <ul className="pl-[52px] sm:pl-0">
-        {items.map((item, idx) => (
-          <li
-            key={idx}
-            className="text-[10px] flex justify-between items-center mb-[10px]"
-          >
-            <div>{item.label}</div>
-            <div>{item.value}</div>
-          </li>
-        ))}
+        {items?.map((item, idx) => {
+          const child = item?.attributes;
+          return (
+            <li
+              key={item?.id}
+              className="text-[10px] flex justify-between items-center mb-[10px]"
+            >
+              <div>{child?.name}</div>
+              <div>{child?.value}</div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

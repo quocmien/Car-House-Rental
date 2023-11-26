@@ -9,8 +9,35 @@ import RecentRelatedItems from '../(home)/_components/recent-related-items';
 import Subcribe from '../(home)/_components/subcribe';
 import FilterForm from './_component/filter-form';
 import SearchResults from './_component/search-results';
+import { HOME_PRODUCTS_QUERY } from '@/graphql/products';
+import fetchData from '@/lib/fetch-data';
+import { HOME_CATEGORIES_QUERY } from '@/graphql/categories';
 
-const MapPage = () => {
+const MapPage = async () => {
+  const [
+    {
+      data: {
+        products: { data: products },
+      },
+    },
+    {
+      data: {
+        categories: { data: categories },
+      },
+    },
+  ] = await Promise.all([
+    fetchData(HOME_PRODUCTS_QUERY),
+    fetchData(HOME_CATEGORIES_QUERY, {
+      filters: {
+        children: {
+          id: {
+            notNull: true,
+          },
+        },
+      },
+    }),
+  ]);
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2">
@@ -24,18 +51,18 @@ const MapPage = () => {
         </div>
         <div>
           <FilterForm />
-          <SearchResults />
+          <SearchResults products={products || []} />
         </div>
       </div>
-      <RecentPlaces />
+      <RecentPlaces products={products || []} />
       <div className="block-section container">
         <hr />
       </div>
-      <BrowseListings />
+      <BrowseListings categories={categories || []} />
       <Subcribe />
-      <PromoteLocation />
+      <PromoteLocation products={products || []} />
       <EventNearYou />
-      <RecentRelatedItems />
+      <RecentRelatedItems products={products || []} />
       <FromBlog />
       <div className="block-section container">
         <hr />
