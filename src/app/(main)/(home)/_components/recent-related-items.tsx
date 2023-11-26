@@ -22,7 +22,7 @@ const RecentRelatedItems = ({ products }: any) => {
                 return (
                   <div
                     key={item?.id}
-                    className={`md:col-span-${spanCol[index % 3]}`}
+                    className={`md:col-span-4`}
                   >
                     <PlaceItem
                       // priceText={`Average Price: $${
