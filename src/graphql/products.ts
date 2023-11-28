@@ -22,6 +22,7 @@ query getProducts {
           data {
             attributes {
               formats
+              url
             }
           }
         }

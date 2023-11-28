@@ -44,7 +44,7 @@ const PromoteSlide = ({ products }: any) => {
               category={product?.category?.data?.attributes?.name}
               name={product?.name}
               address={product?.address}
-              src={product?.image?.data?.attributes?.formats?.thumbnail?.url || ""}
+              src={product?.image?.data?.attributes?.formats?.medium?.url || product?.image?.data?.attributes?.url || ""}
               star={2}
               review={10}
               slug={product?.slug}

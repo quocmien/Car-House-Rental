@@ -27,7 +27,7 @@ const SearchResults = ({ products }: any) => {
                   name={product?.name}
                   address={product?.address}
                   src={
-                    product?.image?.data?.attributes?.formats?.thumbnail?.url
+                    product?.image?.data?.attributes?.formats?.medium?.url || product?.image?.data?.attributes?.url
                   }
                   verified
                   top

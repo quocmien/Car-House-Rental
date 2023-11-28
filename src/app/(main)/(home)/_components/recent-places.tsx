@@ -19,6 +19,7 @@ const RecentPlaces = ({ products }: any) => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-[30px]">
           {products?.map((item: any, index: number) => {
             const product = item?.attributes
+            console.log({product: product?.image?.data?.attributes});
             
             return (
             <div
@@ -33,7 +34,7 @@ const RecentPlaces = ({ products }: any) => {
                 category={product?.category?.data?.attributes?.name}
                 name={product?.name}
                 address={product?.address}
-                src={product?.image?.data?.attributes?.formats?.thumbnail?.url}
+                src={product?.image?.data?.attributes?.formats?.medium?.url || product?.image?.data?.attributes?.url}
                 verified
                 top
                 slug={product?.slug}

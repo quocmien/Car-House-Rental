@@ -24,7 +24,7 @@ const ImageSlide = ({ product }: any) => {
       >
         {!!product?.previews?.data?.length &&
           product?.previews?.data?.map((item: any) => {
-            const src = item?.attributes?.formats?.large?.url || ''
+            const src = item?.attributes?.formats?.large?.url || item?.attributes?.url || ''
 
             return (
               <SwiperSlide key={item.id} className="!w-[550px]">

@@ -68,8 +68,8 @@ const PlaceItem = ({
         </div>
         <div
           className={cn(
-            'group-hover/item:scale-110 transition-all ease-in-out duration-600 absolute w-full h-full hidde scale-[1.01] bg-cover top-0 left-0 overflow-auto -z-10 after:opacity-70',
-            'after:bg-gradient-to-b after:from-transparent after:to-black after:bg-[#00000033] after:absolute after:bottom-0 after:left-0 after:w-full after:h-full after:content-[""]'
+            'group-hover/item:scale-110 transition-all ease-in-out duration-600 absolute w-full h-full hidde scale-[1.01] top-0 left-0 overflow-auto -z-10 after:opacity-70  bg-center bg-cover bg-no-repeat',
+            'after:absolute after:bottom-0 after:left-0 after:w-full after:h-full after:content-[""]'
           )}
           style={{ backgroundImage: `url(${src})` }}
         >
