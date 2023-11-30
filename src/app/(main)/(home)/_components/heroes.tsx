@@ -20,11 +20,11 @@ const Heroes = () => {
       <div className="w-full h-full absolute top-0 left-0 overflow-hidden bg-black -z-10">
         <div
           className="absolute top-0 left-0 h-full overflow-hidden -z-10 w-full opacity-30 bg-cover "
-          style={{ backgroundImage: "url('/img/background-03.jpg')" }}
+          style={{ backgroundImage: "url('https://res.cloudinary.com/cinsio68/image/upload/v1701337327/cq5dam_web_2160_2160_6e170abc82.avif')" }}
         >
           <Image
             className="object-cover h-full hidden"
-            src="/img/background-03.jpg"
+            src="https://res.cloudinary.com/cinsio68/image/upload/v1701337327/cq5dam_web_2160_2160_6e170abc82.avif"
             fill
             alt=""
           />

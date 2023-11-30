@@ -33,7 +33,7 @@ const ImageSlide = ({ product }: any) => {
                     src={src}
                     width={550}
                     height={360}
-                    className="w-full h-full"
+                    className="w-full h-full object-contain"
                     alt=""
                   />
                 </div>
