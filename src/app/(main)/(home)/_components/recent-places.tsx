@@ -17,9 +17,8 @@ const RecentPlaces = ({ products }: any) => {
           </h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-[30px]">
-          {products?.map((item: any, index: number) => {
+          {products?.slice(0, 6)?.map((item: any, index: number) => {
             const product = item?.attributes
-            console.log({product: product?.image?.data?.attributes});
             
             return (
             <div

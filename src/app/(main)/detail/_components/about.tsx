@@ -8,7 +8,6 @@ const About = ({ content }: any) => {
         About this listing
       </h2>
       <Markdown>{content}</Markdown>
-      <div dangerouslySetInnerHTML={{ __html: content }}></div>
     </section>
   );
 };
