@@ -52,7 +52,7 @@ const PromoteItem = ({
         </div>
         <div
           className={cn(
-            'group-hover/item:scale-110 transition-all ease-in-out duration-600 absolute w-full h-full hidde scale-[1.01] bg-cover top-0 left-0 overflow-auto -z-10 after:opacity-70',
+            'group-hover/item:scale-110 transition-all ease-in-out duration-600 absolute w-full h-full hidde scale-[1.01] bg-contain bg-no-repeat top-0 left-0 overflow-auto -z-10 after:opacity-70',
             'after:absolute after:bottom-0 after:left-0 after:w-full after:h-full after:content-[""] bg-center'
           )}
           style={{ backgroundImage: `url(${src})` }}

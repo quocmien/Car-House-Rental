@@ -6,7 +6,7 @@ const ReviewItem = () => {
     <div className="flex">
       <div className="rounded-full shadow-md w-[80px] h-[80px]">
         <div
-          className="rounded-full h-full overflow-hidden -z-10 w-full opacity-30 bg-cover"
+          className="rounded-full h-full overflow-hidden -z-10 w-full opacity-30 bg-contain bg-no-repeat"
           style={{ backgroundImage: "url('/img/person-01.jpg')" }}
         >
           <Image
