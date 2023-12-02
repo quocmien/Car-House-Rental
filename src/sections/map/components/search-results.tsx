@@ -1,6 +1,6 @@
 import React from 'react';
-import PlaceItem from '../../(home)/_components/place-item';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import PlaceItem from '@/sections/home/components/place-item';
 
 const SearchResults = ({ products }: any) => {
   return (

@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/hover-card';
 import { useBoolean } from '@/hooks/use-boolean';
 import { cn } from '@/lib/utils';
+import { Login } from '@/sections/auth/login/login';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
 import { ChevronDown, Menu, Plus } from 'lucide-react';
 import React from 'react';
@@ -112,7 +113,9 @@ const NavItems = () => {
       </ul>
       <div className="border-r-[1px] pr-[15px] mr-[10px] flex text-[11px] font-bold">
         <div>
-          <a className="uppercase px-[6px] py-[4px]">Sign In</a>
+          <Login>
+            <a className="cursor-pointer uppercase px-[6px] py-[4px]">Sign In</a>
+          </Login>
         </div>
         <div>
           <a className="uppercase px-[6px] py-[4px] text-primary">Register</a>
@@ -142,7 +145,7 @@ const NavItems = () => {
           >
             <ul className="text-[11px]">
               <Collapsible>
-                <CollapsibleTrigger className='w-full'>
+                <CollapsibleTrigger className="w-full">
                   <li
                     className={cn(
                       'border-b border-[#ffffff1a] p-[10px] hover:bg-[#00000033]',
@@ -156,9 +159,7 @@ const NavItems = () => {
                   </li>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <li
-                    className='border-b border-[#ffffff1a] p-[10px] bg-[#00000033]'
-                  >
+                  <li className="border-b border-[#ffffff1a] p-[10px] bg-[#00000033]">
                     <div className="group uppercase font-bold flex justify-between">
                       <span>Map full screeen</span>
                     </div>
