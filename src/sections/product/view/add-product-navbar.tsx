@@ -15,28 +15,31 @@ import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { signIn } from 'next-auth/react';
+import { RHFSelect } from '@/components/hook-form/rhf-select';
+import { LOCATIONS } from '@/mock/common';
+import { SelectItem } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 
 interface IProps {
   children: ReactNode;
 }
 
 const defaultValues = {
-  email: '',
-  password: '',
+  name: '',
+  description: '',
+  location: '',
 };
 
 const formSchema = z.object({
-  email: z
+  name: z
     .string({
       required_error: 'Email is required',
-    })
-    .email('Email invalid!'),
-  password: z.string({
-    required_error: 'Password is required',
-  }),
+    }),
+  description: z.string(),
+  location: z.string(),
 });
 
-export function Login({ children, ...other }: IProps & DialogProps) {
+export function AddProductNavbar({ children, ...other }: IProps & DialogProps) {
   const methods = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -45,16 +48,7 @@ export function Login({ children, ...other }: IProps & DialogProps) {
   const { handleSubmit, setError } = methods;
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    try {
-      signIn('credentials', {
-        identifier: values.email,
-        password: values.password,
-      });
-    } catch (error) {
-      setError('password', {
-        message: 'Login failed!',
-      });
-    }
+    console.log({ values });
   };
 
   return (
@@ -63,38 +57,51 @@ export function Login({ children, ...other }: IProps & DialogProps) {
       <DialogContent className="sm:max-w-[425px]">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle><span className='text-primary'>Sign In</span></DialogTitle>
+            <DialogTitle>
+              <span className="text-primary">Add Product</span>
+            </DialogTitle>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
-                Email<em className='text-red-500'>*</em>
+                Name<em className="text-red-500">*</em>
               </label>
               <RHFInput
-                name="email"
+                name="name"
                 inputStyle="underline"
-                placeholder="Your email"
+                placeholder="Your Name"
                 className="w-full"
               />
             </div>
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
-                Password<em className='text-red-500'>*</em>
+                Description
               </label>
               <RHFInput
-                type="password"
-                name="password"
+                name="description"
                 inputStyle="underline"
-                placeholder="Your password"
+                placeholder="Your description"
                 className="w-full"
               />
             </div>
           </div>
+          <div className="flex flex-col gap-2">
+            <label className="opacity-70 text-[10px] uppercase font-bold">
+              Location
+            </label>
+            <RHFSelect name="location">
+              {LOCATIONS.map((location) => (
+                <SelectItem key={location.value} value={location.value}>
+                  {location.label}
+                </SelectItem>
+              ))}
+            </RHFSelect>
+          </div>
           <DialogFooter>
-            <button type="submit" className="w-full">
+            <Button type="submit" className="w-full rounded-full">
               Save changes
-            </button>
+            </Button>
           </DialogFooter>
         </FormProvider>
       </DialogContent>

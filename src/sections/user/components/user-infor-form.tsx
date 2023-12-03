@@ -8,6 +8,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import useSWR from 'swr';
+import RHFTextArea from '@/components/hook-form/rhf-text-area';
 
 interface IProps {
   session: Session | null;
@@ -16,6 +17,7 @@ interface IProps {
 const defaultValues = {
   email: '',
   username: '',
+  desc: ''
 };
 
 const formSchema = z.object({
@@ -27,6 +29,7 @@ const formSchema = z.object({
   username: z.string({
     required_error: 'Username is required',
   }),
+  desc: z.string(),
 });
 
 const UserInforForm = ({ session }: IProps) => {
@@ -35,15 +38,20 @@ const UserInforForm = ({ session }: IProps) => {
     defaultValues,
   });
 
-  const { reset } = methods;
+  const { reset, handleSubmit } = methods;
 
   useEffect(() => {
     if (!session) return;
     reset(session?.user as any);
   }, [session]);
+  
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log({values});
+    
+  }
 
   return (
-    <FormProvider methods={methods}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="">
@@ -52,7 +60,7 @@ const UserInforForm = ({ session }: IProps) => {
             </label>
             <RHFInput
               name="username"
-              inputStyle="input-underline"
+              inputStyle="underline"
               placeholder="Your username"
               className="w-full"
             />
@@ -63,7 +71,7 @@ const UserInforForm = ({ session }: IProps) => {
             </label>
             <RHFInput
               name="email"
-              inputStyle="input-underline"
+              inputStyle="underline"
               placeholder="Your email"
               className="w-full"
             />
@@ -73,10 +81,11 @@ const UserInforForm = ({ session }: IProps) => {
           <label className="opacity-70 text-[10px] uppercase font-bold">
             About you
           </label>
-          <TextareaUnderline
-            name="email"
+          <RHFTextArea
+            name="desc"
             placeholder="Your email"
             className="w-full"
+            inputStyle='underline'
           />
         </div>
         <div className="flex justify-center">

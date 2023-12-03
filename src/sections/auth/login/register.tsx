@@ -75,7 +75,7 @@ export function Register({ children, ...other }: IProps & DialogProps) {
               </label>
               <RHFInput
                 name="email"
-                inputStyle="input-underline"
+                inputStyle="underline"
                 placeholder="Your email"
                 className="w-full"
               />
@@ -87,7 +87,7 @@ export function Register({ children, ...other }: IProps & DialogProps) {
               <RHFInput
                 type="password"
                 name="password"
-                inputStyle="input-underline"
+                inputStyle="underline"
                 placeholder="Your password"
                 className="w-full"
               />

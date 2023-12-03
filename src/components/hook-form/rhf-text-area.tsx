@@ -10,6 +10,8 @@ import {
 } from '../ui/form';
 import { Input, InputProps } from '../ui/input';
 import { InputUnderline } from '../ui/input-underline';
+import { TextareaUnderline } from '../ui/textarea-underline';
+import { Textarea } from '../ui/textarea';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +21,7 @@ type Props = InputProps & {
   inputStyle?: 'outline' | 'underline';
 };
 
-export default function RHFInput({
+export default function RHFTextArea({
   name,
   type,
   description,
@@ -32,15 +34,15 @@ export default function RHFInput({
     <FormField
       name={name}
       control={control}
-      render={({ field }) => (
+      render={({ field }: any) => (
         <FormItem>
           <FormControl>
             {inputStyle === 'underline' ? (
-              <InputUnderline
+              <TextareaUnderline
                 {...field}
                 type={type}
                 value={type === 'number' && field.value === 0 ? '' : field.value}
-                onChange={(event) => {
+                onChange={(event: any) => {
                   if (type === 'number') {
                     field.onChange(Number(event.target.value));
                   } else {
@@ -50,7 +52,7 @@ export default function RHFInput({
                 {...other}
               />
             ) : (
-              <Input {...field} {...other} />
+              <Textarea {...field} {...other} />
             )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}

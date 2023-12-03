@@ -14,6 +14,7 @@ import { useBoolean } from '@/hooks/use-boolean';
 import { cn } from '@/lib/utils';
 import { Login } from '@/sections/auth/login/login';
 import { Register } from '@/sections/auth/login/register';
+import { AddProductNavbar } from '@/sections/product/view/add-product-navbar';
 import UserNavBar from '@/sections/user/view/user-navbar';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
 import { ChevronDown, Menu, Plus } from 'lucide-react';
@@ -142,13 +143,15 @@ const NavItems = ({ session }: IProps) => {
         )}
       </div>
       <div className="w-7 h-7 md:w-auto md:h-auto">
-        <Button className="rounded-full font-bold p-0 md:p-2 w-full h-full">
-          <Plus strokeWidth={3} className="w-4 h-4 text-white " />
-          <span className="hidden md:block text-xs">ADD LISTING</span>
-        </Button>
+        <AddProductNavbar>
+          <Button className="rounded-full font-bold p-0 md:p-2 w-full h-full">
+            <Plus strokeWidth={3} className="w-4 h-4 text-white " />
+            <span className="hidden md:block text-xs">ADD PRODUCT</span>
+          </Button>
+        </AddProductNavbar>
       </div>
       <div className="md:hidden">
-        <HoverCard open={menuMobile.value} openDelay={0} closeDelay={0}>
+        <HoverCard open={menuMobile.value} openDelay={0}>
           <HoverCardTrigger asChild>
             <Menu
               onClick={menuMobile.onToggle}
