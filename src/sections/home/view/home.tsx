@@ -1,17 +1,16 @@
 import { HOME_CATEGORIES_QUERY } from '@/graphql/categories';
 import { HOME_PRODUCTS_QUERY } from '@/graphql/products';
 import fetchData from '@/lib/fetch-data';
-import React from 'react';
-import Heroes from '../components/heroes';
-import FindDeals from '../components/find-deals';
-import RecentPlaces from '../components/recent-places';
 import BrowseListings from '../components/browse-listings';
-import Subcribe from '../components/subcribe';
-import PromoteLocation from '../components/promote-location';
 import EventNearYou from '../components/event-near-you';
-import RecentRelatedItems from '../components/recent-related-items';
+import FindDeals from '../components/find-deals';
 import FromBlog from '../components/from-blog';
+import Heroes from '../components/heroes';
 import Partner from '../components/partner';
+import PromoteLocation from '../components/promote-location';
+import RecentPlaces from '../components/recent-places';
+import RecentRelatedItems from '../components/recent-related-items';
+import Subcribe from '../components/subcribe';
 
 const Home = async () => {
   const [

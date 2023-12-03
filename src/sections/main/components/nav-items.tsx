@@ -13,11 +13,17 @@ import {
 import { useBoolean } from '@/hooks/use-boolean';
 import { cn } from '@/lib/utils';
 import { Login } from '@/sections/auth/login/login';
+import { Register } from '@/sections/auth/login/register';
+import UserNavBar from '@/sections/user/view/user-navbar';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
 import { ChevronDown, Menu, Plus } from 'lucide-react';
-import React from 'react';
+import { Session } from 'next-auth';
 
-const NavItems = () => {
+interface IProps {
+  session: Session | null;
+}
+
+const NavItems = ({ session }: IProps) => {
   const menuMobile = useBoolean();
   const isActive = true; //check avtive link
 
@@ -25,7 +31,7 @@ const NavItems = () => {
     <nav className="flex items-center">
       <ul className="primary-nav hidden md:flex border-r-[1px] pr-[15px] mr-[15px] text-[11px] font-bold items-center">
         <li className="active has-child">
-          <HoverCard openDelay={0} closeDelay={0}>
+          <HoverCard openDelay={0}>
             <HoverCardTrigger asChild>
               <a
                 href=""
@@ -67,7 +73,7 @@ const NavItems = () => {
           </HoverCard>
         </li>
         <li className="has-child">
-          <HoverCard openDelay={0} closeDelay={0}>
+          <HoverCard openDelay={0}>
             <HoverCardTrigger asChild>
               <a
                 href=""
@@ -112,14 +118,28 @@ const NavItems = () => {
         <li className="px-[6px] py-[4px] rounded-[30px] uppercase">CONTACT</li>
       </ul>
       <div className="border-r-[1px] pr-[15px] mr-[10px] flex text-[11px] font-bold">
-        <div>
-          <Login>
-            <a className="cursor-pointer uppercase px-[6px] py-[4px]">Sign In</a>
-          </Login>
-        </div>
-        <div>
-          <a className="uppercase px-[6px] py-[4px] text-primary">Register</a>
-        </div>
+        {session ? (
+          <div>
+            <UserNavBar username={session?.user?.username} />
+          </div>
+        ) : (
+          <>
+            <div>
+              <Login>
+                <a className="cursor-pointer uppercase px-[6px] py-[4px]">
+                  Sign In
+                </a>
+              </Login>
+            </div>
+            <div>
+              <Register>
+                <a className="cursor-pointer uppercase px-[6px] py-[4px] text-primary">
+                  Register
+                </a>
+              </Register>
+            </div>
+          </>
+        )}
       </div>
       <div className="w-7 h-7 md:w-auto md:h-auto">
         <Button className="rounded-full font-bold p-0 md:p-2 w-full h-full">

@@ -36,7 +36,7 @@ const formSchema = z.object({
   }),
 });
 
-export function Login({ children, ...other }: IProps & DialogProps) {
+export function Register({ children, ...other }: IProps & DialogProps) {
   const methods = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -63,13 +63,15 @@ export function Login({ children, ...other }: IProps & DialogProps) {
       <DialogContent className="sm:max-w-[425px]">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle><span className='text-primary'>Sign In</span></DialogTitle>
+            <DialogTitle>
+              <span className='text-primary'>Register</span>
+            </DialogTitle>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
-                Email<em className='text-red-500'>*</em>
+                Email<em>*</em>
               </label>
               <RHFInput
                 name="email"
@@ -80,7 +82,7 @@ export function Login({ children, ...other }: IProps & DialogProps) {
             </div>
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
-                Password<em className='text-red-500'>*</em>
+                Password<em>*</em>
               </label>
               <RHFInput
                 type="password"
