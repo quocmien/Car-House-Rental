@@ -55,7 +55,7 @@ const PlaceItem = ({
 
       {/* Rating */}
       <Link
-        href={`/detail/${slug}`}
+        href={`/product/${slug}`}
         className="group/item block h-[220px] overflow-hidden relative"
       >
         <div className="group-hover/item:-translate-y-[3px] group-hover/item:will-change-transform transition-all ease-in-out duration-300 absolute bottom-5 left-5 text-white">
