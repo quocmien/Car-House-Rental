@@ -14,12 +14,12 @@ import { useBoolean } from '@/hooks/use-boolean';
 import { cn } from '@/lib/utils';
 import { Login } from '@/sections/auth/login/login';
 import { Register } from '@/sections/auth/login/register';
-import { AddProductNavbar } from '@/sections/product/view/add-product-navbar';
 import UserNavBar from '@/sections/user/view/user-navbar';
 import { HoverCardArrow } from '@radix-ui/react-hover-card';
 import { ChevronDown, Menu, Plus } from 'lucide-react';
 import { Session } from 'next-auth';
 import Link from 'next/link';
+
 
 interface IProps {
   session: Session | null;
