@@ -15,14 +15,10 @@ import Subcribe from '../components/subcribe';
 const Home = async () => {
   const [
     {
-      data: {
-        productsData
-      },
+      data: productsData
     },
     {
-      data: {
-        categoriesData
-      },
+      data: categoriesData,
     },
   ] = await Promise.all([
     fetchData(HOME_PRODUCTS_QUERY),
@@ -36,9 +32,9 @@ const Home = async () => {
       },
     }),
   ]);
-  
-  const products = productsData?.data?.products
-  const categories = categoriesData?.data?.categories
+
+  const products = productsData?.products?.data
+  const categories = categoriesData?.categories?.data
 
   return (
     <div className="min-h-full flex flex-col">

@@ -15,14 +15,7 @@ import FilterForm from '../components/filter-form';
 import SearchResults from '../components/search-results';
 
 const MapDetail = async () => {
-  const [
-    {
-      data: { productsData },
-    },
-    {
-      data: { categoriesData },
-    },
-  ] = await Promise.all([
+  const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
     fetchData(HOME_PRODUCTS_QUERY),
     fetchData(HOME_CATEGORIES_QUERY, {
       filters: {
@@ -35,8 +28,8 @@ const MapDetail = async () => {
     }),
   ]);
 
-  const products = productsData?.data?.products;
-  const categories = categoriesData?.data?.categories;
+  const products = productsData?.products?.data;
+  const categories = categoriesData?.categories?.data;
 
   return (
     <div>
