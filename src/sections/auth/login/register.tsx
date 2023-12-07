@@ -9,48 +9,58 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { DialogProps } from '@radix-ui/react-dialog';
 import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
-import * as z from 'zod';
 import { signIn } from 'next-auth/react';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { postData } from '@/utils/post-data';
+import { Session } from 'next-auth';
 
 interface IProps {
   children: ReactNode;
 }
 
+type FormValueProp = {
+  username: string;
+  email: string;
+  password: string;
+};
+
 const defaultValues = {
+  username: '',
   email: '',
   password: '',
 };
 
-const formSchema = z.object({
-  email: z
-    .string({
-      required_error: 'Email is required',
-    })
-    .email('Email invalid!'),
-  password: z.string({
-    required_error: 'Password is required',
-  }),
+const formSchema = yup.object({
+  username: yup.string().required('Username is required!'),
+  email: yup.string().required('Username is required!').email('Email invalid!'),
+  password: yup.string().required('Password is required!'),
 });
 
 export function Register({ children, ...other }: IProps & DialogProps) {
-  const methods = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const methods = useForm<FormValueProp>({
+    resolver: yupResolver(formSchema),
     defaultValues,
   });
 
   const { handleSubmit, setError } = methods;
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValueProp) => {
     try {
-      signIn('credentials', {
-        identifier: values.email,
-        password: values.password,
+      await postData({
+        url: 'auth/local/register',
+        body: JSON.stringify(values),
       });
-    } catch (error) {
+    } catch (error: any) {
+      if (error?.message) {
+        setError('password', {
+          message: JSON.parse(error?.message)?.error?.message,
+        });
+        return;
+      }
       setError('password', {
         message: 'Login failed!',
       });
@@ -64,11 +74,22 @@ export function Register({ children, ...other }: IProps & DialogProps) {
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
             <DialogTitle>
-              <span className='text-primary'>Register</span>
+              <span className="text-primary">Register</span>
             </DialogTitle>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
+            <div className="flex flex-col gap-2">
+              <label className="opacity-70 text-[10px] uppercase font-bold">
+                Username<em>*</em>
+              </label>
+              <RHFInput
+                name="username"
+                inputStyle="underline"
+                placeholder="Username"
+                className="w-full"
+              />
+            </div>
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
                 Email<em>*</em>

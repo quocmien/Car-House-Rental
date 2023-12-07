@@ -11,6 +11,8 @@ import * as yup from 'yup';
 import isEmpty from 'lodash/isEmpty';
 import { Session } from 'next-auth';
 import { useToast } from '@/components/ui/use-toast';
+import { postFormData } from '@/utils/post-form-data';
+import { postData } from '@/utils/post-data';
 
 interface Props {
   session: Session;
@@ -56,58 +58,6 @@ const formSchema = yup.object({
     .required('Previews is required'),
 });
 
-const fetcherFormData = async ({
-  url,
-  body,
-  token,
-}: {
-  url: string;
-  body: FormData | any;
-  token: string;
-}) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_REST_API}/${url}`, {
-    body: body,
-    method: 'post',
-    headers: new Headers({
-      Authorization: 'Bearer ' + token,
-    }),
-  });
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-};
-
-const fetcher = async ({
-  url,
-  body,
-  token,
-}: {
-  url: string;
-  body: FormData | any;
-  token: string;
-}) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_REST_API}/${url}`, {
-    body: body,
-    method: 'post',
-    mode: 'cors',
-    headers: new Headers({
-      Authorization: 'Bearer ' + token,
-      'Content-Type': 'application/json',
-    }),
-  });
-
-  if (res.ok) {
-    return res.json();
-  }
-  return res.text().then((text) => {
-    throw new Error(text);
-  });
-};
-
 export function AddProduct({ session }: Props) {
   const { toast } = useToast();
 
@@ -139,19 +89,19 @@ export function AddProduct({ session }: Props) {
         });
 
       const [resRemoteImage, resRemotePreviews] = await Promise.all([
-        fetcherFormData({
+        postFormData({
           url: 'upload',
           body: formData,
           token: session?.user?.accessToken,
         }),
-        fetcherFormData({
+        postFormData({
           url: 'upload',
           body: formDataPreviews,
           token: session?.user?.accessToken,
         }),
       ]);
 
-      await fetcher({
+      await postData({
         url: 'products',
         body: JSON.stringify({
           data: {

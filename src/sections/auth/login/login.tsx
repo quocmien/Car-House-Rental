@@ -14,7 +14,8 @@ import { DialogProps } from '@radix-ui/react-dialog';
 import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { signIn } from 'next-auth/react';
+import { SignInResponse, signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface IProps {
   children: ReactNode;
@@ -37,6 +38,8 @@ const formSchema = z.object({
 });
 
 export function Login({ children, ...other }: IProps & DialogProps) {
+  const router = useRouter();
+
   const methods = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -44,12 +47,24 @@ export function Login({ children, ...other }: IProps & DialogProps) {
 
   const { handleSubmit, setError } = methods;
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      signIn('credentials', {
-        identifier: values.email,
-        password: values.password,
-      });
+      const { ok, error }: any = await signIn(
+        'credentials',
+        {
+          identifier: values.email,
+          password: values.password,
+          redirect: false,
+        }
+      );
+      if (ok) {
+        router.push('/dashboard');
+      } else {
+        console.log(error);
+        setError('password', {
+          message: 'Login failed!',
+        });
+      }
     } catch (error) {
       setError('password', {
         message: 'Login failed!',
@@ -63,13 +78,15 @@ export function Login({ children, ...other }: IProps & DialogProps) {
       <DialogContent className="sm:max-w-[425px]">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle><span className='text-primary'>Sign In</span></DialogTitle>
+            <DialogTitle>
+              <span className="text-primary">Sign In</span>
+            </DialogTitle>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
-                Email<em className='text-red-500'>*</em>
+                Email<em className="text-red-500">*</em>
               </label>
               <RHFInput
                 name="email"
@@ -80,7 +97,7 @@ export function Login({ children, ...other }: IProps & DialogProps) {
             </div>
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
-                Password<em className='text-red-500'>*</em>
+                Password<em className="text-red-500">*</em>
               </label>
               <RHFInput
                 type="password"
