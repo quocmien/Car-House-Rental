@@ -32,7 +32,7 @@ const NavItems = ({ session }: IProps) => {
   return (
     <nav className="flex items-center">
       <ul className="primary-nav hidden md:flex border-r-[1px] pr-[15px] mr-[15px] text-[11px] font-bold items-center">
-        {/* <li className="active has-child">
+        <li className="active has-child">
           <HoverCard openDelay={0}>
             <HoverCardTrigger asChild>
               <a
@@ -115,7 +115,7 @@ const NavItems = ({ session }: IProps) => {
               <HoverCardArrow className="fill-white shadow-md" />
             </HoverCardContent>
           </HoverCard>
-        </li> */}
+        </li>
         <li className="px-[6px] py-[4px] rounded-[30px] uppercase">Blog</li>
         <li className="px-[6px] py-[4px] rounded-[30px] uppercase">CONTACT</li>
       </ul>

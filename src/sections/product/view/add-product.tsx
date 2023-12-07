@@ -1,21 +1,25 @@
 'use client';
 import { RHFInput } from '@/components/hook-form';
 import FormProvider from '@/components/hook-form/form-provider';
+import { RHFSelect } from '@/components/hook-form/rhf-select';
 import RHFUpload from '@/components/hook-form/rhf-upload';
 import { Button } from '@/components/ui/button';
+import { SelectItem } from '@/components/ui/select';
+import { useToast } from '@/components/ui/use-toast';
+import { postData } from '@/utils/post-data';
+import { postFormData } from '@/utils/post-form-data';
 import { yupResolver } from '@hookform/resolvers/yup';
+import isEmpty from 'lodash/isEmpty';
+import { Loader2 } from 'lucide-react';
+import { Session } from 'next-auth';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import slugify from 'slugify';
 import * as yup from 'yup';
-import isEmpty from 'lodash/isEmpty';
-import { Session } from 'next-auth';
-import { useToast } from '@/components/ui/use-toast';
-import { postFormData } from '@/utils/post-form-data';
-import { postData } from '@/utils/post-data';
 
 interface Props {
   session: Session;
+  categories: any;
 }
 
 type FormValueProp = {
@@ -25,6 +29,7 @@ type FormValueProp = {
   address: string;
   price: number;
   displayPrice: string;
+  category: string;
   image: File | string | null;
   previews: (File | string)[] | null;
 };
@@ -36,6 +41,7 @@ const defaultValues = {
   address: '',
   price: 0,
   displayPrice: '',
+  category: '',
   image: '',
   previews: [],
 };
@@ -48,6 +54,7 @@ const formSchema = yup.object({
   price: yup.number(),
   address: yup.string(),
   displayPrice: yup.string(),
+  category: yup.string(),
   image: yup
     .mixed()
     .transform((v) => (!v ? undefined : v))
@@ -58,7 +65,7 @@ const formSchema = yup.object({
     .required('Previews is required'),
 });
 
-export function AddProduct({ session }: Props) {
+export function AddProduct({ session, categories }: Props) {
   const { toast } = useToast();
 
   const methods = useForm<FormValueProp>({
@@ -70,7 +77,8 @@ export function AddProduct({ session }: Props) {
     handleSubmit,
     setValue,
     watch,
-    formState: { isSubmitting },
+    setError,
+    formState: { isSubmitting, errors },
   } = methods;
 
   const values = watch();
@@ -115,20 +123,24 @@ export function AddProduct({ session }: Props) {
       });
 
       toast({
-        title: "Add product successfully!"
-      })
-
+        title: 'Add product successfully!',
+      });
     } catch (error: any) {
-      let errorMessage = JSON.parse(error?.message || "")
-      errorMessage = errorMessage?.error?.details?.errors?.[0]
+      if (error?.message) {
+        let errorMessage = JSON.parse(error?.message || '');
+        errorMessage = errorMessage?.error?.details?.errors?.[0];
 
-      if (errorMessage) {
-        toast({
-          variant: 'destructive',
-          title: 'Uh oh! Something went wrong.',
-          description: `${errorMessage?.path}: ${errorMessage?.message}`,
-        });
+        if (errorMessage) {
+          toast({
+            variant: 'destructive',
+            title: 'Uh oh! Something went wrong.',
+            description: `${errorMessage?.path}: ${errorMessage?.message}`,
+          });
+        }
       }
+      setError('root', {
+        message: 'Some thing went wrong!',
+      });
     }
   };
 
@@ -211,6 +223,22 @@ export function AddProduct({ session }: Props) {
           </div>
           <div className="flex flex-col gap-2">
             <label className="opacity-70 text-[10px] uppercase font-bold">
+              Category
+            </label>
+            <RHFSelect name="category" placeholder="Category">
+              {categories?.map((category: any) => {
+                const attributes = category?.attributes;
+
+                return (
+                  <SelectItem key={category?.id} value={category?.id}>
+                    {attributes?.name}
+                  </SelectItem>
+                );
+              })}
+            </RHFSelect>
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="opacity-70 text-[10px] uppercase font-bold">
               Price
             </label>
             <RHFInput
@@ -282,8 +310,14 @@ export function AddProduct({ session }: Props) {
             />
           </div>
         </div>
+        <div className='text-red-500 w-full text-center'>{errors.root?.message || ''}</div>
         <div className="flex justify-end">
-          <Button disabled={isSubmitting} type="submit" className="w-full md:w-auto rounded-full mt-4">
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            className="w-full md:w-auto rounded-full mt-4"
+          >
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save changes
           </Button>
         </div>

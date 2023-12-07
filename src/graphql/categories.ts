@@ -20,3 +20,17 @@ query getHomeCategories($filters: CategoryFiltersInput) {
   }
 }
 `;
+
+export const PRODUCT_CATEGORIES = `
+{
+  categories {
+    data {
+      id
+      attributes {
+        name
+        slug
+      }
+    }
+  }
+}
+`;

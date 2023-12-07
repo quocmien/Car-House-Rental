@@ -9,13 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { ReturnTypeBoolean, useBoolean } from '@/hooks/use-boolean';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DialogProps } from '@radix-ui/react-dialog';
+import { signIn } from 'next-auth/react';
 import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { SignInResponse, signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 interface IProps {
   children: ReactNode;
@@ -38,8 +38,7 @@ const formSchema = z.object({
 });
 
 export function Login({ children, ...other }: IProps & DialogProps) {
-  const router = useRouter();
-
+  const open = useBoolean(false);
   const methods = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -49,16 +48,13 @@ export function Login({ children, ...other }: IProps & DialogProps) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const { ok, error }: any = await signIn(
-        'credentials',
-        {
-          identifier: values.email,
-          password: values.password,
-          redirect: false,
-        }
-      );
+      const { ok, error }: any = await signIn('credentials', {
+        identifier: values.email,
+        password: values.password,
+        redirect: false,
+      });
       if (ok) {
-        router.push('/dashboard');
+        open.onFalse();
       } else {
         console.log(error);
         setError('password', {
@@ -73,7 +69,11 @@ export function Login({ children, ...other }: IProps & DialogProps) {
   };
 
   return (
-    <Dialog {...other}>
+    <Dialog
+      {...other}
+      open={open.value}
+      onOpenChange={(status) => (status ? open.onTrue() : open.onFalse())}
+    >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

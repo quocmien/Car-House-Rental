@@ -9,14 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { ReturnTypeBoolean, useBoolean } from '@/hooks/use-boolean';
+import { postData } from '@/utils/post-data';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { DialogProps } from '@radix-ui/react-dialog';
 import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
-import { signIn } from 'next-auth/react';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { postData } from '@/utils/post-data';
-import { Session } from 'next-auth';
 
 interface IProps {
   children: ReactNode;
@@ -41,6 +40,7 @@ const formSchema = yup.object({
 });
 
 export function Register({ children, ...other }: IProps & DialogProps) {
+  const open = useBoolean(false);
   const methods = useForm<FormValueProp>({
     resolver: yupResolver(formSchema),
     defaultValues,
@@ -54,6 +54,7 @@ export function Register({ children, ...other }: IProps & DialogProps) {
         url: 'auth/local/register',
         body: JSON.stringify(values),
       });
+      open.onFalse();
     } catch (error: any) {
       if (error?.message) {
         setError('password', {
@@ -68,7 +69,10 @@ export function Register({ children, ...other }: IProps & DialogProps) {
   };
 
   return (
-    <Dialog {...other}>
+    <Dialog
+      {...other}
+      onOpenChange={(status) => (status ? open.onTrue() : open.onFalse())}
+    >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

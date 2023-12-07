@@ -14,12 +14,14 @@ type RHFSelectProps = SelectProps & {
   name: string;
   children: React.ReactNode;
   description?: string;
+  placeholder?: string;
 };
 
 export function RHFSelect({
   name,
   description,
   children,
+  placeholder,
   ...other
 }: RHFSelectProps) {
   const { control } = useFormContext();
@@ -33,7 +35,7 @@ export function RHFSelect({
           <FormControl>
             <Select onValueChange={field.onChange} {...field} {...other}>
               <SelectTrigger className="shadow-none bg-transparent border-0 border-b-2 border-b-[#00000014] rounded-0 outline-none pl-0">
-                <SelectValue placeholder="Localtion" />
+                <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent>{children}</SelectContent>
             </Select>
