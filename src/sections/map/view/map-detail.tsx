@@ -17,14 +17,10 @@ import SearchResults from '../components/search-results';
 const MapDetail = async () => {
   const [
     {
-      data: {
-        products: { data: products },
-      },
+      data: { productsData },
     },
     {
-      data: {
-        categories: { data: categories },
-      },
+      data: { categoriesData },
     },
   ] = await Promise.all([
     fetchData(HOME_PRODUCTS_QUERY),
@@ -38,6 +34,9 @@ const MapDetail = async () => {
       },
     }),
   ]);
+
+  const products = productsData?.data?.products;
+  const categories = categoriesData?.data?.categories;
 
   return (
     <div>

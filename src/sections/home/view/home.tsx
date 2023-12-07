@@ -16,12 +16,12 @@ const Home = async () => {
   const [
     {
       data: {
-        products: { data: products },
+        productsData
       },
     },
     {
       data: {
-        categories: { data: categories },
+        categoriesData
       },
     },
   ] = await Promise.all([
@@ -36,6 +36,9 @@ const Home = async () => {
       },
     }),
   ]);
+  
+  const products = productsData?.data?.products
+  const categories = categoriesData?.data?.categories
 
   return (
     <div className="min-h-full flex flex-col">
