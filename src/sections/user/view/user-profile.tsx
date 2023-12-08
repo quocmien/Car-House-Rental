@@ -1,8 +1,10 @@
+
 import Breadcrumb from '@/sections/product/components/breadcrumb';
 import React from 'react';
 import UserInforForm from '../components/user-infor-form';
 import { NEXT_AUTH_OPTIONS } from '@/configs/auth-option';
 import { getServerSession } from 'next-auth/next';
+import QRCode from './qr-code';
 
 const UserProfile = async () => {
   const session = await getServerSession(NEXT_AUTH_OPTIONS);
@@ -28,6 +30,9 @@ const UserProfile = async () => {
           <div className="grid grid-cols-6 gap-4">
             <div className="md:col-start-2 md:col-span-4">
               <h3 className="text-primary text-lg mb-[10px]">About you</h3>
+              <div className="qr-code__container text-center">
+                <QRCode />
+              </div>
               <UserInforForm session={session} />
             </div>
           </div>
