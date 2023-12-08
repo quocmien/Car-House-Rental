@@ -32,7 +32,7 @@ const NavItems = ({ session }: IProps) => {
   return (
     <nav className="flex items-center">
       <ul className="primary-nav hidden md:flex border-r-[1px] pr-[15px] mr-[15px] text-[11px] font-bold items-center">
-        <li className="active has-child">
+        {/* <li className="active has-child">
           <HoverCard openDelay={0}>
             <HoverCardTrigger asChild>
               <a
@@ -115,7 +115,7 @@ const NavItems = ({ session }: IProps) => {
               <HoverCardArrow className="fill-white shadow-md" />
             </HoverCardContent>
           </HoverCard>
-        </li>
+        </li> */}
         <li className="px-[6px] py-[4px] rounded-[30px] uppercase">Blog</li>
         <li className="px-[6px] py-[4px] rounded-[30px] uppercase">CONTACT</li>
       </ul>
@@ -144,12 +144,16 @@ const NavItems = ({ session }: IProps) => {
         )}
       </div>
       <div className="w-7 h-7 md:w-auto md:h-auto">
-        <Link href="product/add">
-          <Button className="rounded-full font-bold p-0 md:p-2 w-full h-full">
-            <Plus strokeWidth={3} className="w-4 h-4 text-white " />
-            <span className="hidden md:block text-xs">ADD PRODUCT</span>
-          </Button>
-        </Link>
+        {
+          session ? (
+          <Link href="product/add">
+            <Button className="rounded-full font-bold p-0 md:p-2 w-full h-full">
+              <Plus strokeWidth={3} className="w-4 h-4 text-white " />
+              <span className="hidden md:block text-xs">ADD PRODUCT</span>
+            </Button>
+          </Link>
+          ) : ''
+        }
       </div>
       <div className="md:hidden">
         <HoverCard open={menuMobile.value} openDelay={0}>
