@@ -18,13 +18,12 @@ const UserNavBar = ({ username }: IProps) => {
   return (
     <HoverCard openDelay={0}>
       <HoverCardTrigger asChild>
-        <a
-          href=""
+        <div
           className="px-[6px] py-[4px] rounded-[30px] uppercase border-[2px] border-transparent flex items-start"
         >
           <span>{username}</span>
           <ChevronDown className="h-4 w-4" />
-        </a>
+        </div>
       </HoverCardTrigger>
       <HoverCardContent className="border-none p-0" side="bottom" align="start">
         <ul>

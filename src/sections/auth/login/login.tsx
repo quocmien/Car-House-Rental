@@ -13,6 +13,7 @@ import { ReturnTypeBoolean, useBoolean } from '@/hooks/use-boolean';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DialogProps } from '@radix-ui/react-dialog';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -38,6 +39,7 @@ const formSchema = z.object({
 });
 
 export function Login({ children, ...other }: IProps & DialogProps) {
+  const router = useRouter()
   const open = useBoolean(false);
   const methods = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,6 +57,7 @@ export function Login({ children, ...other }: IProps & DialogProps) {
       });
       if (ok) {
         open.onFalse();
+        router.refresh()
       } else {
         console.log(error);
         setError('password', {

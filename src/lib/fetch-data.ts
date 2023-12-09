@@ -3,20 +3,27 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
 
 export default async function fetchData(
   query: string,
-  variables = {}
+  variables = {},
+  token = ''
   // usePonyfill = true
 ) {
-  
   const res = await fetch(baseUrl, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: new Headers(
+      token
+        ? {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+          }
+        : {
+            'Content-Type': 'application/json',
+          }
+    ),
     body: JSON.stringify({
       query,
       variables,
     }),
-    cache: 'no-store'
+    cache: 'no-store',
     // next: { revalidate },
   });
   // The return value is *not* serialized

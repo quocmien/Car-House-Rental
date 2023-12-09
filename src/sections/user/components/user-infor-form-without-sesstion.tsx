@@ -6,18 +6,15 @@ import { SelectItem } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
 import { GENDERS } from '@/configs/global-configs';
 import { fetchDataRest } from '@/lib/fetch-data-rest';
-import { getDirtyValues } from '@/utils/form';
-import { postData } from '@/utils/post-data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Loader2 } from 'lucide-react';
-import { Session } from 'next-auth';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 import * as yup from 'yup';
 
 interface IProps {
-  session: Session | null;
+  userId: string | number;
 }
 
 type FormValueProp = {
@@ -53,11 +50,11 @@ const formSchema = yup.object({
   dob: yup.string(),
 });
 
-const UserInforForm = ({ session }: IProps) => {
+const UserInforFormWithoutSession = ({ userId }: IProps) => {
   const { toast } = useToast();
 
-  const { data } = useSWR(`user/${session?.user?.id}`, () =>
-    fetchDataRest(`users/${session?.user?.id!}`, session?.user?.accessToken!)
+  const { data } = useSWR(`user/${userId}`, () =>
+    fetchDataRest(`users/${userId!}`)
   );
 
   const methods = useForm<FormValueProp>({
@@ -65,40 +62,15 @@ const UserInforForm = ({ session }: IProps) => {
     defaultValues,
   });
 
-  const {
-    reset,
-    handleSubmit,
-    setError,
-    formState: { dirtyFields, errors, isDirty, isSubmitting },
-  } = methods;
+  const { reset } = methods;
 
   useEffect(() => {
     if (!data) return;
     reset(data);
   }, [data]);
 
-  const onSubmit = async (values: FormValueProp) => {
-    const changedValue = getDirtyValues(dirtyFields as any, values);
-
-    try {
-      await postData({
-        url: `users/${session?.user?.id}`,
-        method: 'put',
-        body: JSON.stringify(changedValue),
-        token: session?.user?.accessToken,
-      });
-      toast({
-        title: 'Save changes successfully!',
-      });
-    } catch (error) {
-      setError('root', {
-        message: 'Some thing went wrong!',
-      });
-    }
-  };
-
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods}>
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -136,6 +108,7 @@ const UserInforForm = ({ session }: IProps) => {
               inputStyle="underline"
               placeholder="Your first name"
               className="w-full"
+              disabled
             />
           </div>
           <div>
@@ -147,6 +120,7 @@ const UserInforForm = ({ session }: IProps) => {
               inputStyle="underline"
               placeholder="Your last name"
               className="w-full"
+              disabled
             />
           </div>
         </div>
@@ -160,6 +134,7 @@ const UserInforForm = ({ session }: IProps) => {
               inputStyle="underline"
               placeholder="Your phone number"
               className="w-full"
+              disabled
             />
           </div>
           <div>
@@ -171,6 +146,7 @@ const UserInforForm = ({ session }: IProps) => {
               inputStyle="underline"
               placeholder="Your address"
               className="w-full"
+              disabled
             />
           </div>
         </div>
@@ -179,7 +155,7 @@ const UserInforForm = ({ session }: IProps) => {
             <label className="opacity-70 text-[10px] uppercase font-bold">
               Gender
             </label>
-            <RHFSelect name="gender" placeholder="Gender">
+            <RHFSelect name="gender" placeholder="Gender" disabled>
               {GENDERS?.map((gender: any) => (
                 <SelectItem key={gender} value={gender}>
                   {gender}
@@ -196,25 +172,13 @@ const UserInforForm = ({ session }: IProps) => {
               inputStyle="underline"
               placeholder="YYYY/MM/dd"
               className="w-full"
+              disabled
             />
           </div>
-        </div>
-        <div className="text-red-500 w-full text-center">
-          {errors.root?.message || ''}
-        </div>
-        <div className="flex justify-center">
-          <Button
-            disabled={!isDirty || isSubmitting}
-            type="submit"
-            className="w-full md:w-auto rounded-full mt-4"
-          >
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Save changes
-          </Button>
         </div>
       </div>
     </FormProvider>
   );
 };
 
-export default UserInforForm;
+export default UserInforFormWithoutSession;

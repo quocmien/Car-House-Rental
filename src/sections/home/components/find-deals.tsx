@@ -57,8 +57,19 @@ const FindDeals = () => {
                 </SelectContent>
               </Select>
             </div>
-            <div className="sm:col-span-4 md:col-span-2">
+            {/* <div className="sm:col-span-4 md:col-span-2">
               <DatePicker />
+            </div> */}
+            <div className="sm:col-span-4 md:col-span-2">
+              <SlidersCustom
+                className="pb-[30px]"
+                isShowValue
+                prefixValue="$"
+                defaultValue={[10, 400]}
+                min={10}
+                max={400}
+                step={10}
+              />
             </div>
             <div className="sm:col-span-4 md:col-span-1">
               <Button className="w-full h-11">
@@ -67,7 +78,7 @@ const FindDeals = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-[15px] md:space-y-0 md:grid md:grid-cols-12 gap-[15px] sm:gap-x-[30px] items-center">
-            <div className="md:col-span-9 w-full">
+            {/* <div className="md:col-span-9 w-full">
               <div className="grid grid-cols-2 sm:flex flex-wrap gap-[15px] sm:gap-x-[20px]">
                 {DEAL_CATEGORIES.map((category) => (
                   <div
@@ -84,8 +95,8 @@ const FindDeals = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="md:col-span-2 w-full">
+            </div> */}
+            {/* <div className="md:col-span-2 w-full">
               <SlidersCustom
                 className="pb-[30px]"
                 isShowValue
@@ -95,7 +106,7 @@ const FindDeals = () => {
                 max={400}
                 step={10}
               />
-            </div>
+            </div> */}
           </div>
         </form>
       </div>

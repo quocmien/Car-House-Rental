@@ -7,7 +7,7 @@ import EventNearYou from '@/sections/home/components/event-near-you';
 import FromBlog from '@/sections/home/components/from-blog';
 import Partner from '@/sections/home/components/partner';
 import PromoteLocation from '@/sections/home/components/promote-location';
-import RecentPlaces from '@/sections/home/components/recent-places';
+import ProductItem from '@/sections/home/components/product-item';
 import RecentRelatedItems from '@/sections/home/components/recent-related-items';
 import Subcribe from '@/sections/home/components/subcribe';
 import React from 'react';
@@ -18,13 +18,7 @@ const MapDetail = async () => {
   const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
     fetchData(HOME_PRODUCTS_QUERY),
     fetchData(HOME_CATEGORIES_QUERY, {
-      filters: {
-        children: {
-          id: {
-            notNull: true,
-          },
-        },
-      },
+      filters: {},
     }),
   ]);
 
@@ -47,7 +41,11 @@ const MapDetail = async () => {
           <SearchResults products={products || []} />
         </div>
       </div>
-      <RecentPlaces products={products || []} />
+      <ProductItem
+        products={products || []}
+        title="Recent Places"
+        description="Fusce eu mollis dui, varius convallis mauris. Nam dictum id"
+      />
       <div className="block-section container">
         <hr />
       </div>

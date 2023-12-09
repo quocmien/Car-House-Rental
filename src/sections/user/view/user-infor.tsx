@@ -1,19 +1,15 @@
-import { NEXT_AUTH_OPTIONS } from '@/configs/auth-option';
 import { HOME_CATEGORIES_QUERY } from '@/graphql/categories';
 import fetchData from '@/lib/fetch-data';
 import Breadcrumb from '@/sections/product/components/breadcrumb';
-import { getServerSession } from 'next-auth/next';
-import ProductByCategoryId from '../components/product-by-category-id';
-import UserInforForm from '../components/user-infor-form';
+import ProductByCategoryIdWithourSession from '../components/product-by-category-id-without-session';
+import UserInforFormWithoutSession from '../components/user-infor-form-without-sesstion';
 import QRCode from './qr-code';
 
-const UserProfile = async () => {
-  const session = await getServerSession(NEXT_AUTH_OPTIONS);
+interface IProps {
+  id: number;
+}
 
-  if (!session) {
-    return <div>Please Sign In!</div>;
-  }
-
+const UserInfo = async ({ id }: IProps) => {
   const [{ data: categoriesData }] = await Promise.all([
     fetchData(HOME_CATEGORIES_QUERY, {
       filters: {},
@@ -27,18 +23,18 @@ const UserProfile = async () => {
       <Breadcrumb />
       <section className="block">
         <h1 className="container text-primary text-center text-4xl opacity-80 font-light">
-          Your Profile
+          Profile
         </h1>
       </section>
       <section className="block">
         <div className="container">
           <div className="grid grid-cols-6 gap-4">
             <div className="md:col-start-2 md:col-span-4">
-              <h3 className="text-primary text-lg mb-[10px]">About you</h3>
+              <h3 className="text-primary text-lg mb-[10px]">QR Code</h3>
               <div className="qr-code__container text-center">
                 <QRCode />
               </div>
-              <UserInforForm session={session} />
+              <UserInforFormWithoutSession userId={id} />
             </div>
           </div>
         </div>
@@ -47,10 +43,10 @@ const UserProfile = async () => {
         const category = item?.attributes;
 
         return (
-          <ProductByCategoryId
+          <ProductByCategoryIdWithourSession
             key={item?.id}
-            id={item?.id}
-            session={session}
+            categoryId={item?.id}
+            userId={id}
             categoryName={category?.name}
           />
         );
@@ -59,4 +55,4 @@ const UserProfile = async () => {
   );
 };
 
-export default UserProfile;
+export default UserInfo;

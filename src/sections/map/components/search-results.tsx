@@ -22,7 +22,7 @@ const SearchResults = ({ products }: any) => {
                   // priceText={`Average Price: $${
                   //   (product?.price * product?.discountPercentage) / 100
                   // } - $${product?.price}`}
-                  priceText={`Average Price: $${product?.displayPrice}`}
+                  priceText={`${product?.displayPrice}`}
                   category={product?.category?.data?.attributes?.name}
                   name={product?.name}
                   address={product?.address}

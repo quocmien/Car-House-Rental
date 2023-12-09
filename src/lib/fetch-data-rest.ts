@@ -1,10 +1,17 @@
-const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE) || 3600 // 1h
-const baseUrl = process.env.NEXT_PUBLIC_REST_API
+const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE) || 3600; // 1h
+const baseUrl = process.env.NEXT_PUBLIC_REST_API;
 
-export const fetchDataRest = async (url: string) => {
+export const fetchDataRest = async (url: string, token = '') => {
   const res = await fetch(`${baseUrl}/${url}`, {
     // next: { revalidate }
-    cache: 'no-store'
+    headers: new Headers(
+      token
+        ? {
+            Authorization: 'Bearer ' + token,
+          }
+        : {}
+    ),
+    cache: 'no-store',
   });
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -15,4 +22,4 @@ export const fetchDataRest = async (url: string) => {
   }
 
   return res.json();
-}
+};

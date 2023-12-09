@@ -146,7 +146,7 @@ const NavItems = ({ session }: IProps) => {
       <div className="w-7 h-7 md:w-auto md:h-auto">
         {
           session ? (
-          <Link href="product/add">
+          <Link href="/product/add">
             <Button className="rounded-full font-bold p-0 md:p-2 w-full h-full">
               <Plus strokeWidth={3} className="w-4 h-4 text-white " />
               <span className="hidden md:block text-xs">ADD PRODUCT</span>

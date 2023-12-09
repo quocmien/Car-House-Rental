@@ -8,40 +8,31 @@ import FromBlog from '../components/from-blog';
 import Heroes from '../components/heroes';
 import Partner from '../components/partner';
 import PromoteLocation from '../components/promote-location';
-import RecentPlaces from '../components/recent-places';
+import ProductItem from '../components/product-item';
 import RecentRelatedItems from '../components/recent-related-items';
 import Subcribe from '../components/subcribe';
 
 const Home = async () => {
-  const [
-    {
-      data: productsData
-    },
-    {
-      data: categoriesData,
-    },
-  ] = await Promise.all([
+  const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
     fetchData(HOME_PRODUCTS_QUERY),
     fetchData(HOME_CATEGORIES_QUERY, {
-      filters: {
-        children: {
-          id: {
-            notNull: true,
-          },
-        },
-      },
+      filters: {},
     }),
   ]);
 
-  const products = productsData?.products?.data
-  const categories = categoriesData?.categories?.data
+  const products = productsData?.products?.data;
+  const categories = categoriesData?.categories?.data;
 
   return (
     <div className="min-h-full flex flex-col">
       <div className="flex flex-col">
         <Heroes />
         <FindDeals />
-        <RecentPlaces products={products || []} />
+        <ProductItem
+          products={products || []}
+          title="Recent Places"
+          description="Fusce eu mollis dui, varius convallis mauris. Nam dictum id"
+        />
         <div className="block-section container">
           <hr />
         </div>
