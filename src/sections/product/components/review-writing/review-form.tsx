@@ -1,7 +1,7 @@
 'use client';
 import { InputUnderline } from '@/components/ui/input-underline';
 import { TextareaUnderline } from '@/components/ui/textarea-underline';
-import { Rating } from '@material-tailwind/react';
+// import { Rating } from '@material-tailwind/react';
 import { Star } from 'lucide-react';
 
 const RatedIcon = () => (
@@ -36,7 +36,7 @@ const ReviewForm = () => {
         />
       </div>
       <h4 className="text-sm font-bold">Rating</h4>
-      <div>
+      {/* <div>
         <div className="text-sm">Comfort</div>
         <Rating
           count={10}
@@ -80,7 +80,7 @@ const ReviewForm = () => {
           ratedIcon={<RatedIcon />}
           unratedIcon={<UnratedIcon />}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
