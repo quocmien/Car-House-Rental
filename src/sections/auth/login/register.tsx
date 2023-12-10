@@ -71,6 +71,7 @@ export function Register({ children, ...other }: IProps & DialogProps) {
   return (
     <Dialog
       {...other}
+      open={open.value}
       onOpenChange={(status) => (status ? open.onTrue() : open.onFalse())}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>

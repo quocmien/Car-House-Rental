@@ -9,3 +9,5 @@ export const preventRefreshSwr = {
   refreshInterval: 0,
   revalidateIfStale: false,
 }
+
+export const DATE_FORMAT = 'dd/MM/yyyy';

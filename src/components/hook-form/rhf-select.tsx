@@ -17,7 +17,7 @@ type RHFSelectProps = SelectProps & {
   placeholder?: string;
 };
 
-export function RHFSelect({
+export default function RHFSelect({
   name,
   description,
   children,

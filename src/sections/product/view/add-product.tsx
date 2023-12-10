@@ -1,7 +1,6 @@
 'use client';
-import { RHFInput } from '@/components/hook-form';
+import { RHFInput, RHFSelect } from '@/components/hook-form';
 import FormProvider from '@/components/hook-form/form-provider';
-import { RHFSelect } from '@/components/hook-form/rhf-select';
 import RHFUpload from '@/components/hook-form/rhf-upload';
 import { Button } from '@/components/ui/button';
 import { SelectItem } from '@/components/ui/select';

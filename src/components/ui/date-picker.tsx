@@ -2,46 +2,61 @@
 
 import * as React from 'react';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar, CalendarProps } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useBoolean } from '@/hooks/use-boolean';
 
-interface Props {
+export interface DatePickerProps {
   placeholder?: string;
   className?: string;
+  value?: number | Date;
+  inputFormat?: string;
+  underline?: boolean;
+  onClose?: VoidFunction;
 }
 
-export function DatePicker({ placeholder, className, ...props }: Props) {
-  const [date, setDate] = React.useState<Date>();
-
+export function DatePicker({
+  placeholder,
+  className,
+  value,
+  inputFormat,
+  onClose,
+  underline = false,
+  ...field
+}: DatePickerProps & CalendarProps) {
+  const open = useBoolean();
   return (
-    <Popover>
+    <Popover
+      open={open.value}
+      onOpenChange={(status) => {
+        !status && !!onClose && onClose();
+        return status ? open.onTrue() : open.onFalse();
+      }}
+    >
       <PopoverTrigger className="h-11" asChild>
         <Button
           variant={'outline'}
-          className={cn('w-full justify-start text-left font-normal', className)}
+          className={cn(
+            'w-full justify-start text-left font-normal',
+            className,
+            underline && 'border-0 border-b-2'
+          )}
         >
-          {date ? (
-            format(date, 'dd/MM/yyyy')
+          {value ? (
+            format(value, inputFormat || 'dd/MM/yyyy')
           ) : (
             <span>{placeholder || 'Pick a date'}</span>
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
+        <Calendar {...field} />
       </PopoverContent>
     </Popover>
   );

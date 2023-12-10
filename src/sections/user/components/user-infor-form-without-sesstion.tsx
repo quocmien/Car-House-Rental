@@ -1,6 +1,5 @@
 'use client';
-import FormProvider, { RHFInput } from '@/components/hook-form';
-import { RHFSelect } from '@/components/hook-form/rhf-select';
+import FormProvider, { RHFInput, RHFSelect } from '@/components/hook-form';
 import { Button } from '@/components/ui/button';
 import { SelectItem } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
