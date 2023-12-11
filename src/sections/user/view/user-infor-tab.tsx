@@ -26,7 +26,10 @@ const UserInforTab = ({ products, categories }: IProps) => {
         const items = product?.data?.products?.data;
 
         return (
-          <TabsContent value={categories[index]?.id}>
+          <TabsContent
+            key={categories[index]?.id}
+            value={categories[index]?.id}
+          >
             <ProductByCategoryIdWithourSession
               key={categories[index]?.id}
               categoryName={categories[index]?.attributes?.name}
