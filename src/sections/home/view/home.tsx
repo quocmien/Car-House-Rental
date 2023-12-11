@@ -14,7 +14,12 @@ import Subcribe from '../components/subcribe';
 
 const Home = async () => {
   const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
-    fetchData(HOME_PRODUCTS_QUERY),
+    fetchData(HOME_PRODUCTS_QUERY, {
+      pagination: {
+        pageSize: 6,
+        page: 0,
+      },
+    }),
     fetchData(HOME_CATEGORIES_QUERY, {
       filters: {},
     }),

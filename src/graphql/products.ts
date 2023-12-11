@@ -8,11 +8,11 @@ export const ALL_PRODUCTS_SLUGS = `
     }
   }
 }
-`
+`;
 
 export const HOME_PRODUCTS_QUERY = `
-query getProducts {
-  products {
+query getProducts($pagination: PaginationArg) {
+  products(pagination: $pagination) {
     data {
       id
       attributes {
@@ -55,7 +55,7 @@ query getProducts {
     }
   }
 }
-`
+`;
 
 export const USER_PRODUCT_QUERY = `
 query OwnProductQuery($filters: ProductFiltersInput, $pagination: PaginationArg) {
@@ -97,4 +97,4 @@ query OwnProductQuery($filters: ProductFiltersInput, $pagination: PaginationArg)
     }
   }
 }
-`
+`;

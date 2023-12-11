@@ -1,5 +1,4 @@
 import UserInfor from '@/sections/user/view/user-infor';
-import UserProfile from '@/sections/user/view/user-profile';
 
 // Return a list of `params` to populate the [slug] dynamic segment
 // export async function generateStaticParams() {

@@ -9,16 +9,20 @@ import { ChevronDown } from 'lucide-react';
 import React from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { useBoolean } from '@/hooks/use-boolean';
 
 interface IProps {
   username: string;
 }
 
 const UserNavBar = ({ username }: IProps) => {
+  const menuMobile = useBoolean();
+
   return (
-    <HoverCard openDelay={0}>
+    <HoverCard open={menuMobile.value} openDelay={0}>
       <HoverCardTrigger asChild>
         <div
+          onClick={menuMobile.onToggle}
           className="px-[6px] py-[4px] rounded-[30px] uppercase border-[2px] border-transparent flex items-start"
         >
           <span>{username}</span>

@@ -1,13 +1,9 @@
-'use client';
+'use client'
 import * as React from 'react';
 import { useQRCode } from 'next-qrcode';
-import { usePathname } from 'next/navigation';
 
-const QRCode = async () => {
-  const pathname = usePathname();
+const QRCode = ({ text }: { text: string }) => {
   const { SVG } = useQRCode();
-
-  const text = process.env.NEXT_PUBLIC_DOMAIN + pathname
 
   return (
     <SVG

@@ -5,14 +5,18 @@ export const postFormData = async ({
 }: {
   url: string;
   body: FormData | any;
-  token: string;
+  token?: string;
 }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_REST_API}/${url}`, {
     body: body,
     method: 'post',
-    headers: new Headers({
-      Authorization: 'Bearer ' + token,
-    }),
+    headers: new Headers(
+      token
+        ? {
+            Authorization: 'Bearer ' + token,
+          }
+        : {}
+    ),
   });
 
   if (!res.ok) {

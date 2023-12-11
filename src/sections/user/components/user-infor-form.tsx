@@ -99,7 +99,7 @@ const UserInforForm = ({ session }: IProps) => {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <label className="opacity-70 text-[10px] uppercase font-bold">
               Username
@@ -125,7 +125,7 @@ const UserInforForm = ({ session }: IProps) => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <label className="opacity-70 text-[10px] uppercase font-bold">
               First Name
@@ -149,7 +149,7 @@ const UserInforForm = ({ session }: IProps) => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <label className="opacity-70 text-[10px] uppercase font-bold">
               Phone Number

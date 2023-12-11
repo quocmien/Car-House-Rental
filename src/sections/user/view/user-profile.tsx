@@ -3,9 +3,9 @@ import { HOME_CATEGORIES_QUERY } from '@/graphql/categories';
 import fetchData from '@/lib/fetch-data';
 import Breadcrumb from '@/sections/product/components/breadcrumb';
 import { getServerSession } from 'next-auth/next';
-import ProductByCategoryId from '../components/product-by-category-id';
-import UserInforForm from '../components/user-infor-form';
-import QRCode from './qr-code';
+import UserTab from './user-tabs';
+import { USER_PRODUCT_QUERY } from '@/graphql/products';
+import { PROFILE_BOOKING_QUERY } from '@/graphql/bookings';
 
 const UserProfile = async () => {
   const session = await getServerSession(NEXT_AUTH_OPTIONS);
@@ -14,47 +14,68 @@ const UserProfile = async () => {
     return <div>Please Sign In!</div>;
   }
 
-  const [{ data: categoriesData }] = await Promise.all([
+  const [{ data: categoriesData }, { data: bookingsData }] = await Promise.all([
     fetchData(HOME_CATEGORIES_QUERY, {
       filters: {},
     }),
+    fetchData(
+      PROFILE_BOOKING_QUERY,
+      {
+        filters: {
+          user: {
+            id: {
+              eq: 1,
+            },
+          },
+        },
+      },
+      session?.user?.accessToken
+    ),
   ]);
 
   const categories = categoriesData?.categories?.data;
+  const bookings = bookingsData?.bookings?.data;
+
+  const productFetchers = categories?.map((item: any) =>
+    fetchData(
+      USER_PRODUCT_QUERY,
+      {
+        filters: {
+          author: {
+            id: {
+              eq: session?.user?.id,
+            },
+          },
+          category: {
+            id: {
+              eq: item?.id,
+            },
+          },
+        },
+        pagination: {
+          page: 0,
+          pageSize: 8,
+        },
+      },
+      session?.user?.accessToken
+    )
+  );
+
+  const products = await Promise.all(productFetchers);
 
   return (
     <div>
       <Breadcrumb />
       <section className="block">
-        <h1 className="container text-primary text-center text-4xl opacity-80 font-light">
-          Your Profile
-        </h1>
-      </section>
-      <section className="block">
         <div className="container">
-          <div className="grid grid-cols-6 gap-4">
-            <div className="md:col-start-2 md:col-span-4">
-              <h3 className="text-primary text-lg mb-[10px]">About you</h3>
-              <div className="qr-code__container text-center">
-                <QRCode />
-              </div>
-              <UserInforForm session={session} />
-            </div>
-          </div>
+          <UserTab
+            session={session}
+            categories={categories}
+            products={products}
+            bookings={bookings}
+          />
         </div>
       </section>
-      {categories?.map((item: any) => {
-        const category = item?.attributes;
-
-        return (
-          <ProductByCategoryId
-            key={item?.id}
-            id={item?.id}
-            session={session}
-            categoryName={category?.name}
-          />
-        );
-      })}
     </div>
   );
 };

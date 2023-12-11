@@ -1,13 +1,16 @@
 import { HOME_CATEGORIES_QUERY } from '@/graphql/categories';
+import { USER_PRODUCT_QUERY } from '@/graphql/products';
 import fetchData from '@/lib/fetch-data';
 import Breadcrumb from '@/sections/product/components/breadcrumb';
 import ProductByCategoryIdWithourSession from '../components/product-by-category-id-without-session';
-import UserInforFormWithoutSession from '../components/user-infor-form-without-sesstion';
 import QRCode from './qr-code';
+import UserInforTab from './user-infor-tab';
 
 interface IProps {
   id: number;
 }
+
+const QR_TEXT = process.env.NEXT_PUBLIC_DOMAIN + '/user/';
 
 const UserInfo = async ({ id }: IProps) => {
   const [{ data: categoriesData }] = await Promise.all([
@@ -17,6 +20,29 @@ const UserInfo = async ({ id }: IProps) => {
   ]);
 
   const categories = categoriesData?.categories?.data;
+
+  const productFetchers = categories?.map((item: any) =>
+    fetchData(USER_PRODUCT_QUERY, {
+      filters: {
+        author: {
+          id: {
+            eq: id,
+          },
+        },
+        category: {
+          id: {
+            eq: item?.id,
+          },
+        },
+      },
+      pagination: {
+        page: 0,
+        pageSize: 8,
+      },
+    })
+  );
+
+  const products = await Promise.all(productFetchers);
 
   return (
     <div>
@@ -31,26 +57,16 @@ const UserInfo = async ({ id }: IProps) => {
           <div className="grid grid-cols-6 gap-4">
             <div className="md:col-start-2 md:col-span-4">
               <h3 className="text-primary text-lg mb-[10px]">QR Code</h3>
-              <div className="qr-code__container text-center">
-                <QRCode />
+              <div className="qr-code__container text-center flex justify-center">
+                <QRCode text={QR_TEXT + id} />
               </div>
-              <UserInforFormWithoutSession userId={id} />
             </div>
+          </div>
+          <div className='mt-3 flex justify-center'>
+            <UserInforTab categories={categories} products={products} />
           </div>
         </div>
       </section>
-      {categories?.map((item: any) => {
-        const category = item?.attributes;
-
-        return (
-          <ProductByCategoryIdWithourSession
-            key={item?.id}
-            categoryId={item?.id}
-            userId={id}
-            categoryName={category?.name}
-          />
-        );
-      })}
     </div>
   );
 };

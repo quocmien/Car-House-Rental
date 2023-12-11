@@ -64,7 +64,6 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
         }),
         token: session?.user?.accessToken,
       });
-      console.log({ values });
       toast({
         title: 'Reserve successfully!',
       });

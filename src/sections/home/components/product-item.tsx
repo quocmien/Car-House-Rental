@@ -18,6 +18,7 @@ const ProductItem = ({
   description,
   isViewAll = true,
 }: IProps) => {
+
   return (
     <section className="block-section">
       <div className="container">
@@ -33,7 +34,7 @@ const ProductItem = ({
         </div>
         {!isEmpty(products) ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-[30px]">
-            {products?.slice(0, 6)?.map((item: any, index: number) => {
+            {products?.map((item: any, index: number) => {
               const product = item?.attributes;
 
               return (
@@ -56,9 +57,7 @@ const ProductItem = ({
             })}
           </div>
         ) : (
-          <div className='flex justify-center'>
-            Not Found {title}!
-          </div>
+          <div className="flex justify-center">Not Found {title}!</div>
         )}
 
         {/* View All */}

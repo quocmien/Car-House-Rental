@@ -16,7 +16,12 @@ import SearchResults from '../components/search-results';
 
 const MapDetail = async () => {
   const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
-    fetchData(HOME_PRODUCTS_QUERY),
+    fetchData(HOME_PRODUCTS_QUERY, {
+      pagination: {
+        pageSize: 6,
+        page: 0,
+      },
+    }),
     fetchData(HOME_CATEGORIES_QUERY, {
       filters: {},
     }),

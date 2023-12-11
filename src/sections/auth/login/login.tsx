@@ -113,7 +113,7 @@ export function Login({ children, ...other }: IProps & DialogProps) {
           </div>
           <DialogFooter>
             <button type="submit" className="w-full">
-              Save changes
+              Login
             </button>
           </DialogFooter>
         </FormProvider>

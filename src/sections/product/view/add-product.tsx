@@ -1,6 +1,7 @@
 'use client';
 import { RHFInput, RHFSelect } from '@/components/hook-form';
 import FormProvider from '@/components/hook-form/form-provider';
+import RHFEditor from '@/components/hook-form/rhf-editor';
 import RHFUpload from '@/components/hook-form/rhf-upload';
 import { Button } from '@/components/ui/button';
 import { SelectItem } from '@/components/ui/select';
@@ -114,6 +115,7 @@ export function AddProduct({ session, categories }: Props) {
           data: {
             ...values,
             slug,
+            author: session?.user?.id,
             image: resRemoteImage?.[0]?.id || null,
             previews: resRemotePreviews?.map((item: { id: any }) => item.id),
           },
@@ -270,7 +272,7 @@ export function AddProduct({ session, categories }: Props) {
               className="w-full"
             />
           </div>
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <label className="opacity-70 text-[10px] uppercase font-bold">
               Slug
             </label>
@@ -280,7 +282,7 @@ export function AddProduct({ session, categories }: Props) {
               placeholder={slugify(values?.name || '')}
               className="w-full"
             />
-          </div>
+          </div> */}
         </div>
         <div className="grid md:grid-cols-2 gap-8 mt-4">
           <div className="flex flex-col gap-2">
@@ -309,7 +311,15 @@ export function AddProduct({ session, categories }: Props) {
             />
           </div>
         </div>
-        <div className='text-red-500 w-full text-center'>{errors.root?.message || ''}</div>
+        <div className="flex flex-col gap-2 mt-2">
+          <label className="opacity-70 text-[10px] uppercase font-bold">
+            previews
+          </label>
+          <RHFEditor simple name="content" />
+        </div>
+        <div className="text-red-500 w-full text-center">
+          {errors.root?.message || ''}
+        </div>
         <div className="flex justify-end">
           <Button
             disabled={isSubmitting}
