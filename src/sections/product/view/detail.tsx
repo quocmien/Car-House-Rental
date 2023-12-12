@@ -46,16 +46,14 @@ const ProductDetail = async ({ slug }: IProps) => {
           <ShareThisListing />
         </div>
       </div>
-      {session && (
-        <div className="lg:hidden fixed bottom-0 w-full  border-t bg-white">
-          <div className="w-full flex justify-between container py-4 items-center">
-            <div>$200/week</div>
-            <BookingDialog session={session} productId={product?.id}>
-              <Button className="rounded-full">Booking</Button>
-            </BookingDialog>
-          </div>
+      <div className="lg:hidden fixed bottom-0 w-full  border-t bg-white">
+        <div className="w-full flex justify-between container py-4 items-center">
+          <div>$200/week</div>
+          <BookingDialog session={session!} productId={product?.id}>
+            <Button className="rounded-full">Booking</Button>
+          </BookingDialog>
         </div>
-      )}
+      </div>
     </div>
   );
 };
