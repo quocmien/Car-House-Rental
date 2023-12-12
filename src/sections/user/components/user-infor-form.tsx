@@ -30,8 +30,8 @@ type FormValueProp = {
   address?: string;
   gender?: string;
   dob?: string;
-  avatar: (File | String) | null;
-  banner: (File | String) | null;
+  avatar?: File | String | null;
+  banner?: File | String | null;
 };
 
 const defaultValues = {
@@ -50,12 +50,13 @@ const defaultValues = {
 const formSchema = yup.object({
   username: yup.string().required('Username is required!'),
   email: yup.string().required('Username is required!').email('Email invalid!'),
-  firstName: yup.string(),
-  lastName: yup.string(),
-  phone: yup.string(),
-  address: yup.string(),
-  gender: yup.string(),
-  dob: yup.string(),
+  firstName: yup.string().nullable(),
+  lastName: yup.string().nullable(),
+  phone: yup.string().nullable(),
+  address: yup.string().nullable(),
+  gender: yup.string().nullable(),
+  avatar: yup.mixed().nullable(),
+  dob: yup.string().nullable(),
 });
 
 const UserInforForm = ({ session }: IProps) => {
@@ -66,7 +67,7 @@ const UserInforForm = ({ session }: IProps) => {
   );
 
   const methods = useForm<FormValueProp>({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(formSchema as any),
     defaultValues,
   });
 
