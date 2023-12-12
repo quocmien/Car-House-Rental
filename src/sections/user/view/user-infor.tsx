@@ -7,7 +7,7 @@ import QRCode from './qr-code';
 import UserInforTab from './user-infor-tab';
 
 interface IProps {
-  id: number;
+  id: any;
 }
 
 const QR_TEXT = process.env.NEXT_PUBLIC_DOMAIN + '/user/';
@@ -21,12 +21,14 @@ const UserInfo = async ({ id }: IProps) => {
 
   const categories = categoriesData?.categories?.data;
 
+  const username = id?.replace('%40', '@'); // Replace '%40' with '@'
+
   const productFetchers = categories?.map((item: any) =>
     fetchData(USER_PRODUCT_QUERY, {
       filters: {
         author: {
-          id: {
-            eq: id,
+          username: {
+            eq: username,
           },
         },
         category: {
@@ -43,7 +45,7 @@ const UserInfo = async ({ id }: IProps) => {
   );
 
   const products = await Promise.all(productFetchers);
-
+  
   return (
     <div>
       <Breadcrumb />
@@ -56,7 +58,6 @@ const UserInfo = async ({ id }: IProps) => {
         <div className="container">
           <div className="grid grid-cols-6 gap-4">
             <div className="md:col-start-2 md:col-span-4">
-              <h3 className="text-primary text-lg mb-[10px]">QR Code</h3>
               <div className="qr-code__container text-center flex justify-center">
                 <QRCode text={QR_TEXT + id} />
               </div>

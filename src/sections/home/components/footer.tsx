@@ -8,8 +8,7 @@ const Footer = () => {
         <div className="container  ">
           <div className="md:ml-auto w-full justify-between md:justify-end flex first-letter:gap-x-2 text-xs">
             <div className="flex-1 text-sm text-[#898989]">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              aliquam at neque sit amet vestibulum.{' '}
+              Stay Drive BNB
               <span className="text-primary">
                 <a href="">Terms of Use</a>
               </span>{' '}
