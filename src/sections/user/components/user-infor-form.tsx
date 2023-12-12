@@ -103,23 +103,20 @@ const UserInforForm = ({ session }: IProps) => {
     }
   };
 
-  const handleDrop = (field: String) => {
-      useCallback(
-      (acceptedFiles: File[]) => {
-        const file = acceptedFiles[0];
+  const handleDrop =  useCallback(
+    (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
 
-        const newFile = Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        });
+      const newFile = Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      });
 
-        if (file) {
-          setValue(field, newFile as any, { shouldValidate: true });
-        }
-      },
-      [setValue, field]
-      
-    );
-  }
+      if (file) {
+        setValue('avatar', newFile as any, { shouldValidate: true });
+      }
+    },
+    [setValue]
+  );
 
   const handleRemoveFile = useCallback(() => {
     setValue('avatar', null);
@@ -134,7 +131,7 @@ const UserInforForm = ({ session }: IProps) => {
             <RHFUpload
               name="image"
               maxSize={3145728}
-              onDrop={handleDrop('banner')}
+              onDrop={handleDrop}
               onDelete={handleRemoveFile}
             />
           </div>
