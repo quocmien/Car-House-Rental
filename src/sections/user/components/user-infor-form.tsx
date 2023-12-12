@@ -14,6 +14,8 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 import * as yup from 'yup';
+import RHFUpload from '@/components/hook-form/rhf-upload';
+import { useCallback } from 'react';
 
 interface IProps {
   session: Session | null;
@@ -28,6 +30,8 @@ type FormValueProp = {
   address?: string;
   gender?: string;
   dob?: string;
+  avatar: (File | String) | null;
+  banner: (File | String) | null;
 };
 
 const defaultValues = {
@@ -39,6 +43,8 @@ const defaultValues = {
   address: '',
   gender: '',
   dob: '',
+  avatar: '',
+  banner: ''
 };
 
 const formSchema = yup.object({
@@ -69,6 +75,7 @@ const UserInforForm = ({ session }: IProps) => {
     handleSubmit,
     setError,
     formState: { dirtyFields, errors, isDirty, isSubmitting },
+    setValue
   } = methods;
 
   useEffect(() => {
@@ -96,9 +103,42 @@ const UserInforForm = ({ session }: IProps) => {
     }
   };
 
+  const handleDrop = (field: String) => {
+      useCallback(
+      (acceptedFiles: File[]) => {
+        const file = acceptedFiles[0];
+
+        const newFile = Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        });
+
+        if (file) {
+          setValue(field, newFile as any, { shouldValidate: true });
+        }
+      },
+      [setValue, field]
+      
+    );
+  }
+
+  const handleRemoveFile = useCallback(() => {
+    setValue('avatar', null);
+  }, [setValue]);
+
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 gap-4">
+          <div className="avatar w-full">
+            <RHFUpload
+              name="image"
+              maxSize={3145728}
+              onDrop={handleDrop('banner')}
+              onDelete={handleRemoveFile}
+            />
+          </div>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <label className="opacity-70 text-[10px] uppercase font-bold">

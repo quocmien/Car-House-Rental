@@ -123,6 +123,8 @@ export function AddProduct({ session, categories }: Props) {
         token: session?.user?.accessToken,
       });
 
+      methods.reset(defaultValues);
+
       toast({
         title: 'Add product successfully!',
       });
