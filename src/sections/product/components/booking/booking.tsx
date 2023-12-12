@@ -14,11 +14,7 @@ const Booking = async ({ className, productId, session }: IProps) => {
   return (
     <div className={cn(className)}>
       <h2 className="text-[26px] text-primary font-light mb-5">Reserve</h2>
-      {session ? (
-        <BookingForm productId={productId} session={session} />
-      ) : (
-        <div className="text-red-500">Please Sign In to Reserver!</div>
-      )}
+      <BookingForm productId={productId} session={session!} />
     </div>
   );
 };

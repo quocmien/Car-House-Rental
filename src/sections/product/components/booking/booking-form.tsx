@@ -19,18 +19,24 @@ interface IProps {
 }
 
 type FormValueProp = {
+  name?: string | null;
+  email?: string | null;
   first_date: string;
   last_date: string;
   note?: string;
 };
 
 const defaultValues = {
+  name: '',
+  email: '',
   first_date: '',
   last_date: '',
   note: '',
 };
 
 const formSchema = yup.object({
+  name: yup.string().nullable(),
+  email: yup.string().email('Email is invalid!').nullable(),
   first_date: yup.string().required('Username is required!'),
   last_date: yup.string().required('Username is required!'),
   note: yup.string(),
@@ -56,6 +62,8 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
         body: JSON.stringify({
           data: {
             ...values,
+            name: values.name || session?.user?.username,
+            email: values.email || session?.user?.email,
             first_date: fTimestamp(values.first_date),
             last_date: fTimestamp(values.last_date),
             user: session?.user?.id,
@@ -84,6 +92,32 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
     <div>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 py-4">
+          {!session && (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="opacity-70 text-[10px] uppercase font-bold">
+                  Your name<em>*</em>
+                </label>
+                <RHFInput
+                  name="name"
+                  inputStyle="underline"
+                  placeholder="Your name"
+                  className="w-full"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="opacity-70 text-[10px] uppercase font-bold">
+                  Email<em>*</em>
+                </label>
+                <RHFInput
+                  name="email"
+                  inputStyle="underline"
+                  placeholder="Your email"
+                  className="w-full"
+                />
+              </div>
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
