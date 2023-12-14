@@ -37,8 +37,8 @@ const defaultValues = {
 const formSchema = yup.object({
   name: yup.string().nullable(),
   email: yup.string().email('Email is invalid!').nullable(),
-  first_date: yup.string().required('Username is required!'),
-  last_date: yup.string().required('Username is required!'),
+  first_date: yup.string().required('First Date is required!'),
+  last_date: yup.string().required('Last Date is required!'),
   note: yup.string(),
 });
 

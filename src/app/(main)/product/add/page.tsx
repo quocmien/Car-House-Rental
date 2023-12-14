@@ -15,9 +15,6 @@ const ProductAdd = async () => {
     fetchData(PRODUCT_CATEGORIES),
   ]);
 
-  console.log({session});
-  
-
   const categories = data?.categories?.data || [];
   
   return <AddProduct session={session!} categories={categories} />;

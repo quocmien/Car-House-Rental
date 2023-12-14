@@ -63,7 +63,6 @@ interface IProps {
 }
 
 const Booking = ({ bookings }: IProps) => {
-  console.log({ bookings });
 
   return (
     <div>

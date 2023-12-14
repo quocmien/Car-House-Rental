@@ -1,21 +1,26 @@
 'use client';
-import FormProvider, { RHFInput, RHFSelect } from '@/components/hook-form';
+import FormProvider, {
+  RHFDatePicker,
+  RHFInput,
+  RHFSelect,
+} from '@/components/hook-form';
+import { RHFUploadAvatar } from '@/components/hook-form/rhf-upload';
 import { Button } from '@/components/ui/button';
 import { SelectItem } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
 import { GENDERS } from '@/configs/global-configs';
 import { fetchDataRest } from '@/lib/fetch-data-rest';
 import { getDirtyValues } from '@/utils/form';
+import { fDate, fTimestamp } from '@/utils/format-time';
 import { postData } from '@/utils/post-data';
+import { postFormData } from '@/utils/post-form-data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Loader2 } from 'lucide-react';
 import { Session } from 'next-auth';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
 import * as yup from 'yup';
-import RHFUpload from '@/components/hook-form/rhf-upload';
-import { useCallback } from 'react';
 
 interface IProps {
   session: Session | null;
@@ -44,7 +49,7 @@ const defaultValues = {
   gender: '',
   dob: '',
   avatar: '',
-  banner: ''
+  banner: '',
 };
 
 const formSchema = yup.object({
@@ -63,7 +68,10 @@ const UserInforForm = ({ session }: IProps) => {
   const { toast } = useToast();
 
   const { data } = useSWR(`user/${session?.user?.id}`, () =>
-    fetchDataRest(`users/${session?.user?.id!}`, session?.user?.accessToken!)
+    fetchDataRest(
+      `users/${session?.user?.id!}?populate=*`,
+      session?.user?.accessToken!
+    )
   );
 
   const methods = useForm<FormValueProp>({
@@ -76,18 +84,36 @@ const UserInforForm = ({ session }: IProps) => {
     handleSubmit,
     setError,
     formState: { dirtyFields, errors, isDirty, isSubmitting },
-    setValue
+    setValue,
   } = methods;
 
   useEffect(() => {
     if (!data) return;
-    reset(data);
+    reset({ ...data, avatar: data?.avatar?.url });
   }, [data]);
 
   const onSubmit = async (values: FormValueProp) => {
     const changedValue = getDirtyValues(dirtyFields as any, values);
 
     try {
+      // image
+      if (changedValue.avatar) {
+        const formData = new FormData();
+        formData.append('files', changedValue.avatar!);
+
+        const resRemoteImage = await postFormData({
+          url: 'upload',
+          body: formData,
+          token: session?.user?.accessToken,
+        });
+
+        changedValue.avatar = resRemoteImage?.[0]?.id || null;
+      }
+
+      if (changedValue.dob) {
+        changedValue.dob = fDate(changedValue.dob, 'yyyy-MM-dd');
+      }
+
       await postData({
         url: `users/${session?.user?.id}`,
         method: 'put',
@@ -104,7 +130,7 @@ const UserInforForm = ({ session }: IProps) => {
     }
   };
 
-  const handleDrop =  useCallback(
+  const handleDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
 
@@ -113,24 +139,26 @@ const UserInforForm = ({ session }: IProps) => {
       });
 
       if (file) {
-        setValue('avatar', newFile as any, { shouldValidate: true });
+        setValue('avatar', newFile as any, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
       }
     },
     [setValue]
   );
 
   const handleRemoveFile = useCallback(() => {
-    setValue('avatar', null);
+    setValue('avatar', null, { shouldValidate: true, shouldDirty: true });
   }, [setValue]);
-
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-1 gap-4">
-          <div className="avatar w-full">
-            <RHFUpload
-              name="image"
+          <div className="avatar w-full mt-[30px] mb-[20px]">
+            <RHFUploadAvatar
+              name="avatar"
               maxSize={3145728}
               onDrop={handleDrop}
               onDelete={handleRemoveFile}
@@ -228,11 +256,14 @@ const UserInforForm = ({ session }: IProps) => {
             <label className="opacity-70 text-[10px] uppercase font-bold">
               Birthday
             </label>
-            <RHFInput
+            <RHFDatePicker
               name="dob"
-              inputStyle="underline"
-              placeholder="YYYY/MM/dd"
+              placeholder="Pick date"
               className="w-full"
+              inputFormat="yyyy-MM-dd"
+              datePickerProps={{
+                underline: true,
+              }}
             />
           </div>
         </div>

@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ReturnTypeBoolean, useBoolean } from '@/hooks/use-boolean';
+import { useBoolean } from '@/hooks/use-boolean';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DialogProps } from '@radix-ui/react-dialog';
 import { signIn } from 'next-auth/react';
@@ -23,16 +23,15 @@ interface IProps {
 }
 
 const defaultValues = {
-  email: '',
+  identifier: '',
   password: '',
 };
 
 const formSchema = z.object({
-  email: z
+  identifier: z
     .string({
-      required_error: 'Email is required',
-    })
-    .email('Email invalid!'),
+      required_error: 'Identifier is required',
+    }),
   password: z.string({
     required_error: 'Password is required',
   }),
@@ -51,7 +50,7 @@ export function Login({ children, ...other }: IProps & DialogProps) {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const { ok, error }: any = await signIn('credentials', {
-        identifier: values.email,
+        identifier: values.identifier,
         password: values.password,
         redirect: false,
       });
@@ -59,7 +58,6 @@ export function Login({ children, ...other }: IProps & DialogProps) {
         open.onFalse();
         router.refresh()
       } else {
-        console.log(error);
         setError('password', {
           message: 'Login failed!',
         });
@@ -89,12 +87,12 @@ export function Login({ children, ...other }: IProps & DialogProps) {
           <div className="grid gap-4 py-4">
             <div className="flex flex-col gap-2">
               <label className="opacity-70 text-[10px] uppercase font-bold">
-                Email<em className="text-red-500">*</em>
+                Identifier<em className="text-red-500">*</em>
               </label>
               <RHFInput
-                name="email"
+                name="identifier"
                 inputStyle="underline"
-                placeholder="Your email"
+                placeholder="Identifier"
                 className="w-full"
               />
             </div>

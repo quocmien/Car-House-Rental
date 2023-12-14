@@ -64,19 +64,16 @@ const UserProfile = async () => {
   const products = await Promise.all(productFetchers);
 
   return (
-    <div>
-      <Breadcrumb />
-      <section className="block">
-        <div className="container">
-          <UserTab
-            session={session}
-            categories={categories}
-            products={products}
-            bookings={bookings}
-          />
-        </div>
-      </section>
-    </div>
+    <section className="block mt-[30px]">
+      <div className="container">
+        <UserTab
+          session={session}
+          categories={categories}
+          products={products}
+          bookings={bookings}
+        />
+      </div>
+    </section>
   );
 };
 

@@ -62,8 +62,6 @@ export default function Editor({
           body: formData,
         });
 
-        console.log({ resRemoteImage });
-
         // Insert uploaded image
         let quill = reactQuillRef.current.getEditor();
         let range = quill.getSelection(true);

@@ -13,6 +13,8 @@ import { ReturnTypeBoolean, useBoolean } from '@/hooks/use-boolean';
 import { postData } from '@/utils/post-data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DialogProps } from '@radix-ui/react-dialog';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -40,6 +42,7 @@ const formSchema = yup.object({
 });
 
 export function Register({ children, ...other }: IProps & DialogProps) {
+  const router = useRouter()
   const open = useBoolean(false);
   const methods = useForm<FormValueProp>({
     resolver: yupResolver(formSchema),
@@ -54,7 +57,19 @@ export function Register({ children, ...other }: IProps & DialogProps) {
         url: 'auth/local/register',
         body: JSON.stringify(values),
       });
-      open.onFalse();
+      const { ok, error }: any = await signIn('credentials', {
+        identifier: values.username,
+        password: values.password,
+        redirect: false,
+      });
+      if (ok) {
+        open.onFalse();
+        router.refresh()
+      } else {
+        setError('password', {
+          message: 'Login failed!',
+        });
+      }
     } catch (error: any) {
       if (error?.message) {
         setError('password', {

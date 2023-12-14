@@ -116,8 +116,6 @@ const NavItems = ({ session }: IProps) => {
             </HoverCardContent>
           </HoverCard>
         </li> */}
-        <li className="px-[6px] py-[4px] rounded-[30px] uppercase">Blog</li>
-        <li className="px-[6px] py-[4px] rounded-[30px] uppercase">CONTACT</li>
       </ul>
       <div className="border-r-[1px] pr-[15px] mr-[10px] flex text-[11px] font-bold">
         {session ? (

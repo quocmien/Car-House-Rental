@@ -25,6 +25,7 @@ export default function RHFDatePicker({
   description,
   datePickerProps,
   placeholder,
+  inputFormat,
 }: RHFDatePickerProps) {
   const { control } = useFormContext();
 
@@ -37,7 +38,7 @@ export default function RHFDatePicker({
           <FormControl>
             <DatePicker
               {...field}
-              inputFormat={DATE_FORMAT}
+              inputFormat={inputFormat || DATE_FORMAT}
               mode="single"
               initialFocus
               selected={field.value}
