@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { useBoolean } from '@/hooks/use-boolean';
+import { fDate } from '@/utils/format-time';
 
 export interface DatePickerProps {
   placeholder?: string;
@@ -31,6 +32,7 @@ export function DatePicker({
   ...field
 }: DatePickerProps & CalendarProps) {
   const open = useBoolean();
+  
   return (
     <Popover
       open={open.value}
@@ -49,7 +51,7 @@ export function DatePicker({
           )}
         >
           {value ? (
-            format(value, inputFormat || 'dd/MM/yyyy')
+            fDate(value, inputFormat || 'dd/MM/yyyy')
           ) : (
             <span>{placeholder || 'Pick a date'}</span>
           )}
