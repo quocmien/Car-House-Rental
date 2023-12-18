@@ -48,9 +48,9 @@ const ProductDetail = async ({ slug }: IProps) => {
             productId={product?.id}
             className="hidden lg:block"
           />
-          <Address
+          {/* <Address
             author={product?.attributes?.author?.data || null}
-          />
+          /> */}
           <OpeningHours />
           <ShareThisListing />
         </div>
