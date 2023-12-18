@@ -46,6 +46,17 @@ query getProducts($pagination: PaginationArg) {
             }
           }
         }
+        author {
+          data {
+            attributes {
+              username
+              email
+              phone
+              firstName
+              lastName
+            }
+          }
+        }
         slug
         content
         createdAt

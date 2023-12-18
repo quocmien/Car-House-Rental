@@ -14,6 +14,7 @@ import Review from '../components/review/review';
 import ShareThisListing from '../components/share-listing';
 import { getServerSession } from 'next-auth';
 import { NEXT_AUTH_OPTIONS } from '@/configs/auth-option';
+import SEO from '@/utils/seo'
 
 interface IProps {
   slug: string;
@@ -25,6 +26,12 @@ const ProductDetail = async ({ slug }: IProps) => {
 
   return (
     <div>
+      <SEO
+        title={product?.attributes?.name}
+        description={product?.attributes?.description}
+        keywords={product?.attributes?.name}
+      />
+
       <Breadcrumb />
       <Heading product={product?.attributes || {}} />
       <ImageSlide product={product?.attributes || {}} />
@@ -33,7 +40,7 @@ const ProductDetail = async ({ slug }: IProps) => {
           <About content={product?.attributes?.content || ''} />
           <Features />
           <Review />
-          <ReviewWriting />
+          {/* <ReviewWriting /> */}
         </div>
         <div className="lg:col-span-5 flex flex-col gap-[30px]">
           <Booking
@@ -41,14 +48,18 @@ const ProductDetail = async ({ slug }: IProps) => {
             productId={product?.id}
             className="hidden lg:block"
           />
-          <Address />
+          <Address
+            author={product?.attributes?.author?.data || null}
+          />
           <OpeningHours />
           <ShareThisListing />
         </div>
       </div>
       <div className="lg:hidden fixed bottom-0 w-full  border-t bg-white">
         <div className="w-full flex justify-between container py-4 items-center">
-          <div>$200/week</div>
+          <div>
+            {product?.displayPrice}
+          </div>
           <BookingDialog session={session!} productId={product?.id}>
             <Button className="rounded-full">Booking</Button>
           </BookingDialog>

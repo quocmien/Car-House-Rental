@@ -3,8 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Link, Mail, MapPin, Phone } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+interface IProps {
+  author: Object;
+}
 
-const Address = () => {
+const Address = ({ author }: IProps) => {
   return (
     <section className="shadow-md bg-[#fafafa]">
       <div className="h-[250px] relative overflow-hidden">
@@ -41,7 +44,9 @@ const Address = () => {
                 className="w-[14px] h-[14px] mr-4 text-primary"
               />
             </div>
-            <div className="text-sm">3858 Marion Street</div>
+            <div className="text-sm">
+              {author?.attributes?.address || 'Can Tho'}
+            </div>
           </figure>
           <figure className="flex items-center">
             <div>
@@ -51,7 +56,7 @@ const Address = () => {
               />
             </div>
             <a href="mailto:email@example.com" className="text-sm text-primary">
-              email@example.com
+              {author?.attributes?.email}
             </a>
           </figure>
           <figure className="flex items-center">
@@ -61,7 +66,9 @@ const Address = () => {
                 className="w-[14px] h-[14px] mr-4 text-primary"
               />
             </div>
-            <div className="text-sm">316-436-8619</div>
+            <div className="text-sm">
+            {author?.attributes?.phone}
+            </div>
           </figure>
           <figure className="flex items-center">
             <div>
@@ -70,7 +77,9 @@ const Address = () => {
                 className="w-[14px] h-[14px] mr-4 text-primary"
               />
             </div>
-            <a href='www.markysrestaurant.com' className="text-sm text-primary">www.markysrestaurant.com</a>
+            <a href={`/user/${author?.attributes?.username || '#'}`} className="text-sm text-primary">
+              {author?.attributes?.username}
+            </a>
           </figure>
         </address>
       </div>

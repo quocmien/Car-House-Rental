@@ -1,4 +1,5 @@
 import Home from "@/sections/home/view/home";
+import SEO from '@/utils/seo';
 
 export async function generateMetadata() {
   return {
@@ -35,9 +36,16 @@ export async function generateMetadata() {
   };
 }
 
-const HomePage = async () => {
+const HomePage: React.FC = async () => {
   return (
-    <Home />
+    <>
+      <SEO
+        title="Stay Drive Finder"
+        description="Stay Drive Finder"
+        keywords="staydrivefinder, bnb, rental car house"
+      />
+      <Home />
+    </>
   );
 };
 
