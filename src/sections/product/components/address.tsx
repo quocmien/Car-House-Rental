@@ -4,7 +4,7 @@ import { Link, Mail, MapPin, Phone } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 interface IProps {
-  author: Object;
+  author: any;
 }
 
 const Address = ({ author }: IProps) => {
