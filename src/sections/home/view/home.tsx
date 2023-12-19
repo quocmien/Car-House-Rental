@@ -41,7 +41,7 @@ const Home = async () => {
         <div className="block-section container">
           <hr />
         </div>
-        <BrowseListings categories={categories || []} />
+        {/* <BrowseListings categories={categories || []} /> */}
         <Subcribe />
         <PromoteLocation products={products || []} />
         <EventNearYou />
