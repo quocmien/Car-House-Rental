@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
+import { NEXT_AUTH_OPTIONS } from '@/configs/auth-option';
 import { fetchDataRest } from '@/lib/fetch-data-rest';
+import { getServerSession } from 'next-auth';
 import About from '../components/about';
-import Address from '../components/address';
 import Booking from '../components/booking/booking';
 import { BookingDialog } from '../components/booking/booking-dialog';
 import Breadcrumb from '../components/breadcrumb';
@@ -9,12 +10,8 @@ import Features from '../components/features';
 import Heading from '../components/heading';
 import ImageSlide from '../components/image-silde';
 import OpeningHours from '../components/opening-hours';
-import ReviewWriting from '../components/review-writing/review-writing';
 import Review from '../components/review/review';
 import ShareThisListing from '../components/share-listing';
-import { getServerSession } from 'next-auth';
-import { NEXT_AUTH_OPTIONS } from '@/configs/auth-option';
-import SEO from '@/utils/seo'
 
 interface IProps {
   slug: string;
@@ -26,11 +23,11 @@ const ProductDetail = async ({ slug }: IProps) => {
 
   return (
     <div>
-      <SEO
+      {/* <SEO
         title={product?.attributes?.name}
         description={product?.attributes?.description}
         keywords={product?.attributes?.name}
-      />
+      /> */}
 
       <Breadcrumb />
       <Heading product={product?.attributes || {}} />
