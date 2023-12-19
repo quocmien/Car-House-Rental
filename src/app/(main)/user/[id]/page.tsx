@@ -47,7 +47,7 @@ export async function generateMetadata({ params: { id } }: any) {
       description: `Profile ${user?.attributes?.lastName} ${user?.attributes?.firstName} in StayDriveFinder`,
       url: process.env.DOMAIN,
       siteName: process.env.SITE_NAME,
-      images: user?.attributes?.avatar || '/logo.png',
+      images: user?.attributes?.avatar?.data?.attributes?.url || '/logo.png',
       locale: 'en_US',
       type: 'website',
     },
@@ -57,7 +57,7 @@ export async function generateMetadata({ params: { id } }: any) {
       description: `Profile ${user?.attributes?.lastName} ${user?.attributes?.firstName} in StayDriveFinder`,
       url: process.env.DOMAIN,
       siteName: process.env.SITE_NAME,
-      images: user?.attributes?.avatar || '/logo.png',
+      images: user?.attributes?.avatar?.data?.attributes?.url || '/logo.png',
     },
   };
 }
