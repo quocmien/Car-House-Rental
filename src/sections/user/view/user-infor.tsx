@@ -4,10 +4,9 @@ import { USER_PRODUCT_QUERY } from '@/graphql/products';
 import { USER_DETAIL_QUERY } from '@/graphql/users'
 import fetchData from '@/lib/fetch-data';
 import Breadcrumb from '@/sections/product/components/breadcrumb';
-import ProductByCategoryIdWithourSession from '../components/product-by-category-id-without-session';
 import QRCode from './qr-code';
-import UserInforTab from './user-infor-tab';
-import SEO from '@/utils/seo'
+import isEmpty from 'lodash/isEmpty';
+import PlaceItem from '@/sections/home/components/place-item';
 
 interface IProps {
   id: any;
@@ -28,28 +27,8 @@ const UserInfo = async ({ id }: IProps) => {
 
   const username = id?.replace('%40', '@'); // Replace '%40' with '@'
 
-  const productFetchers = categories?.map((item: any) =>
-    fetchData(USER_PRODUCT_QUERY, {
-      filters: {
-        author: {
-          username: {
-            eq: username,
-          },
-        },
-        category: {
-          id: {
-            eq: item?.id,
-          },
-        },
-      },
-      pagination: {
-        page: 0,
-        pageSize: 8,
-      },
-    })
-  );
 
-  const  [{ data: userDetail }] = await Promise.all([
+  const  [{ data: userDetail }, { data: productsData}] = await Promise.all([
     fetchData(USER_DETAIL_QUERY, {
       filters: {
         username: {
@@ -57,22 +36,33 @@ const UserInfo = async ({ id }: IProps) => {
         }
       },
     }),
+    fetchData(USER_PRODUCT_QUERY, {
+      filters: {
+        author: {
+          username: {
+            eq: username,
+          },
+        }
+      },
+      pagination: {
+        page: 0,
+        pageSize: 8,
+      },
+    })
   ])
 
   const user = userDetail?.usersPermissionsUsers?.data[0] || {}
-
-
-  const products = await Promise.all(productFetchers);
+  const products = productsData?.products?.data;
   
   return (
     <div>
       <Breadcrumb />
       {/* <section className="block">
-        <h1 className="container text-primary text-center text-4xl opacity-80 font-light">
+        <h1 className="container text-primary text-center text-P4xl opacity-80 font-light">
           Profile
         </h1>
       </section> */}
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-4 mt-[15px] md:mt-[25px]">
         <section className="header-profile block col-span-12 md:col-span-4">      
           <div
             className="w-full header-profile__top p-[15px] border pt-[50%] md:pt-[20%] relative"
@@ -86,7 +76,7 @@ const UserInfo = async ({ id }: IProps) => {
             }
           >
             <div className="container">
-              <div className="avatar w-[150px] mt-[20px] absolute bottom-[-15px] left-0">
+              <div className="avatar w-[100px] mt-[20px] absolute bottom-[-15px] left-0">
                 <div
                   className="avatar__container pt-[100%] rounded-full"
                   style={
@@ -125,13 +115,45 @@ const UserInfo = async ({ id }: IProps) => {
                   </p>
                 </div>
                 <div className="col-span-12 pt-[20px] md:pt-0">
-                  <div className="qr-code__container text-center flex justify-center md:justify-left">
+                  <div className="qr-code__container text-center flex">
                     <QRCode text={QR_TEXT + id} />
                   </div>
                 </div>
               </div>
     
             </div>
+          </div>
+        </section>
+
+        <section className="products col-span-12 md:col-span-8">
+          <div className="container">
+            {!isEmpty(products) ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-[30px]">
+                {products?.map((item: any, index: number) => {
+                const product = item?.attributes;
+
+                return (
+                    <div key={item?.id}>
+                    <PlaceItem
+                        priceText={`${product?.displayPrice}`}
+                        category={product?.category?.data?.attributes?.name}
+                        name={product?.name}
+                        address={product?.address}
+                        src={
+                        product?.image?.data?.attributes?.formats?.medium?.url ||
+                        product?.image?.data?.attributes?.url
+                        }
+                        verified
+                        top
+                        slug={product?.slug}
+                    />
+                    </div>
+                );
+                })}
+            </div>
+            ) : (
+                <div className="flex justify-center">Not Found!</div>
+            )}
           </div>
         </section>
       </div>

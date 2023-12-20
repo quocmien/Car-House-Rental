@@ -74,36 +74,52 @@ query OwnProductQuery($filters: ProductFiltersInput, $pagination: PaginationArg)
     data {
       id
       attributes {
-        address
-        price
-        slug
         name
-        displayPrice
-        category {
+        desc
+        image {
+          data {
+            attributes {
+              formats
+              url
+            }
+          }
+        }
+        previews {
           data {
             id
+            attributes {
+              formats
+              url
+            }
+          }
+        }
+        price
+        displayPrice
+        address
+        category {
+          data {
             attributes {
               name
               slug
             }
           }
         }
-        image {
+        author {
           data {
-            id
             attributes {
-              url
+              username
+              email
+              phone
+              firstName
+              lastName
             }
           }
         }
-      }
-    }
-    meta {
-      pagination {
-        page
-        pageCount
-        pageSize
-        total
+        slug
+        content
+        createdAt
+        updatedAt
+        publishedAt
       }
     }
   }
