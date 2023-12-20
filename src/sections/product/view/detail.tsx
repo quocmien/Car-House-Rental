@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth';
 import About from '../components/about';
 import Booking from '../components/booking/booking';
 import { BookingDialog } from '../components/booking/booking-dialog';
-import Breadcrumb from '../components/breadcrumb';
+import Breadcrumb from '@/sections/product/components/breadcrumb';
 import Features from '../components/features';
 import Heading from '../components/heading';
 import ImageSlide from '../components/image-silde';
@@ -32,19 +32,20 @@ const ProductDetail = async ({ slug }: IProps) => {
     })
   ]);
 
-  console.log('====> products', products.products)
 
   const product = products?.products?.data[0]
 
   return (
     <div>
-      {/* <SEO
+      <Breadcrumb
+        menu={[
+          {
+            link: '/products',  
+            name: 'Products'
+          }
+        ]}
         title={product?.attributes?.name}
-        description={product?.attributes?.description}
-        keywords={product?.attributes?.name}
-      /> */}
-
-      <Breadcrumb />
+      />
       <Heading product={product?.attributes || {}} />
       <ImageSlide product={product?.attributes || {}} />
       <div className="container lg:grid lg:grid-cols-12  gap-[30px]">

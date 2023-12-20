@@ -22,7 +22,9 @@ const Address = async ({ author }: IProps) => {
     })
   ])
   const user = users?.usersPermissionsUsers?.data[0] || {}
-  const fullName = `${user?.attributes?.lastName} ${user?.attributes?.firstName}`
+  const fullName = (user?.attributes?.lastName &&  user?.attributes?.firstName)
+    ? `${user?.attributes?.lastName} ${user?.attributes?.firstName}`
+    : user?.attributes?.username
 
   return (
     <section className="shadow-md bg-[#fafafa]">
@@ -88,7 +90,7 @@ const Address = async ({ author }: IProps) => {
                 className="w-[14px] h-[14px] mr-4 text-primary"
               />
             </div>
-            <a href={`/user/${author?.attributes?.username || '#'}`} className="text-sm text-primary">
+            <a target="_blank" href={`/user/${author?.attributes?.username || '#'}`} className="text-sm text-primary">
               {author?.attributes?.username}
             </a>
           </figure>

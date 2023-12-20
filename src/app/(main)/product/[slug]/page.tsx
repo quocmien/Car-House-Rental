@@ -1,4 +1,4 @@
-import { ALL_PRODUCTS_SLUGS } from '@/graphql/products';
+import { ALL_PRODUCTS_SLUGS, PRODUCT_DETAIL_QUERY } from '@/graphql/products';
 import fetchData from '@/lib/fetch-data';
 import { fetchDataRest } from '@/lib/fetch-data-rest';
 import ProductDetail from '@/sections/product/view/detail';

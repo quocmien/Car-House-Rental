@@ -7,6 +7,7 @@ import Breadcrumb from '@/sections/product/components/breadcrumb';
 import QRCode from './qr-code';
 import isEmpty from 'lodash/isEmpty';
 import PlaceItem from '@/sections/home/components/place-item';
+import { Link, Mail, MapPin, Phone } from 'lucide-react';
 
 interface IProps {
   id: any;
@@ -53,10 +54,13 @@ const UserInfo = async ({ id }: IProps) => {
 
   const user = userDetail?.usersPermissionsUsers?.data[0] || {}
   const products = productsData?.products?.data;
+  const fullName = (user?.attributes.lastName && user?.attributes?.firstName)
+    ? `${user?.attributes.lastName} ${user?.attributes?.firstName}`
+    : user?.attributes?.username
   
   return (
     <div>
-      <Breadcrumb />
+      <Breadcrumb title={fullName}/>
       {/* <section className="block">
         <h1 className="container text-primary text-center text-P4xl opacity-80 font-light">
           Profile
@@ -98,21 +102,44 @@ const UserInfo = async ({ id }: IProps) => {
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12">
                   <h2 className="font-bold">
-                    { user?.attributes.lastName } 
-                    { user?.attributes.firstName }
+                    {fullName}
                   </h2>
 
-                  <p className="info-text">
-                    <strong> Email: </strong> {user?.attributes?.email}
-                  </p>
+                  <figure className="flex items-center">
+                    <div>
+                      <Mail
+                        strokeWidth={0.5}
+                        className="w-[14px] h-[14px] mr-4 text-primary"
+                      />  
+                    </div>
+                    <a href="mailto:email@example.com" className="text-sm text-primary">
+                      {user?.attributes?.email}
+                    </a>
+                  </figure>
 
-                  <p className="info-text">
-                    <strong>Address: </strong> {user?.attributes?.address}
-                  </p>
+                  <figure className="flex items-center">
+                    <div>
+                      <MapPin
+                        strokeWidth={0.5}
+                        className="w-[14px] h-[14px] mr-4 text-primary"
+                      />  
+                    </div>
+                    <a href="mailto:email@example.com" className="text-sm text-primary">
+                      {user?.attributes?.address}
+                    </a>
+                  </figure>
 
-                  <p className="info-text">
-                    <strong>Phone number:</strong> {user?.attributes?.phone}
-                  </p>
+                  <figure className="flex items-center">
+                    <div>
+                      <Phone
+                        strokeWidth={0.5}
+                        className="w-[14px] h-[14px] mr-4 text-primary"
+                      />
+                    </div>
+                    <div className="text-sm">
+                      {user?.attributes?.phone}
+                    </div>
+                  </figure>
                 </div>
                 <div className="col-span-12 pt-[20px] md:pt-0">
                   <div className="qr-code__container text-center flex">
@@ -127,6 +154,9 @@ const UserInfo = async ({ id }: IProps) => {
 
         <section className="products col-span-12 md:col-span-8">
           <div className="container">
+            <h3 className="text-center w-full p-[10px]">
+              All Product
+            </h3>
             {!isEmpty(products) ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-[30px]">
                 {products?.map((item: any, index: number) => {
