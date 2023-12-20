@@ -1,4 +1,5 @@
 import React from 'react';
+import isEmpty from 'lodash/isEmpty';
 
 interface IProps {
   menu?: Array<any> | [],
@@ -15,7 +16,8 @@ const Breadcrumb = async ({ title, menu }: IProps) => {
           </a>
         </li>
         {
-          menu?.map((item: any, index: number) => {
+          isEmpty(menu) ?
+          menu?.map((item: any) => {
             return (
               <li
                 className='before:px-[5px] before:text-[#ccc] before:content-["/\00a0"]'>
@@ -24,7 +26,10 @@ const Breadcrumb = async ({ title, menu }: IProps) => {
                 </a>
               </li>
             );
-           })}
+           })
+        :
+          ''
+        }
         <li className='before:px-[5px] before:text-[#ccc] before:content-["/\00a0"]'>
           <span className="text-[#777]">
             {title}
