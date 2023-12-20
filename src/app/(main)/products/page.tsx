@@ -1,10 +1,10 @@
-import Home from "@/sections/home/view/home";
+import Products from "@/sections/product/view/index";
 
 export async function generateMetadata() {
   return {
-    metadataBase: new URL('http://staydrivefinder.com/'),
-    title: 'Home - StayDriveFinder',
-    description: 'Home - StayDriveFinder',
+    metadataBase: new URL('http://staydrivefinder.com/products'),
+    title: 'Products - StayDriveFinder',
+    description: 'Products - StayDriveFinder',
     applicationName: process.env.SITE_NAME,
     keywords: [],
     authors: [
@@ -15,8 +15,8 @@ export async function generateMetadata() {
     ],
     creator: 'TES',
     openGraph: {
-      title: 'Home - StayDriveFinder',
-      description: 'Home - StayDriveFinder',
+      title: 'Products - StayDriveFinder',
+      description: 'Products - StayDriveFinder',
       url: process.env.DOMAIN,
       siteName: process.env.SITE_NAME,
       images: '/logo.png',
@@ -25,20 +25,20 @@ export async function generateMetadata() {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Home - StayDriveFinder',
-      description: 'Home - StayDriveFinder',
+      title: 'Products - StayDriveFinder',
+      description: 'Products - StayDriveFinder',
       creator: process.env.SITE_NAME,
       images: '/logo.png'
     },
   };
 }
 
-const HomePage: React.FC = async () => {
+const ProductsPage: React.FC = async () => {
   return (
     <>
-      <Home />
+      <Products />
     </>
   );
 };
 
-export default HomePage;
+export default ProductsPage;

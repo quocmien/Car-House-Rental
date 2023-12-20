@@ -16,9 +16,10 @@ const Home = async () => {
   const [{ data: productsData }, { data: categoriesData }] = await Promise.all([
     fetchData(HOME_PRODUCTS_QUERY, {
       pagination: {
-        pageSize: 6,
+        pageSize: 8,
         page: 0,
       },
+      sort: ['createdAt:DESC']
     }),
     fetchData(HOME_CATEGORIES_QUERY, {
       filters: {},

@@ -11,8 +11,8 @@ export const ALL_PRODUCTS_SLUGS = `
 `;
 
 export const HOME_PRODUCTS_QUERY = `
-query getProducts($pagination: PaginationArg) {
-  products(pagination: $pagination) {
+query getProducts($pagination: PaginationArg, $sort: [String]) {
+  products(pagination: $pagination, sort: $sort) {
     data {
       id
       attributes {
