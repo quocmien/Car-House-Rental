@@ -13,7 +13,19 @@ query getBookings($filters: BookingFiltersInput) {
             }
           }
         }
+        user {
+          data {
+            attributes {
+              username
+              email
+              firstName
+              lastName
+              phone
+            }
+          }
+        }
         status
+        note
       }
     }
   }

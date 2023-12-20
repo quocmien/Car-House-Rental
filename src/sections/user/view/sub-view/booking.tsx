@@ -74,8 +74,12 @@ const Booking = ({ bookings }: IProps) => {
           <TableRow>
             <TableHead className="w-[100px]">No</TableHead>
             <TableHead className="w-[200px]">Product</TableHead>
+            <TableHead className="w-[200px]">User</TableHead>
+            <TableHead className="w-[200px]">Email</TableHead>
+            <TableHead className="w-[200px]">Phone</TableHead>
             <TableHead>First date</TableHead>
             <TableHead>Last Date</TableHead>
+            <TableHead className="w-[200px]">Note</TableHead>
             <TableHead>Status</TableHead>
           </TableRow>
         </TableHeader>
@@ -83,7 +87,10 @@ const Booking = ({ bookings }: IProps) => {
           {bookings?.map((item: any, index: number) => {
             const booking = item?.attributes;
             const productName = booking?.product?.data?.attributes?.name;
-
+            const fullName = `${booking?.user?.data?.attributes?.lastName} ${booking?.user?.data?.attributes?.firstName}`
+            const email = booking?.user?.data?.attributes?.email || ''
+            const phone = booking?.user?.data?.attributes?.phone || ''
+            const note = booking?.note
             return (
               <TableRow key={item.id}>
                 <TableCell className="font-medium">{index + 1}</TableCell>
@@ -91,7 +98,11 @@ const Booking = ({ bookings }: IProps) => {
                 <TableCell>
                   {fDate(booking?.first_date, 'dd/MM/yyyy')}
                 </TableCell>
-                <TableCell>{fDate(booking?.last_date, 'đ/MM/yyyy')}</TableCell>
+                <TableCell className="font-medium">{fullName}</TableCell>
+                <TableCell className="font-medium">{email}</TableCell>
+                <TableCell className="font-medium">{phone}</TableCell>
+                <TableCell>{fDate(booking?.last_date, 'dd/MM/yyyy')}</TableCell>
+                <TableCell className="font-medium">{note}</TableCell>
                 <TableCell
                   className={cn(
                     'font-bold uppercase',

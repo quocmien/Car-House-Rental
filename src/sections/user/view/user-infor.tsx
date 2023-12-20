@@ -61,92 +61,80 @@ const UserInfo = async ({ id }: IProps) => {
 
   const user = userDetail?.usersPermissionsUsers?.data[0] || {}
 
-  console.log('=====> userDetail', user)
 
   const products = await Promise.all(productFetchers);
   
   return (
     <div>
-      <SEO
-        title={`${user?.attributes?.firstName} ${user?.attributes?.lastName} - Profile`} // Set your desired title
-        description={`Profile of ${user?.attributes?.firstName} ${user?.attributes?.lastName}`} // Set the description
-        keywords={user?.attributes?.username}
-        image={user?.attributes?.avatar?.data?.attributes?.url || '/logo.png'}
-      />
       <Breadcrumb />
       {/* <section className="block">
         <h1 className="container text-primary text-center text-4xl opacity-80 font-light">
           Profile
         </h1>
       </section> */}
-      <section className="header-profile block">      
-        <div
-          className="w-full header-profile__top p-[15px] border pt-[50%] relative"
-          style={
-            {
-              backgroundImage: `url("/logo.png")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }
-          }
-        >
-          <div className="avatar w-[150px] mt-[20px] absolute bottom-[-15px] left-0">
-            <div
-              className="avatar__container pt-[100%] rounded-full"
-              style={
-                {
-                  backgroundImage: `url("${user?.attributes?.avatar?.data?.attributes?.url || ''}")`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat'
-                }
+      <div className="grid grid-cols-12 gap-4">
+        <section className="header-profile block col-span-12 md:col-span-4">      
+          <div
+            className="w-full header-profile__top p-[15px] border pt-[50%] md:pt-[20%] relative"
+            style={
+              {
+                backgroundImage: `url("/logo.png")`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
               }
-            >
-              
-            </div>
-          </div>
-        </div>
-        <div className="container pt-[20px]">
-          <div className="info-profile pt-[10px]">
-            <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-12">
-                <h2 className="font-bold">
-                  { user?.attributes.lastName } 
-                  { user?.attributes.firstName }
-                </h2>
-
-                <p className="info-text">
-                  <strong> Email: </strong> {user?.attributes?.email}
-                </p>
-
-                <p className="info-text">
-                  <strong>Address: </strong> {user?.attributes?.address}
-                </p>
-
-                <p className="info-text">
-                  <strong>Phone number:</strong> {user?.attributes?.phone}
-                </p>
-              </div>
-              <div className="col-span-12 pt-[20px] md:pt-0">
-                <div className="qr-code__container text-center flex justify-center md:justify-left">
-                  <QRCode text={QR_TEXT + id} />
+            }
+          >
+            <div className="container">
+              <div className="avatar w-[150px] mt-[20px] absolute bottom-[-15px] left-0">
+                <div
+                  className="avatar__container pt-[100%] rounded-full"
+                  style={
+                    {
+                      backgroundImage: `url("${user?.attributes?.avatar?.data?.attributes?.url || ''}")`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat'
+                    }
+                  }
+                >
                 </div>
               </div>
             </div>
-  
+            
           </div>
-        </div>
-      </section>
+          <div className="container pt-[20px]">
+            <div className="info-profile pt-[10px]">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-12">
+                  <h2 className="font-bold">
+                    { user?.attributes.lastName } 
+                    { user?.attributes.firstName }
+                  </h2>
 
-      <ul className="list-feature fixed right-0 top-[48%]">
-        <li className="item-product p-[5px] border bg-primary text-white rounded-l-lg">
-          Profile
-        </li>
-        <li className="item-product p-[5px] border bg-primary text-white rounded-l-lg">
-          Product
-        </li>
-      </ul>
+                  <p className="info-text">
+                    <strong> Email: </strong> {user?.attributes?.email}
+                  </p>
+
+                  <p className="info-text">
+                    <strong>Address: </strong> {user?.attributes?.address}
+                  </p>
+
+                  <p className="info-text">
+                    <strong>Phone number:</strong> {user?.attributes?.phone}
+                  </p>
+                </div>
+                <div className="col-span-12 pt-[20px] md:pt-0">
+                  <div className="qr-code__container text-center flex justify-center md:justify-left">
+                    <QRCode text={QR_TEXT + id} />
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

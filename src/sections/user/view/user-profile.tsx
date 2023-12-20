@@ -22,9 +22,11 @@ const UserProfile = async () => {
       PROFILE_BOOKING_QUERY,
       {
         filters: {
-          user: {
-            id: {
-              eq: 1,
+          product: {
+            author: {
+              username: {
+                eq: session?.user?.username
+              },
             },
           },
         },
