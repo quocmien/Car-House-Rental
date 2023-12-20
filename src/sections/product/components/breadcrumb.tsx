@@ -16,19 +16,18 @@ const Breadcrumb = async ({ title, menu }: IProps) => {
           </a>
         </li>
         {
-          isEmpty(menu) ?
           menu?.map((item: any) => {
             return (
+              item? 
               <li
                 className='before:px-[5px] before:text-[#ccc] before:content-["/\00a0"]'>
                 <a href={item?.link || '#'}>
                   {item?.name || ''}
                 </a>
               </li>
+              : ''
             );
            })
-        :
-          ''
         }
         <li className='before:px-[5px] before:text-[#ccc] before:content-["/\00a0"]'>
           <span className="text-[#777]">
