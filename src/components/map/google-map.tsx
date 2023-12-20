@@ -20,7 +20,7 @@ const mapOptions = {
 const MapUI = ({ center, currentLocation }: Props) => {
   // laod script for google map
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_APIKEY!,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
     libraries: ['places'],
   });
 
