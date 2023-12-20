@@ -3,11 +3,27 @@ import { Button } from '@/components/ui/button';
 import { Link, Mail, MapPin, Phone } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import { USER_DETAIL_QUERY } from '@/graphql/users'
+import fetchData from '@/lib/fetch-data';
+
+
 interface IProps {
   author: any;
 }
 
-const Address = ({ author }: IProps) => {
+const Address = async ({ author }: IProps) => {
+  const [{ data: users }] = await Promise.all([
+    fetchData(USER_DETAIL_QUERY, {
+      filters: {
+        username: {
+          eq: author?.attributes?.username
+        }
+      }
+    })
+  ])
+  const user = users?.usersPermissionsUsers?.data[0] || {}
+  const fullName = `${user?.attributes?.lastName} ${user?.attributes?.firstName}`
+
   return (
     <section className="shadow-md bg-[#fafafa]">
       <div className="h-[250px] relative overflow-hidden">
@@ -17,26 +33,21 @@ const Address = ({ author }: IProps) => {
         />
       </div>
       <div className="bg-[#fafafa] p-[20px]">
-        <div className="flex justify-between items-center">
-          <div className="h-10">
+        <div className="flex items-center">
+          <div className="h-11 w-11">
             <Image
-              className="w-full h-full object-contain"
-              src={'/img/logo-2.png'}
+              className="w-full h-full object-contain rounded-full"
+              src={user?.attributes?.avatar?.data?.attributes?.url || '/img/logo-2.png'}
               height={40}
               width={116}
               alt={''}
             />
           </div>
-          <div>
-            <Button className="rounded-full font-bold p-0 px-3 w-auto h-6">
-              <div className="text-xs uppercase">Claim</div>
-            </Button>
-          </div>
+          <a className="ml-[10px]" href={user?.attributes?.username ? `/user/${user?.attributes?.username}` : '#'}>
+            {fullName}
+          </a>
         </div>
-        <div className="py-[30px]">
-          <hr />
-        </div>
-        <address className="flex flex-col gap-[5px] not-italic">
+        <address className="flex flex-col gap-[5px] not-italic mt-[15px]">
           <figure className="flex items-center">
             <div>
               <MapPin

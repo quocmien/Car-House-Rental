@@ -13,7 +13,7 @@ query UserDetail($filters: UsersPermissionsUserFiltersInput) {
         avatar {
           data {
             attributes {
-			    url
+			        url
             }
           }
         }

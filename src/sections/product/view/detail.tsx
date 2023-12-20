@@ -11,7 +11,10 @@ import Heading from '../components/heading';
 import ImageSlide from '../components/image-silde';
 import OpeningHours from '../components/opening-hours';
 import Review from '../components/review/review';
+import Address from '../components/address'
 import ShareThisListing from '../components/share-listing';
+import { PRODUCT_DETAIL_QUERY } from '@/graphql/products'
+import fetchData from '@/lib/fetch-data';
 
 interface IProps {
   slug: string;
@@ -19,7 +22,19 @@ interface IProps {
 
 const ProductDetail = async ({ slug }: IProps) => {
   const session = await getServerSession(NEXT_AUTH_OPTIONS);
-  const { data: product } = await fetchDataRest(`products/slug/${slug}`);
+  const [{ data: products }] = await Promise.all([
+    fetchData(PRODUCT_DETAIL_QUERY, {
+      filters: {
+        slug: {
+          eq: slug
+        }
+      }
+    })
+  ]);
+
+  console.log('====> products', products.products)
+
+  const product = products?.products?.data[0]
 
   return (
     <div>
@@ -40,15 +55,14 @@ const ProductDetail = async ({ slug }: IProps) => {
           {/* <ReviewWriting /> */}
         </div>
         <div className="lg:col-span-5 flex flex-col gap-[30px]">
+          <Address
+            author={product?.attributes?.author?.data || null}
+          />
           <Booking
             session={session!}
             productId={product?.id}
             className="hidden lg:block"
           />
-          {/* <Address
-            author={product?.attributes?.author?.data || null}
-          /> */}
-          <OpeningHours />
           <ShareThisListing />
         </div>
       </div>

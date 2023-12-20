@@ -125,3 +125,61 @@ query OwnProductQuery($filters: ProductFiltersInput, $pagination: PaginationArg)
   }
 }
 `;
+
+export const PRODUCT_DETAIL_QUERY = `
+query ProductDetailQuery($filters: ProductFiltersInput) {
+  products(filters: $filters) {
+    data {
+      id
+      attributes {
+        name
+        desc
+        image {
+          data {
+            attributes {
+              formats
+              url
+            }
+          }
+        }
+        previews {
+          data {
+            id
+            attributes {
+              formats
+              url
+            }
+          }
+        }
+        price
+        displayPrice
+        address
+        category {
+          data {
+            attributes {
+              name
+              slug
+            }
+          }
+        }
+        author {
+          data {
+            attributes {
+              username
+              email
+              phone
+              firstName
+              lastName
+            }
+          }
+        }
+        slug
+        content
+        createdAt
+        updatedAt
+        publishedAt
+      }
+    }
+  }
+}
+`
