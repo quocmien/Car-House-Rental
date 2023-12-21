@@ -9,9 +9,11 @@ import fetchData from '@/lib/fetch-data';
 
 interface IProps {
   author: any;
+  address?: string | '';
+  title?: string | 'StayDriveFinder';
 }
 
-const Address = async ({ author }: IProps) => {
+const Address = async ({ author, address, title }: IProps) => {
   const [{ data: users }] = await Promise.all([
     fetchData(USER_DETAIL_QUERY, {
       filters: {
@@ -32,6 +34,8 @@ const Address = async ({ author }: IProps) => {
         <MapUI
           center={{ lat: 21.027763, lng: 105.83416 }}
           currentLocation={{ lat: 21.027763, lng: 105.83416 }}
+          address={address}
+          title={title}
         />
       </div>
       <div className="bg-[#fafafa] p-[20px]">

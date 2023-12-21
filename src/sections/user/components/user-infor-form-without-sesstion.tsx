@@ -1,12 +1,10 @@
 'use client';
 import FormProvider, { RHFInput, RHFSelect } from '@/components/hook-form';
-import { Button } from '@/components/ui/button';
 import { SelectItem } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
 import { GENDERS } from '@/configs/global-configs';
 import { fetchDataRest } from '@/lib/fetch-data-rest';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import useSWR from 'swr';
@@ -66,7 +64,7 @@ const UserInforFormWithoutSession = ({ userId }: IProps) => {
   useEffect(() => {
     if (!data) return;
     reset(data);
-  }, [data]);
+  }, [data, reset]);  
 
   return (
     <FormProvider methods={methods}>
