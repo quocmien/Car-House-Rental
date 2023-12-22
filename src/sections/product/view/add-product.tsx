@@ -2,7 +2,9 @@
 import { RHFInput, RHFSelect } from '@/components/hook-form';
 import FormProvider from '@/components/hook-form/form-provider';
 import RHFEditor from '@/components/hook-form/rhf-editor';
+import RHFMultiSelect from '@/components/hook-form/rhf-multi-select';
 import RHFUpload from '@/components/hook-form/rhf-upload';
+import { MultiSelect } from '@/components/multi-select/multi-select';
 import { Button } from '@/components/ui/button';
 import { SelectItem } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
@@ -20,6 +22,7 @@ import * as yup from 'yup';
 interface Props {
   session: Session;
   categories: any;
+  benefits: any;
 }
 
 type FormValueProp = {
@@ -32,6 +35,7 @@ type FormValueProp = {
   category: string;
   image: File | string | null;
   previews: (File | string)[] | null;
+  benefits: any | null;
 };
 
 const defaultValues = {
@@ -42,6 +46,7 @@ const defaultValues = {
   price: 0,
   displayPrice: '',
   category: '',
+  benefits: [],
   image: '',
   previews: [],
 };
@@ -55,6 +60,7 @@ const formSchema = yup.object({
   address: yup.string(),
   displayPrice: yup.string(),
   category: yup.string(),
+  benefits: yup.mixed().nullable(),
   image: yup
     .mixed()
     .transform((v) => (!v ? undefined : v))
@@ -65,7 +71,7 @@ const formSchema = yup.object({
     .required('Previews is required'),
 });
 
-export function AddProduct({ session, categories }: Props) {
+export function AddProduct({ session, categories, benefits }: Props) {
   const { toast } = useToast();
 
   const methods = useForm<FormValueProp>({
@@ -117,6 +123,11 @@ export function AddProduct({ session, categories }: Props) {
             slug,
             author: session?.user?.id,
             image: resRemoteImage?.[0]?.id || null,
+            benefits: values
+              ? values?.benefits?.map(
+                  (benefit: { id: any }) => benefit.id
+                )
+              : null,
             previews: resRemotePreviews?.map((item: { id: any }) => item.id),
           },
         }),
@@ -230,11 +241,11 @@ export function AddProduct({ session, categories }: Props) {
             </label>
             <RHFSelect name="category" placeholder="Category">
               {categories?.map((category: any) => {
-                const attributes = category?.attributes;
+                const categoryAttributes = category?.attributes;
 
                 return (
                   <SelectItem key={category?.id} value={category?.id}>
-                    {attributes?.name}
+                    {categoryAttributes?.name}
                   </SelectItem>
                 );
               })}
@@ -274,17 +285,21 @@ export function AddProduct({ session, categories }: Props) {
               className="w-full"
             />
           </div>
-          {/* <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <label className="opacity-70 text-[10px] uppercase font-bold">
-              Slug
+              Benefits
             </label>
-            <RHFInput
-              name="slug"
-              inputStyle="underline"
-              placeholder={slugify(values?.name || '')}
-              className="w-full"
+            <RHFMultiSelect
+              name="benefits"
+              placeholder='Select benefits...'
+              options={benefits?.map(
+                (benefit: { id: any; attributes: { name: any } }) => ({
+                  id: benefit?.id,
+                  name: benefit?.attributes?.name,
+                })
+              )}
             />
-          </div> */}
+          </div>
         </div>
         <div className="grid md:grid-cols-2 gap-8 mt-4">
           <div className="flex flex-col gap-2">

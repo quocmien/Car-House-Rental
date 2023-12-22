@@ -142,6 +142,15 @@ query ProductDetailQuery($filters: ProductFiltersInput) {
             }
           }
         }
+        benefits {
+          data {
+            id
+            attributes {
+              name
+              alias
+            }
+          }
+        }
         previews {
           data {
             id
