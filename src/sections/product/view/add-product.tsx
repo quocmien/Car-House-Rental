@@ -293,7 +293,7 @@ export function AddProduct({ session, categories }: Props) {
             </label>
             <RHFUpload
               name="image"
-              maxSize={3145728}
+              maxSize={5242880}
               onDrop={handleDrop}
               onDelete={handleRemoveFile}
             />
@@ -306,7 +306,7 @@ export function AddProduct({ session, categories }: Props) {
               multiple
               thumbnail
               name="previews"
-              maxSize={3145728}
+              maxSize={5242880}
               onDrop={handleDropFiles}
               onRemove={handleRemoveFiles}
               onRemoveAll={handleRemoveAllFiles}

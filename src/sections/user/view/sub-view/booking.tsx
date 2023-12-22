@@ -95,9 +95,6 @@ const Booking = ({ bookings }: IProps) => {
               <TableRow key={item.id}>
                 <TableCell className="font-medium">{index + 1}</TableCell>
                 <TableCell className="font-medium">{productName}</TableCell>
-                <TableCell>
-                  {fDate(booking?.first_date, 'dd/MM/yyyy')}
-                </TableCell>
                 <TableCell className="font-medium">{fullName}</TableCell>
                 <TableCell className="font-medium">{email}</TableCell>
                 <TableCell className="font-medium">{phone}</TableCell>
