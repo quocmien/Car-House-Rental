@@ -142,15 +142,7 @@ query ProductDetailQuery($filters: ProductFiltersInput) {
             }
           }
         }
-        benefits {
-          data {
-            id
-            attributes {
-              name
-              alias
-            }
-          }
-        }
+        variants
         previews {
           data {
             id
