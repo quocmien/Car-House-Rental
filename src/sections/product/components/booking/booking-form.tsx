@@ -52,8 +52,11 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
   const {
     handleSubmit,
     setError,
+    watch,
     formState: { isDirty, isSubmitting, errors },
   } = methods;
+
+  const watcher = watch();
 
   const onSubmit = async (values: FormValueProp) => {
     try {
@@ -127,6 +130,8 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
                 name="first_date"
                 placeholder="Pick firt date"
                 className="w-full"
+                fromDate={new Date()}
+                toDate={(watcher.last_date as any) || undefined}
                 datePickerProps={{
                   underline: true,
                 }}
@@ -140,6 +145,7 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
                 name="last_date"
                 placeholder="Pick last date"
                 className="w-full"
+                fromDate={(watcher.first_date as any) || new Date()}
                 datePickerProps={{
                   underline: true,
                 }}
