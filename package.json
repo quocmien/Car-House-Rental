@@ -27,6 +27,7 @@
     "@react-google-maps/api": "^2.19.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "cmdk": "^0.2.0",
     "date-fns": "^3.0.1",
     "google-map-react": "^2.2.1",
     "highlight.js": "^11.8.0",
