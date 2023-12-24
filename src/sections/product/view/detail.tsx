@@ -15,6 +15,7 @@ import Address from '../components/address'
 import ShareThisListing from '../components/share-listing';
 import { PRODUCT_DETAIL_QUERY } from '@/graphql/products'
 import fetchData from '@/lib/fetch-data';
+import GalleryProduct from '../components/gallery-product';
 
 interface IProps {
   slug: string;
@@ -47,8 +48,8 @@ const ProductDetail = async ({ slug }: IProps) => {
         title={product?.attributes?.name}
       />
       <Heading product={product?.attributes || {}} />
-      <ImageSlide product={product?.attributes || {}} />
-      <div className="container lg:grid lg:grid-cols-12  gap-[30px]">
+      <GalleryProduct product={product?.attributes || {}} />
+      <div className="container lg:grid lg:grid-cols-12 gap-[30px] mt-[15px]">
         <div className="lg:col-span-7">
           <About content={product?.attributes?.content || ''} />
           <Features />
