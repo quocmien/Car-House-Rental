@@ -44,9 +44,9 @@ const GalleryProduct = ({ product }: any) => {
         </div>
       </div>
 
-      <ImageComponent images={product?.previews?.data} />
+      <ImageComponent className="d-none md:d-flex" images={product?.previews?.data} />
 
-      <button className="absolute bottom-[10px] right-[25px]">
+      <button className="absolute bottom-[25px] md:bottom-[10px] right-[25px]">
         <LightBox
           title={'Show all photos'}
           images={product?.previews?.data || []}
