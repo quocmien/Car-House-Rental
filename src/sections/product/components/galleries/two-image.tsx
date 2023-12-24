@@ -9,6 +9,7 @@ return (
       images?.map((item: any) => {
         return (
           <div
+            key={item}
             className="gallery-product__item h-1/2 w-full
             bg-center bg-cover bg-no-repeat"
             style={{

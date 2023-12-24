@@ -10,6 +10,7 @@ return (
           [0, 1].map((index: any) => {
             return (
               <div
+                key={index}
                 className="gallery-product__item h-1/2 w-full
                 bg-center bg-cover bg-no-repeat"
                 style={{
