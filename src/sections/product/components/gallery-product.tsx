@@ -49,6 +49,7 @@ const GalleryProduct = ({ product }: any) => {
       <button className="absolute bottom-[25px] md:bottom-[10px] right-[25px]">
         <LightBox
           title={'Show all photos'}
+          image={product?.image?.data}
           images={product?.previews?.data || []}
         />
       </button>

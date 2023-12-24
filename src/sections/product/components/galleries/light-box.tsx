@@ -13,27 +13,44 @@ function nextImageUrl(src: string, size: number) {
 }
 
 
-export default function LightBox({ title, images }: any) {
+export default function LightBox({ title, images, image }: any) {
   const [open, setOpen] = React.useState(false);
+  const widthImage = image?.attributes?.formats?.large?.width || 1000
+  const heightImage = image?.attributes?.formats?.large?.height || 1000
 
-
-  const slides = images.map((item: any) => {
-    const width = item?.attributes?.formats?.large?.height || 1000
-    const height = item?.attributes?.formats?.large?.width || 1000
-    return {
-      width,
-      height,
-      src: nextImageUrl(item?.attributes?.url, width),
+  const slides = [
+    {
+      width: widthImage,
+      height: heightImage,
+      src: nextImageUrl(image?.attributes?.url, widthImage),
       srcSet: imageSizes
         .concat(...deviceSizes)
-        .filter((size) => size <= width)
+        .filter((size) => size <= widthImage)
         .map((size) => ({
-          src: nextImageUrl(item?.attributes?.url, size),
+          src: nextImageUrl(image?.attributes?.url, size),
           width: size,
-          height: Math.round((height / width) * size),
+          height: Math.round((heightImage / widthImage) * size),
         })),
-    }
-  });
+    },
+
+    ...images.map((item: any) => {
+      const width = item?.attributes?.formats?.large?.width || 1000
+      const height = item?.attributes?.formats?.large?.height || 1000
+      return {
+        width,
+        height,
+        src: nextImageUrl(item?.attributes?.url, width),
+        srcSet: imageSizes
+          .concat(...deviceSizes)
+          .filter((size) => size <= width)
+          .map((size) => ({
+            src: nextImageUrl(item?.attributes?.url, size),
+            width: size,
+            height: Math.round((height / width) * size),
+          })),
+      }
+    })
+  ];
 
   return (
     <>
