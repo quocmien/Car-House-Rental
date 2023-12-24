@@ -142,6 +142,7 @@ query ProductDetailQuery($filters: ProductFiltersInput) {
             }
           }
         }
+        variants
         previews {
           data {
             id

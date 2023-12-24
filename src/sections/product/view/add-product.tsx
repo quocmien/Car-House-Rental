@@ -10,10 +10,10 @@ import { postData } from '@/utils/post-data';
 import { postFormData } from '@/utils/post-form-data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import isEmpty from 'lodash/isEmpty';
-import { Loader2 } from 'lucide-react';
+import { Loader2, MinusCircle, Plus } from 'lucide-react';
 import { Session } from 'next-auth';
 import { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import slugify from 'slugify';
 import * as yup from 'yup';
 
@@ -32,6 +32,8 @@ type FormValueProp = {
   category: string;
   image: File | string | null;
   previews: (File | string)[] | null;
+  // benefits: any | null;
+  variants: any | null;
 };
 
 const defaultValues = {
@@ -42,6 +44,12 @@ const defaultValues = {
   price: 0,
   displayPrice: '',
   category: '',
+  // benefits: [],
+  variants: [
+    {
+      name: '',
+    },
+  ],
   image: '',
   previews: [],
 };
@@ -55,6 +63,8 @@ const formSchema = yup.object({
   address: yup.string(),
   displayPrice: yup.string(),
   category: yup.string(),
+  // benefits: yup.mixed().nullable(),
+  variants: yup.mixed().nullable(),
   image: yup
     .mixed()
     .transform((v) => (!v ? undefined : v))
@@ -74,12 +84,20 @@ export function AddProduct({ session, categories }: Props) {
   });
 
   const {
+    control,
     handleSubmit,
     setValue,
     watch,
     setError,
     formState: { isSubmitting, errors },
   } = methods;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'variants',
+  });
+
+  console.log({ fields });
 
   const values = watch();
 
@@ -117,6 +135,9 @@ export function AddProduct({ session, categories }: Props) {
             slug,
             author: session?.user?.id,
             image: resRemoteImage?.[0]?.id || null,
+            // benefits: values
+            //   ? values?.benefits?.map((benefit: { id: any }) => benefit.id)
+            //   : null,
             previews: resRemotePreviews?.map((item: { id: any }) => item.id),
           },
         }),
@@ -195,6 +216,16 @@ export function AddProduct({ session, categories }: Props) {
     setValue('previews', []);
   }, [setValue]);
 
+  const handleAdd = () => {
+    append({
+      name: '',
+    });
+  };
+
+  const handleRemove = (index: number) => {
+    remove(index);
+  };
+
   return (
     <div className="container">
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -230,11 +261,11 @@ export function AddProduct({ session, categories }: Props) {
             </label>
             <RHFSelect name="category" placeholder="Category">
               {categories?.map((category: any) => {
-                const attributes = category?.attributes;
+                const categoryAttributes = category?.attributes;
 
                 return (
                   <SelectItem key={category?.id} value={category?.id}>
-                    {attributes?.name}
+                    {categoryAttributes?.name}
                   </SelectItem>
                 );
               })}
@@ -276,15 +307,51 @@ export function AddProduct({ session, categories }: Props) {
           </div>
           {/* <div className="flex flex-col gap-2">
             <label className="opacity-70 text-[10px] uppercase font-bold">
-              Slug
+              Benefits
             </label>
-            <RHFInput
-              name="slug"
-              inputStyle="underline"
-              placeholder={slugify(values?.name || '')}
-              className="w-full"
+            <RHFMultiSelect
+              name="benefits"
+              placeholder="Select benefits..."
+              options={benefits?.map(
+                (benefit: { id: any; attributes: { name: any } }) => ({
+                  id: benefit?.id,
+                  name: benefit?.attributes?.name,
+                })
+              )}
             />
           </div> */}
+          <div className="flex flex-col gap-2">
+            <label className="opacity-70 text-[10px] uppercase font-bold">
+              Variants
+            </label>
+            <div>
+              {fields.map((item, index) => (
+                <div className="w-full flex items-center" key={item.id}>
+                  <div className="flex-1">
+                    <RHFInput
+                      name={`variants[${index}].name`}
+                      placeholder="Name"
+                      inputStyle="underline"
+                      className="w-full"
+                    />
+                  </div>
+
+                  {index > 0 && (
+                    <MinusCircle
+                      className="w-5 h-5 mx-2 cursor-pointer"
+                      onClick={() => handleRemove(index)}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={handleAdd}
+            >
+              <Plus className="w-4 h-4 mr-1" /> Add item
+            </div>
+          </div>
         </div>
         <div className="grid md:grid-cols-2 gap-8 mt-4">
           <div className="flex flex-col gap-2">

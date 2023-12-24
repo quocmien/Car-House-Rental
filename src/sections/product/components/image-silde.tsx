@@ -2,7 +2,7 @@
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { PROMOTE_LIST } from '@/mock/common';
@@ -19,8 +19,12 @@ const ImageSlide = ({ product }: any) => {
           nextEl: '.detail-swiper-button-next',
           prevEl: '.detail-swiper-button-prev',
         }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         pagination={false}
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Autoplay]}
       >
         {!!product?.previews?.data?.length &&
           product?.previews?.data?.map((item: any) => {

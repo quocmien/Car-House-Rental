@@ -52,7 +52,7 @@ const ProductDetail = async ({ slug }: IProps) => {
       <div className="container lg:grid lg:grid-cols-12 gap-[30px] mt-[15px]">
         <div className="lg:col-span-7">
           <About content={product?.attributes?.content || ''} />
-          <Features />
+          <Features variants={product?.attributes?.variants || []} />
           <Review />
           {/* <ReviewWriting /> */}
         </div>

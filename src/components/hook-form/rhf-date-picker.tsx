@@ -10,14 +10,16 @@ import {
   FormItem,
   FormMessage,
 } from '../ui/form';
+import { CalendarProps } from '../ui/calendar';
 
-export type RHFDatePickerProps = DatePickerProps & {
-  name: string;
-  datePickerProps?: DatePickerProps;
-  description?: string;
-  placeholder?: string;
-  onSubmit?: (selectedDates?: any) => void;
-};
+export type RHFDatePickerProps = DatePickerProps &
+  CalendarProps & {
+    name: string;
+    datePickerProps?: DatePickerProps;
+    description?: string;
+    placeholder?: string;
+    onSubmit?: (selectedDates?: any) => void;
+  };
 
 export default function RHFDatePicker({
   name,
@@ -26,6 +28,7 @@ export default function RHFDatePicker({
   datePickerProps,
   placeholder,
   inputFormat,
+  ...other
 }: RHFDatePickerProps) {
   const { control } = useFormContext();
 
@@ -52,6 +55,7 @@ export default function RHFDatePicker({
                   onSubmit(selectedDate);
                 }
               }}
+              {...other}
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}

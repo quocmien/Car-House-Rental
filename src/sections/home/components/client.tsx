@@ -3,7 +3,7 @@
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 
@@ -11,17 +11,22 @@ const Client = () => {
   return (
     <Swiper
       slidesPerView="auto"
-      loop={false}
+      loop={true}
       pagination={true}
-      modules={[Navigation, Pagination]}
-      autoplay={false}
+      modules={[Navigation, Pagination, Autoplay]}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
       className="relative !z-0 !pl-[10px] !pb-[30px] -top-[30px]"
-      style={{
-        '--swiper-pagination-color': '#000',
-        '--swiper-pagination-bullet-width': '5px',
-        '--swiper-pagination-bullet-height': '5px',
-        '--swiper-pagination-bullet-horizontal-gap': '5px',
-      } as any}
+      style={
+        {
+          '--swiper-pagination-color': '#000',
+          '--swiper-pagination-bullet-width': '5px',
+          '--swiper-pagination-bullet-height': '5px',
+          '--swiper-pagination-bullet-horizontal-gap': '5px',
+        } as any
+      }
     >
       <SwiperSlide className="relative">
         <blockquote className="flex flex-col items-center justify-center py-[10px] px-5">
