@@ -10,6 +10,7 @@ import React from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useBoolean } from '@/hooks/use-boolean';
+import { useRouter } from 'next/navigation';
 
 interface IProps {
   username: string;
@@ -17,6 +18,12 @@ interface IProps {
 
 const UserNavBar = ({ username }: IProps) => {
   const menuMobile = useBoolean();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    router.refresh();
+  };
 
   return (
     <HoverCard open={menuMobile.value} openDelay={0}>
@@ -38,7 +45,7 @@ const UserNavBar = ({ username }: IProps) => {
           </li>
           <li
             className="border-b px-2 py-[6px] cursor-pointer"
-            onClick={() => signOut({ redirect: false })}
+            onClick={handleSignOut}
           >
             <a className="uppercase font-bold ">Logout</a>
           </li>
