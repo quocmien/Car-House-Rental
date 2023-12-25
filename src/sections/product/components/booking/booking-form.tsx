@@ -23,6 +23,7 @@ type FormValueProp = {
   email?: string | null;
   first_date: string;
   last_date: string;
+  guest?: number;
   note?: string;
 };
 
@@ -31,6 +32,7 @@ const defaultValues = {
   email: '',
   first_date: '',
   last_date: '',
+  guest: 1,
   note: '',
 };
 
@@ -39,11 +41,13 @@ const formSchema = yup.object({
   email: yup.string().email('Email is invalid!').nullable(),
   first_date: yup.string().required('First Date is required!'),
   last_date: yup.string().required('Last Date is required!'),
+  guest: yup.number(),
   note: yup.string(),
 });
 
 const BookingForm = ({ session, onSuccess, productId }: IProps) => {
   const { toast } = useToast();
+
   const methods = useForm<FormValueProp>({
     resolver: yupResolver(formSchema),
     defaultValues,
@@ -151,6 +155,19 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
                 }}
               />
             </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="opacity-70 text-[10px] uppercase font-bold">
+              Guests
+            </label>
+            <RHFInput
+              name="guest"
+              type='number'
+              inputStyle="underline"
+              placeholder="Guests"
+              className="w-full"
+            />
           </div>
           <div className="flex flex-col gap-2">
             <label className="opacity-70 text-[10px] uppercase font-bold">

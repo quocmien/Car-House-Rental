@@ -38,7 +38,7 @@ const UserNavBar = ({ username }: IProps) => {
           </li>
           <li
             className="border-b px-2 py-[6px] cursor-pointer"
-            onClick={() => signOut()}
+            onClick={() => signOut({ redirect: false })}
           >
             <a className="uppercase font-bold ">Logout</a>
           </li>
