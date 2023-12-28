@@ -47,7 +47,9 @@ const defaultValues = {
   // benefits: [],
   variants: [
     {
+      icon: '',
       name: '',
+      content: ''
     },
   ],
   image: '',
@@ -327,6 +329,14 @@ export function AddProduct({ session, categories }: Props) {
             <div>
               {fields.map((item, index) => (
                 <div className="w-full flex items-center" key={item.id}>
+                  <div className="flex-1">
+                    <RHFUpload
+                      name="image"
+                      maxSize={5242880}
+                      onDrop={handleDrop}
+                      onDelete={handleRemoveFile}
+                    />
+                  </div>
                   <div className="flex-1">
                     <RHFInput
                       name={`variants[${index}].name`}

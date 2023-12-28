@@ -2,6 +2,7 @@ import { Facebook, Twitter, Youtube } from 'lucide-react';
 import Image from 'next/image';
 
 const Footer = () => {
+  const year = new Date().getFullYear()
   return (
     <div className="flex flex-col items-center w-full mt-[30px] border-t">
       <div className="block-section">
@@ -50,12 +51,11 @@ const Footer = () => {
         <div className="container ">
           <div className="justify-between flex text-xs py-2 screen-">
             <div className="text-white">
-              (C) 2016 Your Company, All right reserved
+              (C) {year} Copyright by StayDriveFinder
             </div>
             <div className="text-white flex gap-x-2">
-              <a href="">Home</a>
-              <a href="">Listing</a>
-              <a href="">Contact</a>
+              <a href="/">Home</a>
+              <a href="#">Contact</a>
             </div>
           </div>
         </div>

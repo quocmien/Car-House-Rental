@@ -17,6 +17,15 @@ interface IProps {
 
 const UserNavBar = ({ username }: IProps) => {
   const menuMobile = useBoolean();
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false }); // Sign out without redirecting immediately
+      // router.push('/'); // Redirect to the home page after successful sign-out
+    } catch (error) {
+      console.error('Error signing out:', error);
+      // Handle sign-out error if needed
+    }
+  };
 
   return (
     <HoverCard open={menuMobile.value} openDelay={0}>
@@ -38,7 +47,7 @@ const UserNavBar = ({ username }: IProps) => {
           </li>
           <li
             className="border-b px-2 py-[6px] cursor-pointer"
-            onClick={() => signOut()}
+            onClick={handleSignOut}
           >
             <a className="uppercase font-bold ">Logout</a>
           </li>

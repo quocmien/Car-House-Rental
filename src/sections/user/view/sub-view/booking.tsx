@@ -79,6 +79,7 @@ const Booking = ({ bookings }: IProps) => {
             <TableHead className="w-[200px]">Phone</TableHead>
             <TableHead>First date</TableHead>
             <TableHead>Last Date</TableHead>
+            <TableHead>Guest</TableHead>
             <TableHead className="w-[200px]">Note</TableHead>
             <TableHead>Status</TableHead>
           </TableRow>
@@ -87,9 +88,14 @@ const Booking = ({ bookings }: IProps) => {
           {bookings?.map((item: any, index: number) => {
             const booking = item?.attributes;
             const productName = booking?.product?.data?.attributes?.name;
-            const fullName = `${booking?.user?.data?.attributes?.lastName} ${booking?.user?.data?.attributes?.firstName}`
+            const fullName = (booking?.user?.data?.attributes?.lastName && booking?.user?.data?.attributes?.firstName)
+              ? `${booking?.user?.data?.attributes?.lastName} ${booking?.user?.data?.attributes?.firstName}`
+              : booking?.user?.data?.attributes?.username
+
+            
             const email = booking?.user?.data?.attributes?.email || ''
             const phone = booking?.user?.data?.attributes?.phone || ''
+            const guest = booking?.user?.data?.attributes?.guest || 1
             const note = booking?.note
             return (
               <TableRow key={item.id}>
@@ -98,7 +104,9 @@ const Booking = ({ bookings }: IProps) => {
                 <TableCell className="font-medium">{fullName}</TableCell>
                 <TableCell className="font-medium">{email}</TableCell>
                 <TableCell className="font-medium">{phone}</TableCell>
+                <TableCell>{fDate(booking?.first_date, 'dd/MM/yyyy')}</TableCell>
                 <TableCell>{fDate(booking?.last_date, 'dd/MM/yyyy')}</TableCell>
+                <TableCell className="font-medium">{guest}</TableCell>
                 <TableCell className="font-medium">{note}</TableCell>
                 <TableCell
                   className={cn(
