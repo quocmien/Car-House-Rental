@@ -1,6 +1,6 @@
 export const PROFILE_BOOKING_QUERY = `
-query getBookings($filters: BookingFiltersInput) {
-  bookings(filters: $filters) {
+query getBookings($filters: BookingFiltersInput, $sort: [String]) {
+  bookings(filters: $filters, sort: $sort) {
     data {
       id
       attributes {
@@ -24,6 +24,7 @@ query getBookings($filters: BookingFiltersInput) {
             }
           }
         }
+        guest
         status
         note
       }

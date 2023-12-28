@@ -13,51 +13,6 @@ import {
 import { cn } from '@/lib/utils';
 import { fDate } from '@/utils/format-time';
 
-const invoices = [
-  {
-    invoice: 'INV001',
-    paymentStatus: 'Paid',
-    totalAmount: '$250.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV002',
-    paymentStatus: 'Pending',
-    totalAmount: '$150.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV003',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$350.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV004',
-    paymentStatus: 'Paid',
-    totalAmount: '$450.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV005',
-    paymentStatus: 'Paid',
-    totalAmount: '$550.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV006',
-    paymentStatus: 'Pending',
-    totalAmount: '$200.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV007',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$300.00',
-    paymentMethod: 'Credit Card',
-  },
-];
-
 interface IProps {
   bookings: any;
 }
@@ -95,7 +50,7 @@ const Booking = ({ bookings }: IProps) => {
             
             const email = booking?.user?.data?.attributes?.email || ''
             const phone = booking?.user?.data?.attributes?.phone || ''
-            const guest = booking?.user?.data?.attributes?.guest || 1
+            const guest = booking?.guest || 1
             const note = booking?.note
             return (
               <TableRow key={item.id}>

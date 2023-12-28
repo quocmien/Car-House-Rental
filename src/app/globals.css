@@ -108,3 +108,7 @@
 .gm-style a[href^="https://maps.google.com/maps"] {
   display: none !important;
 }
+
+.rdp-vhidden {
+  @apply hidden;
+}

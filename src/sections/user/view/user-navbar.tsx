@@ -10,6 +10,7 @@ import React from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useBoolean } from '@/hooks/use-boolean';
+import { useRouter } from 'next/navigation';
 
 interface IProps {
   username: string;

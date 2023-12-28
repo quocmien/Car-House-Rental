@@ -30,6 +30,7 @@ const UserProfile = async () => {
             },
           },
         },
+        sort: ['createdAt:DESC']
       },
       session?.user?.accessToken
     ),
@@ -37,6 +38,8 @@ const UserProfile = async () => {
 
   const categories = categoriesData?.categories?.data;
   const bookings = bookingsData?.bookings?.data;
+
+  console.log('====> booking', bookings)
 
   const productFetchers = categories?.map((item: any) =>
     fetchData(

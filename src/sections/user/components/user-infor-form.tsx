@@ -261,6 +261,9 @@ const UserInforForm = ({ session }: IProps) => {
               placeholder="Pick date"
               className="w-full"
               inputFormat="yyyy-MM-dd"
+              captionLayout="dropdown-buttons"
+              fromYear={1900}
+              toYear={new Date().getFullYear()}
               datePickerProps={{
                 underline: true,
               }}
