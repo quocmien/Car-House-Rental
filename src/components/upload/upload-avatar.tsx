@@ -4,13 +4,14 @@ import { UploadProps } from './types';
 import RejectionFiles from './errors-rejection-files';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { Camera } from 'lucide-react';
+import { Camera, X } from 'lucide-react';
 
 // ----------------------------------------------------------------------
 
 export default function UploadAvatar({
   error,
   file,
+  onDelete,
   disabled,
   ...other
 }: UploadProps) {
@@ -44,6 +45,15 @@ export default function UploadAvatar({
     />
   );
 
+  const removeSinglePreview = hasFile && onDelete && (
+    <div
+      onClick={onDelete}
+      className="bg-red-500 hover:bg-red-400 absolute z-10 right-0 top-0 opacity-80 rounded-full p-1"
+    >
+      <X className="w-[16px] h-[16px] text-white" />
+    </div>
+  );
+
   const renderPlaceholder = (
     <div
       className={cn(
@@ -54,7 +64,9 @@ export default function UploadAvatar({
     >
       <Camera className="w-8 h-8" />
 
-      <div>{file ? 'Update photo' : 'Upload photo'}</div>
+      <div className="text-center">
+        {file ? 'Update file' : 'Upload'}
+      </div>
     </div>
   );
 
@@ -66,11 +78,11 @@ export default function UploadAvatar({
   );
 
   return (
-    <>
+    <div className="relative w-full h-full">
       <div
         {...getRootProps()}
         className={cn(
-          'p-2 m-auto w-[144px] h-[144px] cursor-pointer overflow-hidden rounded-full border border-dashed border-gray-500/20',
+          'p-2 m-auto w-full h-full cursor-pointer overflow-hidden rounded-full border border-dashed border-gray-500/20',
           isDragActive && 'opacity-75',
           disabled && 'opacity-50 pointer-events-none',
           hasError && 'text-red-500 border-red-500 bg-red-500/10',
@@ -82,7 +94,9 @@ export default function UploadAvatar({
         {renderContent}
       </div>
 
+      {removeSinglePreview}
+
       <RejectionFiles fileRejections={fileRejections} />
-    </>
+    </div>
   );
 }

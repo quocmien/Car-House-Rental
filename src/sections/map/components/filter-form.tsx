@@ -17,7 +17,7 @@ const FilterForm = () => {
   return (
     <div>
       <div className="p-5 mb-5">
-        <form className="relative bg-[#00000008] rounded-sm px-5 py-[10px]">
+        <div className="relative bg-[#00000008] rounded-sm px-5 py-[10px]">
           <h2 className="text-[18px] my-[10px] opacity-80">Search</h2>
           <div className="md:grid md:grid-cols-2 md:gap-x-[30px] md:gap-y-[10px]">
             <div className="md:col-span-2">
@@ -78,7 +78,7 @@ const FilterForm = () => {
               />
             </Button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

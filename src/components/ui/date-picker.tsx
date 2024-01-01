@@ -32,7 +32,6 @@ export function DatePicker({
   ...field
 }: DatePickerProps & CalendarProps) {
   const open = useBoolean();
-  console.log({field});
   
   return (
     <Popover

@@ -72,7 +72,7 @@ const PromoteItem = ({
           )}
         >
           <Image
-            className="aspect-square group-hover/item:scale-110 transition-all ease-in-out duration-600 scale-[1.01]"
+            className="aspect-square group-hover/item:scale-110 transition-all ease-in-out duration-600 scale-[1.01] object-cover"
             src={src}
             width={600}
             height={600}

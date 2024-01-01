@@ -10,6 +10,7 @@ import {
 import Upload from '../upload/upload';
 import { UploadProps } from '../upload';
 import UploadAvatar from '../upload/upload-avatar';
+import { cn } from '@/lib/utils';
 // import { Upload, UploadProps } from '../upload';
 
 // ----------------------------------------------------------------------
@@ -66,11 +67,17 @@ interface Props extends Omit<UploadProps, 'file'> {
   name: string;
   multiple?: boolean;
   description?: string;
+  className?: string;
 }
 
 // ----------------------------------------------------------------------
 
-export function RHFUploadAvatar({ name, description, ...other }: Props) {
+export function RHFUploadAvatar({
+  name,
+  description,
+  className,
+  ...other
+}: Props) {
   const { control } = useFormContext();
 
   return (
@@ -80,7 +87,7 @@ export function RHFUploadAvatar({ name, description, ...other }: Props) {
       render={({ field, fieldState: { error } }) => (
         <FormItem>
           <FormControl>
-            <div>
+            <div className={cn('w-[144px] h-[144px]', className)}>
               <UploadAvatar error={!!error} file={field.value} {...other} />
             </div>
           </FormControl>
