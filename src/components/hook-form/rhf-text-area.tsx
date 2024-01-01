@@ -19,6 +19,7 @@ type Props = InputProps & {
   name: string;
   description?: string;
   inputStyle?: 'outline' | 'underline';
+  rows?: number;
 };
 
 export default function RHFTextArea({
@@ -41,7 +42,9 @@ export default function RHFTextArea({
               <TextareaUnderline
                 {...field}
                 type={type}
-                value={type === 'number' && field.value === 0 ? '' : field.value}
+                value={
+                  type === 'number' && field.value === 0 ? '' : field.value
+                }
                 onChange={(event: any) => {
                   if (type === 'number') {
                     field.onChange(Number(event.target.value));

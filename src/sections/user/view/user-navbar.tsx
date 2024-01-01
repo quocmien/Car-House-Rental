@@ -17,10 +17,12 @@ interface IProps {
 }
 
 const UserNavBar = ({ username }: IProps) => {
+  const router = useRouter();
   const menuMobile = useBoolean();
   const handleSignOut = async () => {
     try {
       await signOut({ redirect: false }); // Sign out without redirecting immediately
+      router.refresh();
       // router.push('/'); // Redirect to the home page after successful sign-out
     } catch (error) {
       console.error('Error signing out:', error);

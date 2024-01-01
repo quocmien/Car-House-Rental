@@ -39,8 +39,6 @@ const UserProfile = async () => {
   const categories = categoriesData?.categories?.data;
   const bookings = bookingsData?.bookings?.data;
 
-  console.log('====> booking', bookings)
-
   const productFetchers = categories?.map((item: any) =>
     fetchData(
       USER_PRODUCT_QUERY,

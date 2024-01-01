@@ -15,10 +15,10 @@ import { fDate, fTimestamp } from '@/utils/format-time';
 import { postData } from '@/utils/post-data';
 import { postFormData } from '@/utils/post-form-data';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Loader2 } from 'lucide-react';
+import { Loader2, MinusCircle, Plus } from 'lucide-react';
 import { Session } from 'next-auth';
 import { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import useSWR from 'swr';
 import * as yup from 'yup';
 
@@ -37,6 +37,7 @@ type FormValueProp = {
   dob?: string;
   avatar?: File | String | null;
   banner?: File | String | null;
+  links: any | null;
 };
 
 const defaultValues = {
@@ -50,6 +51,12 @@ const defaultValues = {
   dob: '',
   avatar: '',
   banner: '',
+  links: [
+    {
+      label: '',
+      link: '',
+    },
+  ],
 };
 
 const formSchema = yup.object({
@@ -62,6 +69,7 @@ const formSchema = yup.object({
   gender: yup.string().nullable(),
   avatar: yup.mixed().nullable(),
   dob: yup.string().nullable(),
+  links: yup.mixed().nullable(),
 });
 
 const UserInforForm = ({ session }: IProps) => {
@@ -80,12 +88,29 @@ const UserInforForm = ({ session }: IProps) => {
   });
 
   const {
+    control,
     reset,
     handleSubmit,
     setError,
     formState: { dirtyFields, errors, isDirty, isSubmitting },
     setValue,
   } = methods;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'links',
+  });
+
+  const handleAddLink = () => {
+    append({
+      label: '',
+      link: '',
+    });
+  };
+
+  const handleRemoveLinks = (index: number) => {
+    remove(index);
+  };
 
   useEffect(() => {
     if (!data) return;
@@ -94,6 +119,11 @@ const UserInforForm = ({ session }: IProps) => {
 
   const onSubmit = async (values: FormValueProp) => {
     const changedValue = getDirtyValues(dirtyFields as any, values);
+    console.log({ changedValue });
+
+    if (changedValue?.role) {
+      changedValue.role = undefined;
+    }
 
     try {
       // image
@@ -268,6 +298,49 @@ const UserInforForm = ({ session }: IProps) => {
                 underline: true,
               }}
             />
+          </div>
+          <div>
+            <label className="opacity-70 text-[10px] uppercase font-bold">
+              Links
+            </label>
+            <div>
+              {fields.map((item, index) => (
+                <div
+                  className="w-full flex items-center gap-2 mb-2"
+                  key={item.id}
+                >
+                  <div className="flex-1">
+                    <RHFInput
+                      name={`links[${index}].label`}
+                      placeholder="Label"
+                      inputStyle="underline"
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <RHFInput
+                      name={`links[${index}].link`}
+                      placeholder="Links"
+                      inputStyle="underline"
+                      className="w-full"
+                    />
+                  </div>
+
+                  {index > 0 && (
+                    <MinusCircle
+                      className="w-5 h-5 mx-2 cursor-pointer"
+                      onClick={() => handleRemoveLinks(index)}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={handleAddLink}
+            >
+              <Plus className="w-4 h-4 mr-1" /> Add item
+            </div>
           </div>
         </div>
         <div className="text-red-500 w-full text-center">

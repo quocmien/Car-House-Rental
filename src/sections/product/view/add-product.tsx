@@ -2,7 +2,7 @@
 import { RHFInput, RHFSelect } from '@/components/hook-form';
 import FormProvider from '@/components/hook-form/form-provider';
 import RHFEditor from '@/components/hook-form/rhf-editor';
-import RHFUpload from '@/components/hook-form/rhf-upload';
+import RHFUpload, { RHFUploadAvatar } from '@/components/hook-form/rhf-upload';
 import { Button } from '@/components/ui/button';
 import { SelectItem } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
@@ -34,6 +34,7 @@ type FormValueProp = {
   previews: (File | string)[] | null;
   // benefits: any | null;
   variants: any | null;
+  links: any | null;
 };
 
 const defaultValues = {
@@ -49,7 +50,13 @@ const defaultValues = {
     {
       icon: '',
       name: '',
-      content: ''
+      content: '',
+    },
+  ],
+  links: [
+    {
+      label: '',
+      link: '',
     },
   ],
   image: '',
@@ -64,9 +71,10 @@ const formSchema = yup.object({
   price: yup.number(),
   address: yup.string(),
   displayPrice: yup.string(),
-  category: yup.string(),
+  category: yup.string().required('category is required'),
   // benefits: yup.mixed().nullable(),
   variants: yup.mixed().nullable(),
+  links: yup.mixed().nullable(),
   image: yup
     .mixed()
     .transform((v) => (!v ? undefined : v))
@@ -99,7 +107,14 @@ export function AddProduct({ session, categories }: Props) {
     name: 'variants',
   });
 
-  console.log({ fields });
+  const {
+    fields: linksData,
+    append: linkAppend,
+    remove: linkRemove,
+  } = useFieldArray({
+    control,
+    name: 'links',
+  });
 
   const values = watch();
 
@@ -116,18 +131,42 @@ export function AddProduct({ session, categories }: Props) {
           formDataPreviews.append('files', value);
         });
 
-      const [resRemoteImage, resRemotePreviews] = await Promise.all([
-        postFormData({
-          url: 'upload',
-          body: formData,
-          token: session?.user?.accessToken,
-        }),
-        postFormData({
-          url: 'upload',
-          body: formDataPreviews,
-          token: session?.user?.accessToken,
-        }),
-      ]);
+      const formDataIconVariants = new FormData();
+      let count = 0;
+      values.variants?.length! > 0 &&
+        values.variants?.forEach((value: any) => {
+          if (value.icon && typeof value.icon !== 'string') {
+            formDataIconVariants.append('files', value.icon);
+            count += 1;
+          }
+        });
+
+      const [resRemoteImage, resRemotePreviews, resRemoteVariants] =
+        await Promise.all([
+          postFormData({
+            url: 'upload',
+            body: formData,
+            token: session?.user?.accessToken,
+          }),
+          postFormData({
+            url: 'upload',
+            body: formDataPreviews,
+            token: session?.user?.accessToken,
+          }),
+          count > 0 &&
+            postFormData({
+              url: 'upload',
+              body: formDataIconVariants,
+              token: session?.user?.accessToken,
+            }),
+        ]);
+
+      const variants = values.variants.map((item: any, index: number) => {
+        if (item.icon && typeof item.icon !== 'string') {
+          return { ...item, icon: resRemoteVariants.pop().url };
+        }
+        return item;
+      });
 
       await postData({
         url: 'products',
@@ -135,11 +174,9 @@ export function AddProduct({ session, categories }: Props) {
           data: {
             ...values,
             slug,
+            variants,
             author: session?.user?.id,
             image: resRemoteImage?.[0]?.id || null,
-            // benefits: values
-            //   ? values?.benefits?.map((benefit: { id: any }) => benefit.id)
-            //   : null,
             previews: resRemotePreviews?.map((item: { id: any }) => item.id),
           },
         }),
@@ -185,9 +222,31 @@ export function AddProduct({ session, categories }: Props) {
     [setValue]
   );
 
+  const handleDropIcon = useCallback(
+    (acceptedFiles: File[], fieldName: any) => {
+      const file = acceptedFiles[0];
+
+      const newFile = Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      });
+
+      if (file) {
+        setValue(fieldName, newFile as any, { shouldValidate: true });
+      }
+    },
+    [setValue]
+  );
+
   const handleRemoveFile = useCallback(() => {
     setValue('image', null);
   }, [setValue]);
+
+  const handleRemoveIcon = useCallback(
+    (fieldName: any) => {
+      setValue(fieldName, null);
+    },
+    [setValue]
+  );
 
   const handleDropFiles = useCallback(
     (acceptedFiles: File[]) => {
@@ -221,11 +280,24 @@ export function AddProduct({ session, categories }: Props) {
   const handleAdd = () => {
     append({
       name: '',
+      icon: '',
+      content: ''
+    });
+  };
+
+  const handleAddLink = () => {
+    linkAppend({
+      label: '',
+      link: '',
     });
   };
 
   const handleRemove = (index: number) => {
     remove(index);
+  };
+
+  const handleRemoveLinks = (index: number) => {
+    linkRemove(index);
   };
 
   return (
@@ -328,13 +400,21 @@ export function AddProduct({ session, categories }: Props) {
             </label>
             <div>
               {fields.map((item, index) => (
-                <div className="w-full flex items-center" key={item.id}>
-                  <div className="flex-1">
-                    <RHFUpload
-                      name="image"
+                <div
+                  className="w-full flex items-center gap-2 mb-2"
+                  key={item.id}
+                >
+                  <div className="">
+                    <RHFUploadAvatar
+                      className="w-[100px] h-[100px]"
+                      name={`variants[${index}].icon`}
                       maxSize={5242880}
-                      onDrop={handleDrop}
-                      onDelete={handleRemoveFile}
+                      onDrop={(acceptedFiles: File[]) =>
+                        handleDropIcon(acceptedFiles, `variants[${index}].icon`)
+                      }
+                      onDelete={() =>
+                        handleRemoveIcon(`variants[${index}].icon`)
+                      }
                     />
                   </div>
                   <div className="flex-1">
@@ -358,6 +438,49 @@ export function AddProduct({ session, categories }: Props) {
             <div
               className="flex items-center cursor-pointer"
               onClick={handleAdd}
+            >
+              <Plus className="w-4 h-4 mr-1" /> Add item
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="opacity-70 text-[10px] uppercase font-bold">
+              Links
+            </label>
+            <div>
+              {linksData.map((item, index) => (
+                <div
+                  className="w-full flex items-center gap-2 mb-2"
+                  key={item.id}
+                >
+                  <div className="flex-1">
+                    <RHFInput
+                      name={`links[${index}].label`}
+                      placeholder="Label"
+                      inputStyle="underline"
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <RHFInput
+                      name={`links[${index}].link`}
+                      placeholder="Links"
+                      inputStyle="underline"
+                      className="w-full"
+                    />
+                  </div>
+
+                  {index > 0 && (
+                    <MinusCircle
+                      className="w-5 h-5 mx-2 cursor-pointer"
+                      onClick={() => handleRemoveLinks(index)}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={handleAddLink}
             >
               <Plus className="w-4 h-4 mr-1" /> Add item
             </div>

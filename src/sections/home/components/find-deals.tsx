@@ -24,7 +24,7 @@ const FindDeals = () => {
             Find Deals
           </h2>
         </div>
-        <form className="flex flex-col space-y-[15px]">
+        <div className="flex flex-col space-y-[15px]">
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-[15px] sm:gap-x-[30px]">
             <div className="sm:col-span-4 md:col-span-3">
               <Input placeholder="Enter keyword" />
@@ -108,7 +108,7 @@ const FindDeals = () => {
               />
             </div> */}
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );
