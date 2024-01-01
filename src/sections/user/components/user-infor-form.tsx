@@ -61,7 +61,7 @@ const defaultValues = {
 
 const formSchema = yup.object({
   username: yup.string().required('Username is required!'),
-  email: yup.string().required('Username is required!').email('Email invalid!'),
+  email: yup.string().required('Email is required!').email('Email invalid!'),
   firstName: yup.string().nullable(),
   lastName: yup.string().nullable(),
   phone: yup.string().nullable(),
@@ -83,7 +83,7 @@ const UserInforForm = ({ session }: IProps) => {
   );
 
   const methods = useForm<FormValueProp>({
-    resolver: yupResolver(formSchema as any),
+    resolver: yupResolver(formSchema) as any,
     defaultValues,
   });
 

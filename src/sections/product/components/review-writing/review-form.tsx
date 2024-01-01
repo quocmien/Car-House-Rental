@@ -37,7 +37,7 @@ const ReviewForm = ({ productId, session }: Props) => {
   const { toast } = useToast();
 
   const methods = useForm<FormValueProp>({
-    resolver: yupResolver(formSchema as any),
+    resolver: yupResolver(formSchema) as any,
     defaultValues,
   });
 
