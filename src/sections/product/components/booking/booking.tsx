@@ -8,13 +8,14 @@ interface IProps {
   className: string;
   productId: string;
   session?: Session;
+  links: Array<any> | [];
 }
 
-const Booking = async ({ className, productId, session }: IProps) => {
+const Booking = async ({ className, productId, session, links }: IProps) => {
   return (
     <div className={cn(className)}>
       <h2 className="text-[26px] text-primary font-light mb-5">Reserve</h2>
-      <BookingForm productId={productId} session={session!} />
+      <BookingForm productId={productId} session={session!} links={links} />
     </div>
   );
 };

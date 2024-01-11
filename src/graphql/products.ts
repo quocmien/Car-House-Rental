@@ -179,6 +179,7 @@ query ProductDetailQuery($filters: ProductFiltersInput) {
         createdAt
         updatedAt
         publishedAt
+        links
       }
     }
   }

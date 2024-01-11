@@ -34,6 +34,10 @@ const ProductDetail = async ({ slug }: IProps) => {
 
   const product = products?.products?.data[0];
 
+  const links = product?.attributes?.links || []
+
+  console.log('====> links book', links)
+
   return (
     <div>
       <Breadcrumb
@@ -62,6 +66,7 @@ const ProductDetail = async ({ slug }: IProps) => {
             session={session!}
             productId={product?.id}
             className="hidden lg:block"
+            links={links}
           />
           <ShareThisListing />
         </div>

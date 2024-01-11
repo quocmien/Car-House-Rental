@@ -53,6 +53,8 @@ const UserInfo = async ({ id }: IProps) => {
   ])
 
   const user = userDetail?.usersPermissionsUsers?.data[0] || {}
+  const links = user?.attributes?.links || []
+  console.log('====> links', links, user)
   const products = productsData?.products?.data;
   const fullName = (user?.attributes.lastName && user?.attributes?.firstName)
     ? `${user?.attributes.lastName} ${user?.attributes?.firstName}`
@@ -140,6 +142,26 @@ const UserInfo = async ({ id }: IProps) => {
                       {user?.attributes?.phone}
                     </div>
                   </figure>
+                  {
+                    links.map((item: any, index: number) => {
+                      return (
+                        <figure key={index} className="flex items-center">
+                          <div>
+                            <Link
+                              strokeWidth={0.5}
+                              className="w-[14px] h-[14px] mr-4 text-primary"
+                            />
+                          </div>
+                          <a target="_blank"
+                            href={item?.link || '#'}
+                            className="text-sm text-primary">
+                              { item.label }
+                          </a>
+                        </figure>
+                      )
+                    })
+                  }
+                  
                 </div>
                 <div className="col-span-12 pt-[20px] md:pt-0">
                   <div className="qr-code__container text-center flex">

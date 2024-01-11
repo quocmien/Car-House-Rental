@@ -16,6 +16,7 @@ interface IProps {
   onSuccess?: () => void;
   session: Session;
   productId: string;
+  links: Array<any> | [];
 }
 
 type FormValueProp = {
@@ -45,7 +46,7 @@ const formSchema = yup.object({
   note: yup.string(),
 });
 
-const BookingForm = ({ session, onSuccess, productId }: IProps) => {
+const BookingForm = ({ session, onSuccess, productId, links }: IProps) => {
   const { toast } = useToast();
 
   const methods = useForm<FormValueProp>({
@@ -191,6 +192,23 @@ const BookingForm = ({ session, onSuccess, productId }: IProps) => {
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Reserve
           </Button>
+
+
+          {
+            links.map((link: any, index: number) => {
+              return (
+              <Button
+                key={index}
+                className="w-full md:w-auto rounded-full mt-1"
+              >
+                <a className='w-full block' href={link.link || '#'} target='_blank'>
+                  { link.label }
+                </a>
+              </Button>
+    
+              )
+            })
+          }
         </div>
       </FormProvider>
     </div>

@@ -28,6 +28,8 @@ const Address = async ({ author, address, title }: IProps) => {
     ? `${user?.attributes?.lastName} ${user?.attributes?.firstName}`
     : user?.attributes?.username
 
+  const links = user?.attributes?.links || []
+
   return (
     <section className="shadow-md bg-[#fafafa]">
       <div className="h-[250px] relative overflow-hidden">
@@ -98,6 +100,26 @@ const Address = async ({ author, address, title }: IProps) => {
               {author?.attributes?.username}
             </a>
           </figure>
+
+          {
+            links.map((item: any, index: number) => {
+              return (
+                <figure key={index} className="flex items-center">
+                  <div>
+                    <Link
+                      strokeWidth={0.5}
+                      className="w-[14px] h-[14px] mr-4 text-primary"
+                    />
+                  </div>
+                  <a target="_blank"
+                    href={item?.link || '#'}
+                    className="text-sm text-primary">
+                      { item.label }
+                  </a>
+                </figure>
+              )
+            })
+          }
         </address>
       </div>
     </section>

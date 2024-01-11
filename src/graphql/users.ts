@@ -10,6 +10,7 @@ query UserDetail($filters: UsersPermissionsUserFiltersInput) {
         lastName
         phone
         email
+        links
         avatar {
           data {
             attributes {

@@ -12,6 +12,14 @@ interface IProps {
   categories: any;
 }
 
+export async function generateMetadata() {
+  return {
+    title: `Update Profile - StayDriveFinder`,
+    metadataBase: new URL('https://staydrivefinder.com'),
+    applicationName: process.env.SITE_NAME,
+  };
+}
+
 const Profile = ({ session, categories }: IProps) => {
   let QR_TEXT = process.env.NEXT_PUBLIC_DOMAIN + '/user/';
 
