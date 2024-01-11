@@ -16,12 +16,14 @@ interface IProps {
   children: ReactNode;
   productId: string;
   session?: Session;
+  links: Array<any> | [];
 }
 
 export function BookingDialog({
   children,
   productId,
   session,
+  links,
   ...other
 }: IProps & DialogProps) {
   const open = useBoolean(false);
@@ -40,7 +42,7 @@ export function BookingDialog({
           </DialogTitle>
         </DialogHeader>
 
-        <BookingForm session={session!} productId={productId} onSuccess={open.onFalse} />
+        <BookingForm session={session!} productId={productId} onSuccess={open.onFalse} links={links} />
       </DialogContent>
     </Dialog>
   );

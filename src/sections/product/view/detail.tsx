@@ -74,7 +74,7 @@ const ProductDetail = async ({ slug }: IProps) => {
       <div className="lg:hidden fixed bottom-0 w-full  border-t bg-white">
         <div className="w-full flex justify-between container py-4 items-center">
           <div>{product?.displayPrice}</div>
-          <BookingDialog session={session!} productId={product?.id}>
+          <BookingDialog session={session!} productId={product?.id} links={links}>
             <Button className="rounded-full">Booking</Button>
           </BookingDialog>
         </div>
